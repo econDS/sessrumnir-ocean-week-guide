@@ -1,0 +1,4 @@
+# Local machine clutter.
+.DS_Store
+Thumbs.db
+scripts/

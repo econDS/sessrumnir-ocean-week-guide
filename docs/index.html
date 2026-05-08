@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ocean Week Navigation Commands</title>
+  <style>
+    :root {
+      --bg: #f7fbff;
+      --card: #ffffff;
+      --ink: #122033;
+      --muted: #5d6b7c;
+      --line: #dbe7f3;
+      --accent: #0ea5e9;
+      --accent-dark: #0369a1;
+      --ok: #16a34a;
+      --warn: #f59e0b;
+      --shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 30rem),
+        var(--bg);
+      color: var(--ink);
+      padding: 28px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hint {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      margin-top: 4px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      grid-column: span 12;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (min-width: 860px) {
+      .half { grid-column: span 6; }
+    }
+
+    .warp-card,
+    .compact-card {
+      grid-column: span 12;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(34, 197, 94, 0.06));
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #e0f2fe;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .list {
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .nav-item {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .nav-button {
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+    }
+
+    .nav-button:hover {
+      background: #f0f9ff;
+    }
+
+    .command {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #075985;
+      overflow-wrap: anywhere;
+    }
+
+    .desc {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .warp-list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0 12px 12px;
+    }
+
+    .warp-intro {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px 2px;
+    }
+
+    .warp-npc {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 10px 14px rgba(14, 116, 144, 0.22));
+    }
+
+    .compact-content {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1.1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 0 12px 12px;
+    }
+
+    .compact-content .warp-intro,
+    .compact-content .list {
+      padding: 12px 0 0;
+    }
+
+    .compact-content .nav-item {
+      height: fit-content;
+    }
+
+    .warp-note {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .npc-name {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .warp-card .warp-intro {
+      grid-template-columns: 96px 1fr;
+      padding: 16px 20px;
+      margin: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .warp-card .warp-npc {
+      width: 88px;
+      height: 88px;
+    }
+
+    .warp-card .warp-note {
+      max-width: none;
+      font-size: 1rem;
+    }
+
+    .warp-button {
+      height: 100%;
+      min-height: 88px;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 8px;
+      padding: 14px 14px 12px;
+    }
+
+    .city-name {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.15;
+      font-weight: 900;
+      color: var(--ink);
+      padding-right: 58px;
+    }
+
+    .warp-button .command {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      width: 100%;
+      margin-top: 6px;
+      font-size: 0.84rem;
+      line-height: 1.25;
+    }
+
+    .map-code,
+    .coords {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .coords {
+      justify-self: start;
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .warp-button .copy-label {
+      position: absolute;
+      top: 14px;
+      right: 12px;
+      transform: none;
+      padding: 5px 9px;
+      font-size: 0.72rem;
+    }
+
+    .quest-open-button {
+      min-height: 88px;
+      align-items: start;
+      padding: 14px 14px 12px;
+    }
+
+    .quest-open-title {
+      display: block;
+      padding-right: 58px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .quest-open-button .command {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      margin-top: 6px;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .quest-open-button .copy-label {
+      position: absolute;
+      top: 14px;
+      right: 12px;
+      transform: none;
+    }
+
+    .quest-followup {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 12px;
+      align-items: start;
+      padding: 0 12px 12px;
+    }
+
+    .quest-steps-panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 14px 16px;
+    }
+
+    .step-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .step-list strong {
+      color: var(--ink);
+    }
+
+    .altu-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .step-note {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .altu-image {
+      width: 100%;
+      max-height: 126px;
+      object-fit: contain;
+      justify-self: end;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .quest-altu-note {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .quest-altu-note .altu-image {
+      max-height: 72px;
+    }
+
+    .reward-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 0 20px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f0f9ff;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .reward-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    img[data-zoom] {
+      cursor: zoom-in;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(15, 23, 42, 0.72);
+      z-index: 20;
+    }
+
+    .image-lightbox.show {
+      display: grid;
+    }
+
+    .image-lightbox img {
+      max-width: min(920px, 96vw);
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      cursor: zoom-out;
+    }
+
+    .manual-route {
+      padding: 0 12px 12px;
+    }
+
+    .route-summary {
+      margin: 0 0 10px 16px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .route-list {
+      display: grid;
+      gap: 2px;
+      margin-left: 16px;
+    }
+
+    .route-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.94rem;
+      cursor: pointer;
+    }
+
+    .route-line:hover {
+      color: var(--ink);
+    }
+
+    .route-title {
+      display: inline;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .route-line .command {
+      display: inline;
+      margin: 0;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .route-line .map-code,
+    .route-line .coords {
+      color: #075985;
+      font-weight: 700;
+    }
+
+    .route-name-en {
+      font-weight: 700;
+    }
+
+    .route-line .coords::before {
+      content: " ";
+    }
+
+    .route-copy {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: var(--accent-dark);
+      padding: 3px 8px;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .route-copy:hover {
+      background: #bae6fd;
+    }
+
+    .lore-note {
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .lore-note strong {
+      color: var(--ink);
+    }
+
+    @media (max-width: 860px) {
+      .warp-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 16px; }
+
+      .compact-content,
+      .warp-intro,
+      .warp-card .warp-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .warp-list {
+        grid-template-columns: 1fr;
+      }
+
+      .quest-followup {
+        grid-template-columns: 1fr;
+      }
+
+      .quest-altu-note {
+        grid-template-columns: 1fr;
+      }
+
+      .route-list {
+        grid-template-columns: 1fr;
+      }
+
+      .route-line {
+        flex-wrap: wrap;
+      }
+
+      .warp-npc {
+        width: 96px;
+        height: 96px;
+      }
+    }
+
+    .copy-label {
+      color: var(--accent-dark);
+      background: #e0f2fe;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .quest-detail {
+      padding: 0 16px 14px 16px;
+      color: var(--muted);
+      line-height: 1.55;
+      display: grid;
+      gap: 8px;
+    }
+
+    .quest-detail strong { color: var(--ink); }
+
+    .quest-row {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quest-label {
+      color: var(--ink);
+      font-weight: 400;
+      align-self: center;
+    }
+
+    .quest-content {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .daily-quest-head {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .daily-note {
+      margin: 0;
+      padding: 12px 16px 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .daily-npc-name {
+      display: block;
+      color: var(--ink);
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .quest-npc-img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
+    .quest-detail ul {
+      margin: 8px 0 0 20px;
+      padding: 0;
+    }
+
+    .quest-steps {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 6px;
+    }
+
+    .inline-copy {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f0f9ff;
+      color: var(--accent-dark);
+      padding: 3px 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .inline-copy:hover {
+      background: #dff3ff;
+    }
+
+    .monster-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      vertical-align: middle;
+    }
+
+    .monster-img,
+    .item-img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .item-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      vertical-align: middle;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: #052e16;
+      color: #dcfce7;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 11px 16px;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
+      transition: opacity 160ms ease, transform 160ms ease;
+      font-weight: 800;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footer {
+      margin: 18px 4px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .mini-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .bulk-copy,
+    .event-link {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .bulk-copy:hover,
+    .event-link:hover { background: #f0f9ff; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Sessrumnir Ocean Week Navigation</h1>
+      <p class="subtitle">จิ้มที่ข้อความ /navi เพื่อ copy navigation command ได้ทันที</p>
+    </header>
+
+    <div class="mini-actions">
+      <a class="event-link" href="https://ro.gnjoy.in.th/sessrumnir-ocean-week-event/" target="_blank" rel="noopener noreferrer">หน้าหลักกิจกรรมของ Official</a>
+    </div>
+
+    <section class="grid">
+      <article class="card warp-card">
+        <div class="card-head">
+          <h2>NPC วาร์ปไปพื้นที่เควส</h2>
+          <span class="badge">ใช้ได้ครั้งเดียว</span>
+        </div>
+        <div class="warp-intro">
+          <img class="warp-npc" src="assets/event-warp-npc.png" alt="Ocean Week warp NPC" data-zoom onerror="this.remove()">
+          <p class="warp-note"><span class="npc-name">Ocean Week Promoter</span>NPC นี้จะยืนอยู่ตามจุดต่างๆ เพื่อให้ผู้เล่นวาร์ปไปยังพื้นที่เควสได้ ใช้งานได้เพียง 1 ครั้งเท่านั้น ครั้งต่อไปต้องไป <button class="inline-copy" data-copy="ra_temple">ra_temple</button> เอง</p>
+        </div>
+        <div class="list warp-list">
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi prontera 164/173"><div><span class="city-name">Prontera</span><div class="command"><span class="map-code">/navi prontera</span><span class="coords">164/173</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi payon 192/99"><div><span class="city-name">Payon</span><div class="command"><span class="map-code">/navi payon</span><span class="coords">192/99</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi alberta 125/73"><div><span class="city-name">Alberta</span><div class="command"><span class="map-code">/navi alberta</span><span class="coords">125/73</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi geffen 129/57"><div><span class="city-name">Geffen</span><div class="command"><span class="map-code">/navi geffen</span><span class="coords">129/57</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi morocc 168/87"><div><span class="city-name">Morocc</span><div class="command"><span class="map-code">/navi morocc</span><span class="coords">168/87</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi moc_para01 40/20"><div><span class="city-name">Eden HQ</span><div class="command"><span class="map-code">/navi moc_para01</span><span class="coords">40/20</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi yuno 148/181"><div><span class="city-name">Yuno</span><div class="command"><span class="map-code">/navi yuno</span><span class="coords">148/181</span></div></div><span class="copy-label">COPY</span></button></div>
+          <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi rachel 111/134"><div><span class="city-name">Rachel</span><div class="command"><span class="map-code">/navi rachel</span><span class="coords">111/134</span></div></div><span class="copy-label">COPY</span></button></div>
+        </div>
+      </article>
+
+      <article class="card compact-card">
+        <div class="card-head">
+          <h2>NPC เปิดเควส</h2>
+          <span class="badge">ทำครั้งเดียว</span>
+        </div>
+        <div class="compact-content">
+          <div class="warp-intro">
+            <img class="warp-npc" src="assets/quest-open-npc.png" alt="Ocean Week quest NPC" data-zoom onerror="this.remove()">
+            <p class="warp-note"><span class="npc-name">Maram</span>คุยกับ Maram เพื่อเปิดเควสหลักของกิจกรรม Ocean Week</p>
+          </div>
+          <div class="list">
+            <div class="nav-item"><button class="nav-button quest-open-button" data-copy="/navi ra_temple 137/127"><div><span class="quest-open-title">Maram</span><div class="command"><span class="map-code">/navi ra_temple</span><span class="coords">137/127</span></div></div><span class="copy-label">COPY</span></button></div>
+          </div>
+        </div>
+        <div class="quest-followup">
+          <div class="quest-steps-panel">
+            <ol class="step-list">
+              <li><strong>คุยกับ Maram 2 ครั้ง</strong> เพื่อรับเควสหลัก</li>
+              <li>เปิดหน้าต่างเควสด้วย <strong>Alt+U</strong> แล้วจิ้มข้อความสีฟ้า ระบบจะนำทางไปหา NPC</li>
+              <li>คุยกับ NPC ตามจุดนั้น กด <strong>Enter</strong> อย่างเดียวจนเสร็จ</li>
+              <li>เปิด <strong>Alt+U</strong> ใหม่ แล้วจิ้มข้อความสีฟ้าเพื่อไปหา NPC ตัวต่อไป ทำซ้ำจนจบเควสเปิด</li>
+            </ol>
+            <div class="reward-row"><img class="reward-icon" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">รางวัล Ocean Week Ticket 20 ea</div>
+          </div>
+          <div class="altu-stack">
+            <img class="altu-image" src="assets/maram-altu-link.png" alt="Sessrumnir Ocean Week quest link in Alt+U" data-zoom onerror="this.remove()">
+            <img class="altu-image" src="assets/maram-blue-link-guide.png" alt="Blue quest link that starts automatic navigation" data-zoom onerror="this.remove()">
+          </div>
+        </div>
+        <div class="manual-route">
+          <p class="route-summary"><strong>ถ้าไม่ได้ทำตาม Alt+U:</strong> ใช้ /navi ตามลำดับด้านล่างเพื่อเดินเควสเปิดเอง</p>
+          <div class="route-list">
+            <div class="route-line" data-copy="/navi ra_temple 137/127"><span><span class="route-title">1. <span class="route-name-en">Maram</span></span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">137/127</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 30/155"><span><span class="route-title">2. จุดพบเห็น</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">30/155</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 121/93"><span><span class="route-title">3. แยกกันค้นหา</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">121/93</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 201/168"><span><span class="route-title">4. ร้านขายอาหาร</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">201/168</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 213/166"><span><span class="route-title">5. แผงของหวาน</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">213/166</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 79/59"><span><span class="route-title">6. เล่นน้ำ</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">79/59</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 210/117"><span><span class="route-title">7. เตรียมกลับ</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">210/117</span></span></span><button class="route-copy" type="button">COPY</button></div>
+            <div class="route-line" data-copy="/navi ra_temple 137/127"><span><span class="route-title">8. ส่ง <span class="route-name-en">Maram</span></span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">137/127</span></span></span><button class="route-copy" type="button">COPY</button></div>
+          </div>
+          <p class="lore-note"><strong>เนื้อเรื่อง:</strong> ในช่วง Ocean Week พระสันตะปาปาพลัดหลงไประหว่างงานฤดูร้อน ผู้เล่นจึงช่วย Maram ออกตามหา ผ่านร้านอาหาร แผงของหวาน และพื้นที่เล่นน้ำ ก่อนพากลับมาอย่างปลอดภัย เมื่อจบ Main Quest แล้วจึงปลดล็อก Daily Quest</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <h2>NPC Daily Quest</h2>
+          <span class="badge">ไอเท็มเควสเด้งเข้าตัวเอง</span>
+        </div>
+        <p class="daily-note"><strong>แนะนำ:</strong> รับ Daily Quest 1-3 ให้ครบก่อน แล้วค่อยไปตีมอนทีเดียวในแผนที่ เช่น <button class="inline-copy" data-copy="ve_fild03">ve_fild03</button>, <button class="inline-copy" data-copy="ve_fild04">ve_fild04</button><br>มีเควสอื่นๆ และของรางวัลเพิ่มเติม ดูรายละเอียดได้ที่ <a href="https://ro.gnjoy.in.th/Sessrumnir-Ocean-Week-2026/" target="_blank" rel="noopener noreferrer">Sessrumnir Ocean Week 2026</a></p>
+        <div class="list">
+          <div class="nav-item">
+            <button class="nav-button" data-copy="/navi ra_temple 203/170">
+              <div class="daily-quest-head">
+                <img class="quest-npc-img" src="assets/daily-quest-1-npc.png" alt="Noodle Seller NPC" data-zoom onerror="this.remove()">
+                <div><span class="daily-npc-name">Noodle Seller</span><div class="command">/navi ra_temple 203/170</div><div class="desc">Quest 1 - อยู่ทาง Numpad 9 ของแผนที่</div></div>
+              </div><span class="copy-label">COPY</span>
+            </button>
+            <div class="quest-detail">
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/dandy-star-monster.png" alt="Dandy Star" data-zoom onerror="this.remove()">Dandy Star</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/25841_smooth_noodle.png" alt="Smooth Noodle" data-zoom onerror="this.remove()">Smooth Noodle</span> 10 ea</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
+              <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Noodle Seller เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-button" data-copy="/navi ra_temple 215/168">
+              <div class="daily-quest-head">
+                <img class="quest-npc-img" src="assets/daily-quest-2-npc.png" alt="Herb Calamari BBQ Selle NPC" data-zoom onerror="this.remove()">
+                <div><span class="daily-npc-name">Herb Calamari BBQ Selle</span><div class="command">/navi ra_temple 215/168</div><div class="desc">Quest 2 - อยู่ทาง Numpad 9 ของแผนที่</div></div>
+              </div><span class="copy-label">COPY</span>
+            </button>
+            <div class="quest-detail">
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/magic-herb-monster.png" alt="Magic Herb" data-zoom onerror="this.remove()">Magic Herb</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/25342_healthful_herb.png" alt="Healthful Herb" data-zoom onerror="this.remove()">Healthful Herb</span> 10 ea</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
+              <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Herb Calamari BBQ Selle เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-button" data-copy="/navi ra_temple 82/60">
+              <div class="daily-quest-head">
+                <img class="quest-npc-img" src="assets/daily-quest-3-npc.png" alt="Watermelon Vendor NPC" data-zoom onerror="this.remove()">
+                <div><span class="daily-npc-name">Watermelon Vendor</span><div class="command">/navi ra_temple 82/60</div><div class="desc">Quest 3 - อยู่ระหว่าง Numpad 1 กับ 5 ของแผนที่</div></div>
+              </div><span class="copy-label">COPY</span>
+            </button>
+            <div class="quest-detail">
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/watermeloning-monster.png" alt="Watermeloning" data-zoom onerror="this.remove()">Watermeloning</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/1001741_summer_watermelon.png" alt="Summer Watermelon" data-zoom onerror="this.remove()">Summer Watermelon</span> 10 ea</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
+              <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Watermelon Vendor เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-button" data-copy="/navi ra_temple 213/120">
+              <div class="daily-quest-head">
+                <img class="quest-npc-img" src="assets/daily-quest-4-npc.png" alt="Lifeguard NPC" data-zoom onerror="this.remove()">
+                <div><span class="daily-npc-name">Lifeguard</span><div class="command">/navi ra_temple 213/120</div><div class="desc">Quest 4 - สุ่ม 1 เควส อยู่ทาง Numpad 6 ของแผนที่</div></div>
+              </div><span class="copy-label">COPY</span>
+            </button>
+            <div class="quest-detail">
+              <div class="quest-altu-note">
+                <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">เปิด Alt+U แล้วกดข้อความสีฟ้า ระบบจะนำทางไปยัง NPC ที่สุ่ม หรือไปตามพิกัดด้านล่างตามเควสที่สุ่มเอง</span></div>
+                <img class="altu-image" src="assets/daily-quest-4-altu-link.png" alt="Daily Quest 4 Alt+U quest link" data-zoom onerror="this.remove()">
+              </div>
+              <strong>ภารกิจสุ่ม:</strong>
+              <ul>
+                <li>จับกุ้งหน้าหาด: <button class="bulk-copy" data-copy="/navi ra_temple 210/78">/navi ra_temple 210/78</button></li>
+                <li>เก็บขยะในคลองน้ำ: <button class="bulk-copy" data-copy="/navi ra_temple 212/112">/navi ra_temple 212/112</button></li>
+                <li>ตรวจสอบสิ่งต้องสงสัย: <button class="bulk-copy" data-copy="/navi ra_temple 69/167">/navi ra_temple 69/167</button><br><img class="altu-image" src="assets/suspicious-object-npc.png" alt="Facility Manage NPC for suspicious object quest" data-zoom onerror="this.remove()"></li>
+              </ul>
+              <strong>รางวัล:</strong> <span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">Tip: กดแล้วเอาไปวางในช่อง chat เกมได้เลย ไม่ต้อง OCR ให้เมื่อยนิ้ว</p>
+  </main>
+
+  <div class="toast" id="toast">Copied</div>
+  <div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+    <img id="imageLightboxImg" alt="">
+  </div>
+
+  <script>
+    const dailyCommands = [
+      "/navi ra_temple 203/170",
+      "/navi ra_temple 215/168",
+      "/navi ra_temple 82/60",
+      "/navi ra_temple 213/120",
+      "/navi ra_temple 210/78",
+      "/navi ra_temple 212/112",
+      "/navi ra_temple 69/167"
+    ];
+
+    const mainQuestCommands = [
+      "/navi ra_temple 137/127",
+      "/navi ra_temple 30/155",
+      "/navi ra_temple 121/93",
+      "/navi ra_temple 201/168",
+      "/navi ra_temple 213/166",
+      "/navi ra_temple 79/59",
+      "/navi ra_temple 210/117",
+      "/navi ra_temple 137/127"
+    ];
+
+    const allCommands = [
+      "/navi prontera 164/173",
+      "/navi payon 192/99",
+      "/navi alberta 125/73",
+      "/navi geffen 129/57",
+      "/navi morocc 168/87",
+      "/navi moc_para01 40/20",
+      "/navi yuno 148/181",
+      "/navi rachel 111/134",
+      ...mainQuestCommands,
+      ...dailyCommands
+    ];
+
+    const toast = document.getElementById("toast");
+    const imageLightbox = document.getElementById("imageLightbox");
+    const imageLightboxImg = document.getElementById("imageLightboxImg");
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(`Copied: ${text.split("\n")[0]}`);
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        showToast(`Copied: ${text.split("\n")[0]}`);
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const zoomImage = event.target.closest("img[data-zoom]");
+      if (zoomImage) {
+        imageLightboxImg.src = zoomImage.currentSrc || zoomImage.src;
+        imageLightboxImg.alt = zoomImage.alt || "";
+        imageLightbox.classList.add("show");
+        imageLightbox.setAttribute("aria-hidden", "false");
+        return;
+      }
+
+      if (event.target === imageLightbox || event.target === imageLightboxImg) {
+        imageLightbox.classList.remove("show");
+        imageLightbox.setAttribute("aria-hidden", "true");
+        imageLightboxImg.src = "";
+        return;
+      }
+
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) {
+        copyText(copyButton.dataset.copy);
+        return;
+      }
+
+      const bulkButton = event.target.closest("[data-copy-all]");
+      if (bulkButton) {
+        const mode = bulkButton.dataset.copyAll;
+        const commands = mode === "daily" ? dailyCommands : allCommands;
+        copyText(commands.join("\n"));
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && imageLightbox.classList.contains("show")) {
+        imageLightbox.classList.remove("show");
+        imageLightbox.setAttribute("aria-hidden", "true");
+        imageLightboxImg.src = "";
+      }
+    });
+  </script>
+</body>
+</html>
