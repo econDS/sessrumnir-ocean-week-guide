@@ -4,18 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ocean Week Navigation Commands</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800;900&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7fbff;
+      --bg: #eef8fc;
       --card: #ffffff;
-      --ink: #122033;
-      --muted: #5d6b7c;
-      --line: #dbe7f3;
-      --accent: #0ea5e9;
-      --accent-dark: #0369a1;
+      --ink: #102b43;
+      --muted: #557086;
+      --line: rgba(28, 117, 159, 0.18);
+      --accent: #1a9fd0;
+      --accent-dark: #0b5d83;
+      --ocean-deep: #07385e;
+      --ocean-mid: #0b5277;
+      --ocean-soft: #dff4fb;
+      --teal-soft: #dff5f1;
       --ok: #16a34a;
       --warn: #f59e0b;
-      --shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
+      --shadow: 0 12px 30px rgba(7, 56, 94, 0.11), 0 2px 8px rgba(7, 56, 94, 0.06);
     }
 
     * { box-sizing: border-box; }
@@ -23,10 +30,11 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Sarabun", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 34rem),
-        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 30rem),
+        radial-gradient(ellipse 64rem 30rem at 8% -8%, rgba(26, 159, 208, 0.14), transparent 68%),
+        radial-gradient(ellipse 44rem 28rem at 96% 105%, rgba(20, 136, 130, 0.10), transparent 66%),
+        linear-gradient(180deg, #f4fbfe 0%, var(--bg) 44%, #f7fcfe 100%),
         var(--bg);
       color: var(--ink);
       padding: 28px;
@@ -38,22 +46,81 @@
     }
 
     header {
+      position: relative;
       display: grid;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding: 34px 40px 30px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+      box-shadow: 0 16px 42px rgba(7, 56, 94, 0.22);
+      color: #ffffff;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 86% 18%, rgba(64, 181, 219, 0.18), transparent 36%),
+        radial-gradient(circle at 16% 82%, rgba(25, 142, 137, 0.14), transparent 34%);
+      pointer-events: none;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 52px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,31 C190,55 385,10 590,30 C800,50 1005,12 1200,31 L1200,60 L0,60Z' fill='rgba(26,159,208,0.16)'/%3E%3Cpath d='M0,42 C260,16 500,54 730,40 C925,28 1090,48 1200,38 L1200,60 L0,60Z' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") no-repeat bottom center / cover;
+      pointer-events: none;
+    }
+
+    header > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 7px;
+      padding: 5px 12px;
+      border: 1px solid rgba(125, 207, 232, 0.35);
+      border-radius: 999px;
+      background: rgba(26, 159, 208, 0.18);
+      color: #bfe9f6;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #43b7df;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: clamp(1.75rem, 3.2vw, 2.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
     }
 
     .subtitle {
       margin: 0;
-      color: var(--muted);
-      font-size: 1.02rem;
+      color: #b6d9e8;
+      font-size: 1rem;
     }
 
     .hint {
@@ -65,8 +132,8 @@
       padding: 8px 12px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
-      color: var(--muted);
+      background: rgba(255, 255, 255, 0.10);
+      color: #d4edf6;
       font-size: 0.92rem;
     }
 
@@ -76,11 +143,32 @@
       gap: 16px;
     }
 
+    .section-title {
+      grid-column: span 12;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 -2px;
+      color: #496f8e;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      min-width: 32px;
+      background: rgba(28, 117, 159, 0.18);
+    }
+
     .card {
       grid-column: span 12;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.92);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 18px;
       box-shadow: var(--shadow);
       overflow: hidden;
       backdrop-filter: blur(10px);
@@ -102,11 +190,12 @@
       gap: 12px;
       padding: 18px 20px;
       border-bottom: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(34, 197, 94, 0.06));
+      background: linear-gradient(135deg, rgba(26, 159, 208, 0.08), rgba(20, 136, 130, 0.05));
     }
 
     h2 {
       margin: 0;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
       font-size: 1.15rem;
     }
 
@@ -114,8 +203,9 @@
       flex: 0 0 auto;
       border-radius: 999px;
       padding: 5px 10px;
-      background: #e0f2fe;
+      background: var(--ocean-soft);
       color: var(--accent-dark);
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
       font-weight: 700;
       font-size: 0.78rem;
     }
@@ -132,6 +222,7 @@
       border-radius: 12px;
       background: var(--card);
       overflow: hidden;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
     }
 
     .nav-button {
@@ -150,14 +241,19 @@
     }
 
     .nav-button:hover {
-      background: #f0f9ff;
+      background: #f3fbfe;
+    }
+
+    .card > .list > .nav-item:hover {
+      border-color: #7fcdea;
+      box-shadow: inset 1px 0 0 rgba(26, 159, 208, 0.42), 0 2px 10px rgba(26, 159, 208, 0.08);
     }
 
     .command {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-family: "Chakra Petch", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 0.98rem;
       font-weight: 800;
-      color: #075985;
+      color: var(--accent-dark);
       overflow-wrap: anywhere;
     }
 
@@ -209,15 +305,15 @@
 
     .quest-open-content {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.58fr);
-      gap: 16px;
-      align-items: stretch;
-      padding: 14px 16px 16px;
+      grid-template-columns: 1fr 200px;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 16px 4px;
     }
 
     .quest-open-content .warp-intro {
       display: grid;
-      grid-template-columns: 88px 1fr;
+      grid-template-columns: 80px 1fr;
       gap: 14px;
       align-items: start;
       padding: 0;
@@ -225,11 +321,32 @@
 
     .quest-open-content .list {
       padding: 0;
-      align-self: center;
+      align-self: start;
+    }
+
+    .quest-open-content .nav-item {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .quest-open-content .nav-item:hover {
+      border-color: transparent;
+      box-shadow: none;
     }
 
     .quest-open-content .warp-note {
       max-width: 100%;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .quest-open-content .warp-npc {
+      width: 82px;
+      height: 82px;
+      filter: drop-shadow(0 8px 16px rgba(14, 116, 144, 0.25));
     }
 
     .warp-note {
@@ -243,105 +360,187 @@
       display: block;
       margin-bottom: 4px;
       color: var(--ink);
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
       font-weight: 900;
     }
 
     .warp-card .warp-intro {
-      grid-template-columns: 96px 1fr;
-      padding: 16px 20px;
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 16px 20px 4px;
       margin: 0;
       border: 0;
       background: transparent;
     }
 
     .warp-card .warp-npc {
-      width: 88px;
-      height: 88px;
+      width: 82px;
+      height: 82px;
+      filter: drop-shadow(0 8px 16px rgba(14, 116, 144, 0.25));
     }
 
     .warp-card .warp-note {
       max-width: none;
-      font-size: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .warp-card .npc-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .warp-card .warp-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      padding: 12px 16px 16px;
+    }
+
+    .warp-card .nav-item {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .warp-card .nav-item:hover {
+      border-color: transparent;
+      box-shadow: none;
     }
 
     .warp-button {
+      position: relative;
       height: 100%;
-      min-height: 88px;
+      min-height: 0;
       grid-template-columns: 1fr;
       align-items: start;
-      gap: 8px;
-      padding: 14px 14px 12px;
+      gap: 0;
+      padding: 12px 14px;
+      border: 1px solid rgba(28, 117, 159, 0.24);
+      border-radius: 14px;
+      background: #ffffff;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .warp-button:hover {
+      border-color: rgba(26, 159, 208, 0.8);
+      background: #eef9fd;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(26, 159, 208, 0.14);
+    }
+
+    .warp-button:active {
+      transform: translateY(0);
     }
 
     .city-name {
       display: block;
-      font-size: 1.02rem;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.95rem;
       line-height: 1.15;
-      font-weight: 900;
+      font-weight: 600;
       color: var(--ink);
-      padding-right: 58px;
+      margin-bottom: 6px;
+      padding-right: 40px;
     }
 
     .warp-button .command {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2px;
+      display: block;
       width: 100%;
-      margin-top: 6px;
-      font-size: 0.84rem;
-      line-height: 1.25;
+      margin-top: 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.4;
     }
 
-    .map-code,
-    .coords {
+    .warp-button .map-code,
+    .warp-button .coords {
+      display: inline;
       min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
     }
 
-    .coords {
+    .warp-button .coords {
       justify-self: start;
       color: var(--accent-dark);
-      font-weight: 900;
+      font-weight: 600;
+    }
+
+    .warp-button .coords::before {
+      content: " ";
     }
 
     .warp-button .copy-label {
       position: absolute;
-      top: 14px;
-      right: 12px;
+      top: 10px;
+      right: 10px;
       transform: none;
-      padding: 5px 9px;
-      font-size: 0.72rem;
+      padding: 3px 7px;
+      border: 1px solid #bfe4f1;
+      background: var(--ocean-soft);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      pointer-events: none;
     }
 
     .quest-open-button {
-      min-height: 92px;
-      align-items: start;
-      padding: 14px 14px 12px;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border: 1px solid rgba(28, 117, 159, 0.18);
+      border-radius: 14px;
+      background: #ffffff;
+      transition: background 0.14s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .quest-open-button:hover {
+      border-color: rgba(26, 159, 208, 0.55);
+      background: rgba(26, 159, 208, 0.04);
+      box-shadow: 0 2px 12px rgba(26, 159, 208, 0.12);
     }
 
     .quest-open-title {
       display: block;
-      padding-right: 58px;
-      font-weight: 900;
+      padding-right: 0;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
       color: var(--ink);
     }
 
     .quest-open-button .command {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2px;
-      margin-top: 6px;
+      display: block;
+      margin-top: 4px;
       font-size: 0.9rem;
-      line-height: 1.25;
+      line-height: 1.35;
+    }
+
+    .quest-open-button .map-code,
+    .quest-open-button .coords {
+      display: inline;
+      white-space: normal;
+    }
+
+    .quest-open-button .coords::before {
+      content: " ";
     }
 
     .quest-open-button .copy-label {
-      position: absolute;
-      top: 14px;
-      right: 12px;
-      transform: none;
+      position: static;
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border: 1px solid #bfe4f1;
+      background: var(--ocean-soft);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
     }
 
     .quest-followup {
@@ -349,13 +548,13 @@
       grid-template-columns: minmax(0, 1fr) 300px;
       gap: 12px;
       align-items: start;
-      padding: 0 12px 12px;
+      padding: 12px 16px 16px;
     }
 
     .quest-steps-panel {
-      border: 1px solid var(--line);
+      border: 1px solid rgba(28, 117, 159, 0.24);
       border-radius: 12px;
-      background: #fff;
+      background: rgba(244, 251, 254, 0.84);
       padding: 14px 16px;
     }
 
@@ -389,20 +588,25 @@
       object-fit: contain;
       justify-self: end;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: #fff;
     }
 
     .quest-altu-note {
+      margin-bottom: 4px;
+    }
+
+    .quest-altu-note .quest-content {
       display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
+      gap: 8px;
     }
 
     .quest-altu-note .altu-image {
-      max-height: 72px;
+      width: min(100%, 420px);
+      max-height: 64px;
+      justify-self: start;
+      object-fit: contain;
+      object-position: left center;
     }
 
     .reward-row {
@@ -410,12 +614,13 @@
       align-items: center;
       gap: 8px;
       margin: 10px 0 0 20px;
-      padding: 8px 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #f0f9ff;
+      padding: 7px 12px;
+      border: 1px solid #bfe4f1;
+      border-radius: 999px;
+      background: #ffffff;
       color: var(--ink);
       font-weight: 900;
+      box-shadow: 0 2px 8px rgba(26, 159, 208, 0.10);
     }
 
     .reward-icon {
@@ -454,34 +659,39 @@
     }
 
     .manual-route {
-      padding: 0 12px 12px;
+      padding: 0 16px 16px;
     }
 
     .route-summary {
-      margin: 0 0 10px 16px;
-      color: var(--muted);
+      margin: 0 0 8px;
+      color: var(--ink);
       line-height: 1.5;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
 
     .route-list {
       display: grid;
-      gap: 2px;
-      margin-left: 16px;
+      gap: 4px;
+      margin-left: 0;
     }
 
     .route-line {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 8px;
       color: var(--muted);
-      line-height: 1.5;
-      font-size: 0.94rem;
+      line-height: 1.45;
+      font-size: 0.88rem;
       cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      flex-wrap: wrap;
     }
 
     .route-line:hover {
       color: var(--ink);
+      background: rgba(26, 159, 208, 0.06);
     }
 
     .route-title {
@@ -493,15 +703,14 @@
     .route-line .command {
       display: inline;
       margin: 0;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 600;
       line-height: 1.25;
     }
 
     .route-line .map-code,
     .route-line .coords {
-      color: #075985;
+      color: var(--accent-dark);
       font-weight: 700;
     }
 
@@ -517,25 +726,27 @@
       appearance: none;
       border: 0;
       border-radius: 999px;
-      background: #e0f2fe;
+      background: var(--ocean-soft);
       color: var(--accent-dark);
-      padding: 3px 8px;
+      padding: 2px 7px;
       cursor: pointer;
       font-weight: 900;
       font-size: 0.68rem;
       flex: 0 0 auto;
+      margin-left: auto;
+      letter-spacing: 0.06em;
     }
 
     .route-copy:hover {
-      background: #bae6fd;
+      background: #ccecf7;
     }
 
     .lore-note {
-      margin: 10px 12px 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
+      margin: 0 16px 12px;
+      padding: 12px 16px;
+      border: 1px solid rgba(28, 117, 159, 0.2);
       border-radius: 12px;
-      background: #fff;
+      background: rgba(223, 244, 251, 0.38);
       color: var(--muted);
       line-height: 1.55;
     }
@@ -546,13 +757,37 @@
 
     .event-story {
       margin: 0 0 18px;
-      padding: 14px 16px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--muted);
-      line-height: 1.6;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+      padding: 18px 22px 20px;
+      border: 1px solid rgba(28, 117, 159, 0.22);
+      border-left: 4px solid rgba(26, 159, 208, 0.9);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #3e6381;
+      line-height: 1.7;
+      box-shadow: 0 12px 28px rgba(7, 56, 94, 0.10);
+    }
+
+    .event-story-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .event-story-label::before {
+      content: "📖";
+      color: #7aa7d9;
+      font-size: 0.9rem;
+      font-weight: 900;
+      font-style: normal;
+    }
+
+    .event-story p {
+      margin: 0;
     }
 
     .event-story strong {
@@ -560,22 +795,45 @@
       font-weight: 700;
     }
 
+    .event-story-emphasis {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
     .event-story-note {
       display: block;
-      margin-top: 8px;
-      color: var(--muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(28, 117, 159, 0.18);
+      color: #5f84a2;
       font-size: 0.92rem;
-      line-height: 1.5;
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    .event-story-note::before {
+      content: "💡 ";
+      font-style: normal;
+      font-weight: 900;
     }
 
     @media (max-width: 860px) {
       .warp-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .warp-card .warp-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 720px) {
       body { padding: 16px; }
+
+      header {
+        padding: 26px 24px 28px;
+        border-radius: 20px;
+      }
 
       .compact-content,
       .quest-open-content,
@@ -611,11 +869,18 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .warp-card .warp-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .copy-label {
       color: var(--accent-dark);
-      background: #e0f2fe;
+      background: var(--ocean-soft);
       border-radius: 999px;
       padding: 6px 10px;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
       font-weight: 800;
       font-size: 0.78rem;
       white-space: nowrap;
@@ -624,24 +889,25 @@
     .quest-detail {
       padding: 0 16px 14px 16px;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.6;
       display: grid;
       gap: 8px;
+      font-size: 0.9rem;
     }
 
     .quest-detail strong { color: var(--ink); }
 
     .quest-row {
       display: grid;
-      grid-template-columns: 64px 1fr;
-      align-items: center;
-      gap: 6px;
+      grid-template-columns: 72px minmax(0, 1fr);
+      align-items: start;
+      gap: 8px;
     }
 
     .quest-label {
       color: var(--ink);
-      font-weight: 400;
-      align-self: center;
+      font-weight: 700;
+      padding-top: 3px;
     }
 
     .quest-content {
@@ -666,26 +932,63 @@
       line-height: 1.5;
     }
 
+    .daily-note .inline-copy,
+    .warp-note .inline-copy {
+      padding: 2px 8px;
+      border-color: rgba(26, 159, 208, 0.24);
+      background: rgba(223, 244, 251, 0.64);
+      color: var(--accent-dark);
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.35;
+      box-shadow: none;
+    }
+
+    .daily-note .inline-copy:hover,
+    .warp-note .inline-copy:hover {
+      background: rgba(204, 236, 247, 0.72);
+    }
+
     .extra-quests {
       margin: 12px 16px 16px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
+      border: 1px solid #a9def2;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f4fbfe 100%);
       color: var(--muted);
       line-height: 1.55;
       overflow: hidden;
+      box-shadow: 0 8px 22px rgba(26, 159, 208, 0.14);
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .extra-quests:hover {
+      border-color: #79cdec;
+      box-shadow: 0 10px 26px rgba(26, 159, 208, 0.20);
     }
 
     .extra-quests summary {
       cursor: pointer;
-      padding: 12px 14px;
+      padding: 13px 16px;
       color: var(--ink);
       font-weight: 700;
+      font-size: 0.9rem;
       list-style-position: inside;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(232, 247, 252, 0.72));
+      border-bottom: 1px solid #bce8f6;
+      transition: background 0.16s ease, color 0.16s ease;
+    }
+
+    .extra-quests summary:hover {
+      color: var(--accent-dark);
+      background: linear-gradient(135deg, #ffffff 0%, #e3f7fd 100%);
     }
 
     .extra-quests-body {
-      padding: 0 14px 14px;
+      padding: 12px 16px 14px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 251, 254, 0.68));
     }
 
     .extra-quests-body p {
@@ -698,13 +1001,14 @@
 
     .exchange-note {
       margin: 0;
-      padding: 12px 16px 0;
+      padding: 14px 20px 4px;
       color: var(--muted);
-      line-height: 1.5;
+      font-size: 0.88rem;
+      line-height: 1.6;
     }
 
     .exchange-table-wrap {
-      padding: 12px 16px 16px;
+      padding: 10px 16px 16px;
       overflow-x: auto;
       max-width: 100%;
       box-sizing: border-box;
@@ -712,30 +1016,33 @@
 
     .exchange-table {
       width: 100%;
-      table-layout: fixed;
       border-collapse: separate;
       border-spacing: 0;
-      border: 1px solid var(--line);
-      border-radius: 12px;
+      border: 1px solid rgba(28, 117, 159, 0.30);
+      border-radius: 14px;
       overflow: hidden;
       background: #fff;
+      min-width: 700px;
     }
 
     .exchange-table th,
     .exchange-table td {
-      padding: 11px 12px;
-      border-bottom: 1px solid var(--line);
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(28, 117, 159, 0.14);
       vertical-align: top;
       text-align: left;
-      line-height: 1.45;
+      line-height: 1.5;
       overflow-wrap: anywhere;
     }
 
     .exchange-table th {
-      background: #f0f9ff;
+      background: linear-gradient(135deg, rgba(26, 159, 208, 0.08), rgba(20, 136, 130, 0.06));
       color: var(--ink);
-      font-size: 0.92rem;
-      font-weight: 800;
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid rgba(28, 117, 159, 0.30);
     }
 
     .exchange-table tr:last-child td {
@@ -743,15 +1050,15 @@
     }
 
     .exchange-table tr.exchange-group-start td {
-      border-top: 2px solid #bae6fd;
+      border-top: 2px solid #ccecf7;
     }
 
     .exchange-table td.exchange-shop {
-      background: #f8fcff;
+      background: rgba(26, 159, 208, 0.03);
     }
 
     .exchange-table td.exchange-shop-alt {
-      background: #f4fbf8;
+      background: rgba(20, 136, 130, 0.03);
     }
 
     .exchange-table td[rowspan] {
@@ -760,11 +1067,12 @@
 
     .exchange-npc {
       color: var(--ink);
+      font-size: 0.87rem;
       font-weight: 400;
     }
 
     .exchange-items {
-      color: var(--muted);
+      color: var(--ink);
     }
 
     .item-copy {
@@ -772,8 +1080,9 @@
       border: 0;
       background: transparent;
       padding: 0;
-      color: inherit;
+      color: var(--ink);
       font: inherit;
+      font-size: 0.87rem;
       text-align: left;
       cursor: pointer;
       overflow-wrap: anywhere;
@@ -787,41 +1096,45 @@
 
     .exchange-prop {
       color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
     }
 
     .exchange-cost {
       color: var(--ink);
+      font-size: 0.84rem;
+      font-weight: 600;
     }
 
     .exchange-table .ticket-chip {
-      font-weight: 400;
+      font-weight: 700;
     }
 
     .status-source {
       display: block;
-      margin-top: 2px;
-      color: #64748b;
-      font-size: 0.88em;
+      margin-top: 3px;
+      color: #7fa0b8;
+      font-size: 0.78em;
     }
 
     .exchange-table th:nth-child(1),
     .exchange-table td:nth-child(1) {
-      width: 16%;
+      width: 18%;
     }
 
     .exchange-table th:nth-child(2),
     .exchange-table td:nth-child(2) {
-      width: 25%;
+      width: 28%;
     }
 
     .exchange-table th:nth-child(3),
     .exchange-table td:nth-child(3) {
-      width: 27%;
+      width: 24%;
     }
 
     .exchange-table th:nth-child(4),
     .exchange-table td:nth-child(4) {
-      width: 18%;
+      width: 16%;
     }
 
     .exchange-table th:nth-child(5),
@@ -835,11 +1148,16 @@
       overflow-wrap: anywhere;
       line-height: 1.35;
       text-align: center;
+      border-color: #bfe4f1;
+      background: var(--ocean-soft);
+      color: var(--accent-dark);
+      font-weight: 700;
     }
 
     .daily-npc-name {
       display: block;
       color: var(--ink);
+      font-family: "Chakra Petch", "Sarabun", sans-serif;
       font-weight: 900;
       line-height: 1.15;
     }
@@ -852,21 +1170,44 @@
     }
 
     .quest-detail ul {
-      margin: 8px 0 0 20px;
+      margin: 0 0 0 18px;
       padding: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .quest-detail li {
+      margin-bottom: 4px;
+    }
+
+    .quest-detail .bulk-copy {
+      padding: 3px 8px;
+      border-radius: 999px;
+      box-shadow: none;
+      font-size: 0.86rem;
+      font-weight: 700;
+      vertical-align: baseline;
+    }
+
+    .quest-random-row {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
     }
 
     .quest-steps {
       display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 6px;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
     }
 
     .inline-copy {
       appearance: none;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #f0f9ff;
+      background: #f4fbfe;
       color: var(--accent-dark);
       padding: 3px 8px;
       cursor: pointer;
@@ -875,7 +1216,7 @@
     }
 
     .inline-copy:hover {
-      background: #dff3ff;
+      background: #d9f0f8;
     }
 
     .monster-chip {
@@ -915,8 +1256,8 @@
       transform: translateX(-50%) translateY(20px);
       opacity: 0;
       pointer-events: none;
-      background: #052e16;
-      color: #dcfce7;
+      background: #07385e;
+      color: #d8f1f8;
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 999px;
       padding: 11px 16px;
@@ -943,7 +1284,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin: 18px 0;
+      margin: 18px 0 20px;
     }
 
     .bulk-copy,
@@ -956,19 +1297,20 @@
       padding: 10px 14px;
       cursor: pointer;
       font-weight: 900;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 8px 20px rgba(7, 56, 94, 0.08);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
     }
 
     .bulk-copy:hover,
-    .event-link:hover { background: #f0f9ff; }
+    .event-link:hover { background: #f4fbfe; }
   </style>
 </head>
 <body>
   <main class="page">
     <header>
+      <span class="hero-badge">Sessrumnir Ocean Week</span>
       <h1>Sessrumnir Ocean Week Navigation</h1>
       <p class="subtitle">จิ้มที่ข้อความ /navi เพื่อ copy navigation command ได้ทันที</p>
     </header>
@@ -977,9 +1319,13 @@
       <a class="event-link" href="https://ro.gnjoy.in.th/sessrumnir-ocean-week-event/" target="_blank" rel="noopener noreferrer">หน้าหลักกิจกรรมของ Official</a>
     </div>
 
-    <p class="event-story"><strong>เนื้อเรื่องกิจกรรม:</strong> อรูนาเฟลท์ซ (Arunafeltz) ประเทศทางตะวันตกเฉียงเหนือของอาณาจักรรูนมิดการ์ด (Rune Midgard) เป็นที่ตั้งของราเชล (Rachel) เมืองศาสนากลางทะเลทรายที่แทบไม่รู้จักคำว่าทะเล ในฤดูร้อนปีนี้ วิหารเซสรูมเนียร์ (Sessrumnir) ทางเหนือของเมืองราเชลจึงถูกเนรมิตให้กลายเป็นพื้นที่ทะเลสาบเทียมและโซนเล่นน้ำ เพื่อให้ผู้คนได้มาคลายร้อนจากอากาศที่แผดเผา กลายเป็นที่มาของเทศกาล Sessrumnir Ocean Week ภายในงานพบกับเมนูประจำหน้าร้อน เควสพิเศษให้ช่วยดูแลความเรียบร้อยภายในงาน และ Ocean Week Ticket ที่สามารถนำไปแลกหมวกคอสตูมธีมทะเล พร้อมของที่ระลึกพิเศษ<span class="event-story-note">เกร็ด: Sessrumnir มาจาก Sessrúmnir ในตำนานนอร์ส หมายถึง “ห้องโถงแห่งที่นั่งมากมาย” หรือ “Hall of Many Seats” เป็นหอของเทพีเฟรย่า (Freyja) เมื่อนำชื่อนี้มาใช้กับวิหารเซสรูมเนียร์ใน Rachel จึงกลายเป็นฉากหลักของเทศกาล Ocean Week ที่เปลี่ยนพื้นที่ศักดิ์สิทธิ์ให้กลายเป็นลานพักร้อนริมทะเลสาบเทียม</span></p>
+    <div class="event-story">
+      <div class="event-story-label">เนื้อเรื่องกิจกรรม:</div>
+      <p>อรูนาเฟลท์ซ (Arunafeltz) ประเทศทางตะวันตกเฉียงเหนือของอาณาจักรรูนมิดการ์ด (Rune Midgard) เป็นที่ตั้งของราเชล (Rachel) เมืองศาสนากลางทะเลทรายที่แทบไม่รู้จักคำว่าทะเล ในฤดูร้อนปีนี้ วิหารเซสรูมเนียร์ (Sessrumnir) ทางเหนือของเมืองราเชลจึงถูกเนรมิตให้กลายเป็นพื้นที่ทะเลสาบเทียมและโซนเล่นน้ำ เพื่อให้ผู้คนได้มาคลายร้อนจากอากาศที่แผดเผา กลายเป็นที่มาของเทศกาล <span class="event-story-emphasis">Sessrumnir Ocean Week</span> ภายในงานพบกับเมนูประจำหน้าร้อน เควสพิเศษให้ช่วยดูแลความเรียบร้อยภายในงาน และ Ocean Week Ticket ที่สามารถนำไปแลกหมวกคอสตูมธีมทะเล พร้อมของที่ระลึกพิเศษ<span class="event-story-note">เกร็ด: Sessrumnir มาจาก Sessrúmnir ในตำนานนอร์ส หมายถึง “ห้องโถงแห่งที่นั่งมากมาย” หรือ “Hall of Many Seats” เป็นหอของเทพีเฟรย่า (Freyja) เมื่อนำชื่อนี้มาใช้กับวิหารเซสรูมเนียร์ใน Rachel จึงกลายเป็นฉากหลักของเทศกาล Ocean Week ที่เปลี่ยนพื้นที่ศักดิ์สิทธิ์ให้กลายเป็นลานพักร้อนริมทะเลสาบเทียม</span></p>
+    </div>
 
     <section class="grid">
+      <div class="section-title">1. NPC วาร์ป - ใช้งานได้ครั้งเดียว</div>
       <article class="card warp-card">
         <div class="card-head">
           <h2>NPC วาร์ปไปพื้นที่เควส</h2>
@@ -1001,9 +1347,10 @@
         </div>
       </article>
 
+      <div class="section-title">2. Maram — เควสเปิดงาน</div>
       <article class="card compact-card">
         <div class="card-head">
-          <h2>NPC เปิดเควส</h2>
+          <h2>Maram — เควสเปิดงาน</h2>
           <span class="badge">ทำครั้งเดียว</span>
         </div>
         <div class="compact-content quest-open-content">
@@ -1046,10 +1393,11 @@
         </div>
       </article>
 
+      <div class="section-title">3. NPC Daily Quest ไอเท็มเควสเด้งเข้าตัวเอง - ทำได้ทุกวัน</div>
       <article class="card">
         <div class="card-head">
           <h2>NPC Daily Quest</h2>
-          <span class="badge">ไอเท็มเควสเด้งเข้าตัวเอง</span>
+          <span class="badge">ทำได้ทุกวัน</span>
         </div>
         <p class="daily-note"><strong>แนะนำ:</strong> รับ Daily Quest 1-3 ให้ครบก่อน แล้วค่อยไปตีมอนทีเดียวในแผนที่ Rachel Field / Veins Field เช่น <button class="inline-copy" data-copy="ra_fild01">ra_fild01</button>, <button class="inline-copy" data-copy="ra_fild03">ra_fild03</button>, <button class="inline-copy" data-copy="ra_fild04">ra_fild04</button>, <button class="inline-copy" data-copy="ve_fild03">ve_fild03</button>, <button class="inline-copy" data-copy="ve_fild04">ve_fild04</button><br>มีเควสอื่น ๆ และของรางวัลเพิ่มเติม ดูรายละเอียดได้ที่ <a href="https://ro.gnjoy.in.th/Sessrumnir-Ocean-Week-2026/" target="_blank" rel="noopener noreferrer">Sessrumnir Ocean Week 2026</a></p>
         <div class="list">
@@ -1108,16 +1456,12 @@
             <div class="quest-detail">
               <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">เมื่อโซนเล่นน้ำคึกคักกว่าที่คิด Lifeguard เลยต้องรับมือหลายเรื่องพร้อมกัน นักผจญภัยจึงเข้าช่วยเคลียร์ปัญหาที่เกิดรอบพื้นที่งาน</span></div>
               <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">สุ่มงานช่วยเหลือ 1 อย่างจากรายการด้านล่าง</span></div>
-              <div class="quest-altu-note">
-                <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">เปิด Alt+U แล้วกดข้อความสีฟ้า ระบบจะนำทางไปยัง NPC ที่สุ่ม หรือไปตามพิกัดด้านล่างตามเควสที่สุ่มเอง</span></div>
-                <img class="altu-image" src="assets/daily-quest-4-altu-link.png" alt="Daily Quest 4 Alt+U quest link" data-zoom onerror="this.remove()">
-              </div>
-              <strong>ภารกิจสุ่ม:</strong>
-              <ul>
+              <div class="quest-steps quest-altu-note"><span class="quest-label">วิธีทำ:</span><span class="quest-content">เปิด Alt+U แล้วกดข้อความสีฟ้า ระบบจะนำทางไปยัง NPC ที่สุ่ม หรือไปตามพิกัดด้านล่างตามเควสที่สุ่มเอง<img class="altu-image" src="assets/daily-quest-4-altu-link.png" alt="Daily Quest 4 Alt+U quest link" data-zoom onerror="this.remove()"></span></div>
+              <div class="quest-random-row"><span class="quest-label">ภารกิจสุ่ม:</span><ul>
                 <li>จับกุ้งหน้าหาด: <button class="bulk-copy" data-copy="/navi ra_temple 210/78">/navi ra_temple 210/78</button></li>
                 <li>เก็บขยะในคลองน้ำ: <button class="bulk-copy" data-copy="/navi ra_temple 212/112">/navi ra_temple 212/112</button></li>
                 <li>ตรวจสอบสิ่งต้องสงสัย: <button class="bulk-copy" data-copy="/navi ra_temple 69/167">/navi ra_temple 69/167</button><br><img class="altu-image" src="assets/suspicious-object-npc.png" alt="Facility Manage NPC for suspicious object quest" data-zoom onerror="this.remove()"></li>
-              </ul>
+              </ul></div>
               <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_gourmet_butter_popcorn.png" alt="Gourmet Butter Popcorn" data-zoom onerror="this.remove()">Gourmet Butter Popcorn 5 ea</span> <span class="item-chip"><img class="item-img" src="assets/ggt_cool_summer_outfit.png" alt="Cool Summer Outfit" data-zoom onerror="this.remove()">Cool Summer Outfit 1 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
           </div>
@@ -1131,12 +1475,13 @@
         </details>
       </article>
 
+      <div class="section-title">4. ตารางแลกของ / ร้านค้า</div>
       <article class="card exchange-card">
         <div class="card-head">
           <h2>ตารางแลกของ / ร้านค้า</h2>
           <span class="badge">กดชื่อ/พิกัดเพื่อ copy</span>
         </div>
-        <p class="exchange-note">สรุปจากข้อมูลหน้า Official ของ GGT เฉพาะ NPC ที่ใช้แลกหรือซื้อของในพื้นที่งาน รายละเอียดบางรายการอาจต่างตามแพตช์ ให้ตรวจในเกมก่อนแลกของชิ้นใหญ่<br>หมายเหตุ: คุณสมบัติลับของคอสตูมบางชิ้นเป็นข้อมูลที่ผู้เล่นพบจากหน้า Equipment Status ในเกม โดยหน้า Official ไม่ได้ระบุไว้ครบ</p>
+        <p class="exchange-note">สรุปจากข้อมูลหน้า Official ของ GGT เฉพาะ NPC ที่ใช้แลกหรือซื้อของในพื้นที่งาน <br>หมายเหตุ: คุณสมบัติลับของคอสตูมบางชิ้นเป็นข้อมูลที่ผู้เล่นพบจากหน้า Equipment Status ในเกม โดยหน้า Official ไม่ได้ระบุไว้ครบ</p>
         <div class="exchange-table-wrap">
           <table class="exchange-table">
             <thead>
