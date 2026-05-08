@@ -207,6 +207,31 @@
       height: fit-content;
     }
 
+    .quest-open-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.58fr);
+      gap: 16px;
+      align-items: stretch;
+      padding: 14px 16px 16px;
+    }
+
+    .quest-open-content .warp-intro {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 0;
+    }
+
+    .quest-open-content .list {
+      padding: 0;
+      align-self: center;
+    }
+
+    .quest-open-content .warp-note {
+      max-width: 100%;
+    }
+
     .warp-note {
       margin: 0;
       color: var(--muted);
@@ -291,7 +316,7 @@
     }
 
     .quest-open-button {
-      min-height: 88px;
+      min-height: 92px;
       align-items: start;
       padding: 14px 14px 12px;
     }
@@ -506,7 +531,7 @@
     }
 
     .lore-note {
-      margin: 10px 0 0;
+      margin: 10px 12px 12px;
       padding: 12px 14px;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -519,6 +544,30 @@
       color: var(--ink);
     }
 
+    .event-story {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--muted);
+      line-height: 1.6;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .event-story strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .event-story-note {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
     @media (max-width: 860px) {
       .warp-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -529,6 +578,8 @@
       body { padding: 16px; }
 
       .compact-content,
+      .quest-open-content,
+      .quest-open-content .warp-intro,
       .warp-intro,
       .warp-card .warp-intro {
         grid-template-columns: 1fr;
@@ -615,6 +666,177 @@
       line-height: 1.5;
     }
 
+    .extra-quests {
+      margin: 12px 16px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--muted);
+      line-height: 1.55;
+      overflow: hidden;
+    }
+
+    .extra-quests summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      color: var(--ink);
+      font-weight: 700;
+      list-style-position: inside;
+    }
+
+    .extra-quests-body {
+      padding: 0 14px 14px;
+    }
+
+    .extra-quests-body p {
+      margin: 0 0 8px;
+    }
+
+    .exchange-card {
+      grid-column: span 12;
+    }
+
+    .exchange-note {
+      margin: 0;
+      padding: 12px 16px 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .exchange-table-wrap {
+      padding: 12px 16px 16px;
+      overflow-x: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .exchange-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .exchange-table th,
+    .exchange-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .exchange-table th {
+      background: #f0f9ff;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .exchange-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .exchange-table tr.exchange-group-start td {
+      border-top: 2px solid #bae6fd;
+    }
+
+    .exchange-table td.exchange-shop {
+      background: #f8fcff;
+    }
+
+    .exchange-table td.exchange-shop-alt {
+      background: #f4fbf8;
+    }
+
+    .exchange-table td[rowspan] {
+      vertical-align: middle;
+    }
+
+    .exchange-npc {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .exchange-items {
+      color: var(--muted);
+    }
+
+    .item-copy {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow-wrap: anywhere;
+    }
+
+    .item-copy:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .exchange-prop {
+      color: var(--muted);
+    }
+
+    .exchange-cost {
+      color: var(--ink);
+    }
+
+    .exchange-table .ticket-chip {
+      font-weight: 400;
+    }
+
+    .status-source {
+      display: block;
+      margin-top: 2px;
+      color: #64748b;
+      font-size: 0.88em;
+    }
+
+    .exchange-table th:nth-child(1),
+    .exchange-table td:nth-child(1) {
+      width: 16%;
+    }
+
+    .exchange-table th:nth-child(2),
+    .exchange-table td:nth-child(2) {
+      width: 25%;
+    }
+
+    .exchange-table th:nth-child(3),
+    .exchange-table td:nth-child(3) {
+      width: 27%;
+    }
+
+    .exchange-table th:nth-child(4),
+    .exchange-table td:nth-child(4) {
+      width: 18%;
+    }
+
+    .exchange-table th:nth-child(5),
+    .exchange-table td:nth-child(5) {
+      width: 14%;
+    }
+
+    .exchange-table .inline-copy {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
+      text-align: center;
+    }
+
     .daily-npc-name {
       display: block;
       color: var(--ink);
@@ -678,8 +900,12 @@
       align-items: center;
       gap: 6px;
       vertical-align: middle;
-      font-weight: 800;
+      font-weight: 400;
       color: var(--ink);
+    }
+
+    .ticket-chip {
+      font-weight: 800;
     }
 
     .toast {
@@ -751,6 +977,8 @@
       <a class="event-link" href="https://ro.gnjoy.in.th/sessrumnir-ocean-week-event/" target="_blank" rel="noopener noreferrer">หน้าหลักกิจกรรมของ Official</a>
     </div>
 
+    <p class="event-story"><strong>เนื้อเรื่องกิจกรรม:</strong> อรูนาเฟลท์ซ (Arunafeltz) ประเทศทางตะวันตกเฉียงเหนือของอาณาจักรรูนมิดการ์ด (Rune Midgard) เป็นที่ตั้งของราเชล (Rachel) เมืองศาสนากลางทะเลทรายที่แทบไม่รู้จักคำว่าทะเล ในฤดูร้อนปีนี้ วิหารเซสรูมเนียร์ (Sessrumnir) ทางเหนือของเมืองราเชลจึงถูกเนรมิตให้กลายเป็นพื้นที่ทะเลสาบเทียมและโซนเล่นน้ำ เพื่อให้ผู้คนได้มาคลายร้อนจากอากาศที่แผดเผา กลายเป็นที่มาของเทศกาล Sessrumnir Ocean Week ภายในงานพบกับเมนูประจำหน้าร้อน เควสพิเศษให้ช่วยดูแลความเรียบร้อยภายในงาน และ Ocean Week Ticket ที่สามารถนำไปแลกหมวกคอสตูมธีมทะเล พร้อมของที่ระลึกพิเศษ<span class="event-story-note">เกร็ด: Sessrumnir มาจาก Sessrúmnir ในตำนานนอร์ส หมายถึง “ห้องโถงแห่งที่นั่งมากมาย” หรือ “Hall of Many Seats” เป็นหอของเทพีเฟรย่า (Freyja) เมื่อนำชื่อนี้มาใช้กับวิหารเซสรูมเนียร์ใน Rachel จึงกลายเป็นฉากหลักของเทศกาล Ocean Week ที่เปลี่ยนพื้นที่ศักดิ์สิทธิ์ให้กลายเป็นลานพักร้อนริมทะเลสาบเทียม</span></p>
+
     <section class="grid">
       <article class="card warp-card">
         <div class="card-head">
@@ -759,7 +987,7 @@
         </div>
         <div class="warp-intro">
           <img class="warp-npc" src="assets/event-warp-npc.png" alt="Ocean Week warp NPC" data-zoom onerror="this.remove()">
-          <p class="warp-note"><span class="npc-name">Ocean Week Promoter</span>NPC นี้จะยืนอยู่ตามจุดต่างๆ เพื่อให้ผู้เล่นวาร์ปไปยังพื้นที่เควสได้ ใช้งานได้เพียง 1 ครั้งเท่านั้น ครั้งต่อไปต้องไป <button class="inline-copy" data-copy="ra_temple">ra_temple</button> เอง</p>
+          <p class="warp-note"><span class="npc-name">Ocean Week Promoter</span>NPC นี้จะยืนอยู่ตามเมืองต่าง ๆ ใน Rune Midgard เพื่อประชาสัมพันธ์เทศกาล Sessrumnir Ocean Week และส่งผู้เล่นไปยัง <button class="inline-copy" data-copy="ra_temple">ra_temple</button> พื้นที่วิหาร Rachel ที่ถูกจัดเป็นลานกิจกรรมหลักของงาน วาร์ปนี้ใช้งานได้เพียง 1 ครั้งเท่านั้น ครั้งต่อไปต้องเดินทางไป <button class="inline-copy" data-copy="ra_temple">ra_temple</button> เอง</p>
         </div>
         <div class="list warp-list">
           <div class="nav-item"><button class="nav-button warp-button" data-copy="/navi prontera 164/173"><div><span class="city-name">Prontera</span><div class="command"><span class="map-code">/navi prontera</span><span class="coords">164/173</span></div></div><span class="copy-label">COPY</span></button></div>
@@ -778,15 +1006,16 @@
           <h2>NPC เปิดเควส</h2>
           <span class="badge">ทำครั้งเดียว</span>
         </div>
-        <div class="compact-content">
+        <div class="compact-content quest-open-content">
           <div class="warp-intro">
             <img class="warp-npc" src="assets/quest-open-npc.png" alt="Ocean Week quest NPC" data-zoom onerror="this.remove()">
-            <p class="warp-note"><span class="npc-name">Maram</span>คุยกับ Maram เพื่อเปิดเควสหลักของกิจกรรม Ocean Week</p>
+            <p class="warp-note"><span class="npc-name">Maram</span>Maram เป็นหนึ่งใน Gray Children เด็กเชื้อสายพื้นเมืองที่ Niren รับอุปการะ เพื่อหวังเชื่อมความสัมพันธ์ระหว่างชาว Rachel กับชาวพื้นเมือง Grey Wolf แต่ความต่างของทั้งสองฝ่ายทำให้พวกเขายังคงถูกมองเป็นคนนอกและถูกเลือกปฏิบัติ ใน EP18 Maram และ Miriam มีบทบาทสำคัญในเหตุการณ์ความขัดแย้งระหว่าง Rachel และ Grey Wolf Village ก่อนที่ทั้งคู่จะกลับมาอีกครั้งใน EP19 ช่วงออกตามรอย Bagot ไปยังดินแดนน้ำแข็ง Issgard</p>
           </div>
           <div class="list">
             <div class="nav-item"><button class="nav-button quest-open-button" data-copy="/navi ra_temple 137/127"><div><span class="quest-open-title">Maram</span><div class="command"><span class="map-code">/navi ra_temple</span><span class="coords">137/127</span></div></div><span class="copy-label">COPY</span></button></div>
           </div>
         </div>
+        <p class="lore-note"><strong>เนื้อเรื่อง:</strong> Maram ผู้รับผิดชอบงาน Ocean Week กำลังกังวล เพราะพระสันตะปาปา (Pope) หญิงสาวผู้เป็นผู้นำศาสนา Freyja และบุคคลสำคัญของ Rachel หายตัวไปในงาน ผู้เล่นจึงต้องช่วยออกตามหา ก่อนพบว่าเธอกำลังเพลิดเพลินกับร้านอาหาร ของหวาน และโซนเล่นน้ำภายในงาน</p>
         <div class="quest-followup">
           <div class="quest-steps-panel">
             <ol class="step-list">
@@ -795,7 +1024,7 @@
               <li>คุยกับ NPC ตามจุดนั้น กด <strong>Enter</strong> อย่างเดียวจนเสร็จ</li>
               <li>เปิด <strong>Alt+U</strong> ใหม่ แล้วจิ้มข้อความสีฟ้าเพื่อไปหา NPC ตัวต่อไป ทำซ้ำจนจบเควสเปิด</li>
             </ol>
-            <div class="reward-row"><img class="reward-icon" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">รางวัล Ocean Week Ticket 20 ea</div>
+            <div class="reward-row"><img class="reward-icon" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">รางวัล <span class="ticket-chip">Ocean Week Ticket 20 ea</span></div>
           </div>
           <div class="altu-stack">
             <img class="altu-image" src="assets/maram-altu-link.png" alt="Sessrumnir Ocean Week quest link in Alt+U" data-zoom onerror="this.remove()">
@@ -814,7 +1043,6 @@
             <div class="route-line" data-copy="/navi ra_temple 210/117"><span><span class="route-title">7. เตรียมกลับ</span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">210/117</span></span></span><button class="route-copy" type="button">COPY</button></div>
             <div class="route-line" data-copy="/navi ra_temple 137/127"><span><span class="route-title">8. ส่ง <span class="route-name-en">Maram</span></span> - <span class="command"><span class="map-code">/navi ra_temple</span><span class="coords">137/127</span></span></span><button class="route-copy" type="button">COPY</button></div>
           </div>
-          <p class="lore-note"><strong>เนื้อเรื่อง:</strong> ในช่วง Ocean Week พระสันตะปาปาพลัดหลงไประหว่างงานฤดูร้อน ผู้เล่นจึงช่วย Maram ออกตามหา ผ่านร้านอาหาร แผงของหวาน และพื้นที่เล่นน้ำ ก่อนพากลับมาอย่างปลอดภัย เมื่อจบ Main Quest แล้วจึงปลดล็อก Daily Quest</p>
         </div>
       </article>
 
@@ -823,7 +1051,7 @@
           <h2>NPC Daily Quest</h2>
           <span class="badge">ไอเท็มเควสเด้งเข้าตัวเอง</span>
         </div>
-        <p class="daily-note"><strong>แนะนำ:</strong> รับ Daily Quest 1-3 ให้ครบก่อน แล้วค่อยไปตีมอนทีเดียวในแผนที่ เช่น <button class="inline-copy" data-copy="ve_fild03">ve_fild03</button>, <button class="inline-copy" data-copy="ve_fild04">ve_fild04</button><br>มีเควสอื่นๆ และของรางวัลเพิ่มเติม ดูรายละเอียดได้ที่ <a href="https://ro.gnjoy.in.th/Sessrumnir-Ocean-Week-2026/" target="_blank" rel="noopener noreferrer">Sessrumnir Ocean Week 2026</a></p>
+        <p class="daily-note"><strong>แนะนำ:</strong> รับ Daily Quest 1-3 ให้ครบก่อน แล้วค่อยไปตีมอนทีเดียวในแผนที่ Rachel Field / Veins Field เช่น <button class="inline-copy" data-copy="ra_fild01">ra_fild01</button>, <button class="inline-copy" data-copy="ra_fild03">ra_fild03</button>, <button class="inline-copy" data-copy="ra_fild04">ra_fild04</button>, <button class="inline-copy" data-copy="ve_fild03">ve_fild03</button>, <button class="inline-copy" data-copy="ve_fild04">ve_fild04</button><br>มีเควสอื่น ๆ และของรางวัลเพิ่มเติม ดูรายละเอียดได้ที่ <a href="https://ro.gnjoy.in.th/Sessrumnir-Ocean-Week-2026/" target="_blank" rel="noopener noreferrer">Sessrumnir Ocean Week 2026</a></p>
         <div class="list">
           <div class="nav-item">
             <button class="nav-button" data-copy="/navi ra_temple 203/170">
@@ -833,23 +1061,25 @@
               </div><span class="copy-label">COPY</span>
             </button>
             <div class="quest-detail">
+              <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">หลังสนุกกับน้ำในงาน เมนูเส้นกลายเป็นของที่คนอยากกินกันมากจนวัตถุดิบเริ่มขาด นักผจญภัยจึงต้องช่วยหาเส้นมาเติมให้ร้านก๋วยเตี๋ยว</span></div>
               <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/dandy-star-monster.png" alt="Dandy Star" data-zoom onerror="this.remove()">Dandy Star</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/25841_smooth_noodle.png" alt="Smooth Noodle" data-zoom onerror="this.remove()">Smooth Noodle</span> 10 ea</span></div>
-              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
               <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Noodle Seller เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_summer_festival_noodle.png" alt="Summer Festival Noodle" data-zoom onerror="this.remove()">Summer Festival Noodle 5 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
           </div>
 
           <div class="nav-item">
             <button class="nav-button" data-copy="/navi ra_temple 215/168">
               <div class="daily-quest-head">
-                <img class="quest-npc-img" src="assets/daily-quest-2-npc.png" alt="Herb Calamari BBQ Selle NPC" data-zoom onerror="this.remove()">
-                <div><span class="daily-npc-name">Herb Calamari BBQ Selle</span><div class="command">/navi ra_temple 215/168</div><div class="desc">Quest 2 - อยู่ทาง Numpad 9 ของแผนที่</div></div>
+                <img class="quest-npc-img" src="assets/daily-quest-2-npc.png" alt="Herb Calamari BBQ Seller NPC" data-zoom onerror="this.remove()">
+                <div><span class="daily-npc-name">Herb Calamari BBQ Seller</span><div class="command">/navi ra_temple 215/168</div><div class="desc">Quest 2 - อยู่ทาง Numpad 9 ของแผนที่</div></div>
               </div><span class="copy-label">COPY</span>
             </button>
             <div class="quest-detail">
-              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/magic-herb-monster.png" alt="Magic Herb" data-zoom onerror="this.remove()">Magic Herb</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/25342_healthful_herb.png" alt="Healthful Herb" data-zoom onerror="this.remove()">Healthful Herb</span> 10 ea</span></div>
-              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
-              <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Herb Calamari BBQ Selle เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+              <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">มุมอาหารของงานมีร้านพิเศษมารวมตัวกัน แต่ร้านปลาหมึกย่างสมุนไพรยังเริ่มขายไม่ได้เพราะสูตรสำคัญยังขาดสมุนไพรที่ต้องใช้</span></div>
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/magic-herb-monster.png" alt="Magical Herb" data-zoom onerror="this.remove()">Magical Herb</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/25342_healthful_herb.png" alt="Healthful Herb" data-zoom onerror="this.remove()">Healthful Herb</span> 10 ea</span></div>
+              <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Herb Calamari BBQ Seller เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_herb_calamari_barbecue.png" alt="Herb Calamari Barbecue" data-zoom onerror="this.remove()">Herb Calamari Barbecue 5 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
           </div>
 
@@ -861,9 +1091,10 @@
               </div><span class="copy-label">COPY</span>
             </button>
             <div class="quest-detail">
-              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/watermeloning-monster.png" alt="Watermeloning" data-zoom onerror="this.remove()">Watermeloning</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/1001741_summer_watermelon.png" alt="Summer Watermelon" data-zoom onerror="this.remove()">Summer Watermelon</span> 10 ea</span></div>
-              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
+              <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">ของหวานแตงโมเป็นสีสันของหน้าร้อน แต่ของที่ต้องใช้ยังไม่พร้อม จึงต้องไปเก็บ Summer Watermelon จาก Watermelonring เหล่า Poring สายพันธุ์แตงโม</span></div>
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">กำจัด <span class="monster-chip"><img class="monster-img" src="assets/watermeloning-monster.png" alt="Watermelonring" data-zoom onerror="this.remove()">Watermelonring</span> 10 ตัว, เก็บ <span class="item-chip"><img class="item-img" src="assets/1001741_summer_watermelon.png" alt="Summer Watermelon" data-zoom onerror="this.remove()">Summer Watermelon</span> 10 ea</span></div>
               <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">คุยกับ Watermelon Vendor เลือกข้อ 2 แล้วเลือกข้อ 1</span></div>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_sweet_watermelon_pudding.png" alt="Sweet Watermelon Pudding" data-zoom onerror="this.remove()">Sweet Watermelon Pudding 2 ea</span> <span class="item-chip"><img class="item-img" src="assets/ggt_cold_watermelon_juice.png" alt="Cold Watermelon Juice" data-zoom onerror="this.remove()">Cold Watermelon Juice 2 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
           </div>
 
@@ -875,6 +1106,8 @@
               </div><span class="copy-label">COPY</span>
             </button>
             <div class="quest-detail">
+              <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">เมื่อโซนเล่นน้ำคึกคักกว่าที่คิด Lifeguard เลยต้องรับมือหลายเรื่องพร้อมกัน นักผจญภัยจึงเข้าช่วยเคลียร์ปัญหาที่เกิดรอบพื้นที่งาน</span></div>
+              <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">สุ่มงานช่วยเหลือ 1 อย่างจากรายการด้านล่าง</span></div>
               <div class="quest-altu-note">
                 <div class="quest-steps"><span class="quest-label">วิธีทำ:</span><span class="quest-content">เปิด Alt+U แล้วกดข้อความสีฟ้า ระบบจะนำทางไปยัง NPC ที่สุ่ม หรือไปตามพิกัดด้านล่างตามเควสที่สุ่มเอง</span></div>
                 <img class="altu-image" src="assets/daily-quest-4-altu-link.png" alt="Daily Quest 4 Alt+U quest link" data-zoom onerror="this.remove()">
@@ -885,14 +1118,233 @@
                 <li>เก็บขยะในคลองน้ำ: <button class="bulk-copy" data-copy="/navi ra_temple 212/112">/navi ra_temple 212/112</button></li>
                 <li>ตรวจสอบสิ่งต้องสงสัย: <button class="bulk-copy" data-copy="/navi ra_temple 69/167">/navi ra_temple 69/167</button><br><img class="altu-image" src="assets/suspicious-object-npc.png" alt="Facility Manage NPC for suspicious object quest" data-zoom onerror="this.remove()"></li>
               </ul>
-              <strong>รางวัล:</strong> <span class="item-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span>
+              <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_gourmet_butter_popcorn.png" alt="Gourmet Butter Popcorn" data-zoom onerror="this.remove()">Gourmet Butter Popcorn 5 ea</span> <span class="item-chip"><img class="item-img" src="assets/ggt_cool_summer_outfit.png" alt="Cool Summer Outfit" data-zoom onerror="this.remove()">Cool Summer Outfit 1 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
           </div>
+        </div>
+        <details class="extra-quests">
+          <summary>เควส 5-6 เพิ่มเติม</summary>
+          <div class="extra-quests-body">
+            <p><strong>Trainer's Ambition</strong> และ <strong>A Summer's Story</strong> เป็นเควสเสริมสาย EXP/ล่ามอนที่ไม่ได้เป็นแกนหลักของการเก็บ Ocean Week Ticket ในไกด์นี้</p>
+            <p>หน้านี้โฟกัสเควสที่ให้ตั๋วและจุด /navi หลัก หากต้องการดูเงื่อนไขเลเวล มอนสเตอร์เป้าหมาย และรางวัล EXP ของเควส 5-6 ให้ดูรายละเอียดใน <a href="https://ro.gnjoy.in.th/Sessrumnir-Ocean-Week-2026/" target="_blank" rel="noopener noreferrer">หน้าหลักกิจกรรม</a></p>
+          </div>
+        </details>
+      </article>
+
+      <article class="card exchange-card">
+        <div class="card-head">
+          <h2>ตารางแลกของ / ร้านค้า</h2>
+          <span class="badge">กดชื่อ/พิกัดเพื่อ copy</span>
+        </div>
+        <p class="exchange-note">สรุปจากข้อมูลหน้า Official ของ GGT เฉพาะ NPC ที่ใช้แลกหรือซื้อของในพื้นที่งาน รายละเอียดบางรายการอาจต่างตามแพตช์ ให้ตรวจในเกมก่อนแลกของชิ้นใหญ่<br>หมายเหตุ: คุณสมบัติลับของคอสตูมบางชิ้นเป็นข้อมูลที่ผู้เล่นพบจากหน้า Equipment Status ในเกม โดยหน้า Official ไม่ได้ระบุไว้ครบ</p>
+        <div class="exchange-table-wrap">
+          <table class="exchange-table">
+            <thead>
+              <tr>
+                <th>ไอเท็ม</th>
+                <th>คุณสมบัติ</th>
+                <th>ใช้อะไรแลก</th>
+                <th>NPC</th>
+                <th>พิกัด</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Summer Festival Noodle">Summer Festival Noodle</button></td>
+                <td class="exchange-prop">เพิ่ม Damage ทางกายภาพ/เวทมนตร์ต่อศัตรูทุกธาตุ 10% เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+                <td class="exchange-shop" rowspan="1"><span class="exchange-npc">Noodle Seller</span></td>
+                <td class="exchange-shop" rowspan="1"><button class="inline-copy" data-copy="/navi ra_temple 203/170">/navi ra_temple 203/170</button></td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Herb Calamari Barbecue">Herb Calamari Barbecue</button></td>
+                <td class="exchange-prop">เพิ่ม Damage ทางกายภาพ/เวทมนตร์ต่อศัตรูทุกขนาด 10% เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+                <td class="exchange-shop-alt" rowspan="1"><span class="exchange-npc">Herb Calamari BBQ Seller</span></td>
+                <td class="exchange-shop-alt" rowspan="1"><button class="inline-copy" data-copy="/navi ra_temple 215/168">/navi ra_temple 215/168</button></td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Sweet Watermelon Pudding">Sweet Watermelon Pudding</button></td>
+                <td class="exchange-prop">เพิ่ม Damage กายภาพระยะใกล้/ไกล 10% และ Damage เวทมนตร์ทุกธาตุ 10% เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+                <td class="exchange-shop" rowspan="2"><span class="exchange-npc">Watermelon Vendor</span></td>
+                <td class="exchange-shop" rowspan="2"><button class="inline-copy" data-copy="/navi ra_temple 74/62">/navi ra_temple 74/62</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Cold Watermelon Juice">Cold Watermelon Juice</button></td>
+                <td class="exchange-prop">ATK +15%, MATK +15% เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Cold Red Beans Bingsu">Cold Red Beans Bingsu</button></td>
+                <td class="exchange-prop">MHP +10%, MSP +10% เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+                <td class="exchange-shop-alt" rowspan="3"><span class="exchange-npc">Dessert Vendor</span></td>
+                <td class="exchange-shop-alt" rowspan="3"><button class="inline-copy" data-copy="/navi ra_temple 74/111">/navi ra_temple 74/111</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Gourmet Butter Popocorn">Gourmet Butter Popocorn</button></td>
+                <td class="exchange-prop">ลดระยะเวลาร่ายแบบแปรผัน 10%, ASPD +2 เป็นเวลา 15 นาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">Festival Food Bag 5 ea + 5,000 Zeny</td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Ripe Golden Melon">Ripe Golden Melon</button></td>
+                <td class="exchange-prop">ฟื้นฟู HP และ SP ทั้งหมด, Cooldown 3 วินาที; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">15,000 Zeny</td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Lime Soda">Lime Soda</button></td>
+                <td class="exchange-prop">ฟื้นฟู HP ประมาณ 1,800; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">3,500 Zeny</td>
+                <td class="exchange-shop" rowspan="2"><span class="exchange-npc">Soda Seller</span></td>
+                <td class="exchange-shop" rowspan="2"><button class="inline-copy" data-copy="/navi ra_temple 165/111">/navi ra_temple 165/111</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Berry Soda">Berry Soda</button></td>
+                <td class="exchange-prop">ฟื้นฟู SP ประมาณ 180; ลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost">2,000 Zeny</td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Sessrumnir Commemoration Ring">Sessrumnir Commemoration Ring</button></td>
+                <td class="exchange-prop">ATK/MATK +5%, CRI +5, ASPD +5%, ลดร่ายแปรผัน 5%; ช่วงกิจกรรมเพิ่ม ATK/MATK +20, CRI +10, ASPD +10%, ลดร่ายแปรผัน 10%, EXP จากมอนสเตอร์ +15%; ใส่คู่ Summer Vacation Pope Card เพิ่ม Damage กายภาพ/เวทมนตร์ต่อทุกเผ่า (ยกเว้น Player), ทุกขนาด และทุกธาตุ 10%; ความสามารถลบหลังจบกิจกรรม</td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 120 ea</span></td>
+                <td class="exchange-shop-alt" rowspan="2"><span class="exchange-npc">Souvenir Manager</span></td>
+                <td class="exchange-shop-alt" rowspan="2"><button class="inline-copy" data-copy="/navi ra_temple 217/158">/navi ra_temple 217/158</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Summer Vacation Pope Card">Summer Vacation Pope Card</button></td>
+                <td class="exchange-prop">Damage กายภาพระยะใกล้/ไกล +3%, Damage เวทมนตร์ทุกธาตุ +3%; ใส่คู่ Sessrumnir Commemoration Ring เพิ่มอีก 7%</td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 160 ea</span></td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Scuba Mask">Scuba Mask</button></td>
+                <td class="exchange-prop">ATK +5, MATK +5; ใส่คู่ Surfer Swimsuit และ Oxygen Tank: ASPD +10%, Critical ต่อมอนสเตอร์ Fish +50%</td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 15 ea</span> + 150,000 Zeny</td>
+                <td class="exchange-shop" rowspan="3"><span class="exchange-npc">Scuba Gear Manager</span></td>
+                <td class="exchange-shop" rowspan="3"><button class="inline-copy" data-copy="/navi ra_temple 203/156">/navi ra_temple 203/156</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Surfer Swimsuit">Surfer Swimsuit</button></td>
+                <td class="exchange-prop">MaxHP +5%, MaxSP +5%; ทุกอัปเกรด 3 ขั้น MaxHP/MSP +1%; ใส่คู่ Scuba Mask: Perfect Dodge +10, ลดร่ายแปรผัน 10%</td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 15 ea</span> + 150,000 Zeny</td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Oxygen Tank">Oxygen Tank</button></td>
+                <td class="exchange-prop">FLEE +12; ทุกอัปเกรด 1 ขั้น HIT/FLEE +1; ใส่คู่ Scuba Mask: ASPD +1, ไม่ถูกขัดจังหวะการร่าย</td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 15 ea</span> + 150,000 Zeny</td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Slurp Slurp Hat">Costume Slurp Slurp Hat</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+                <td class="exchange-shop-alt" rowspan="18"><span class="exchange-npc">Costume Manager</span></td>
+                <td class="exchange-shop-alt" rowspan="18"><button class="inline-copy" data-copy="/navi ra_temple 198/163">/navi ra_temple 198/163</button></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Memory of Noodle">Costume Memory of Noodle</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Small Ocean">Costume Small Ocean</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Starfish Band">Costume Starfish Band</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Sailor Hat">Costume Sailor Hat</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Claws Hairpin">Costume Claws Hairpin</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Iceflake Hat">Costume Iceflake Hat</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Chewy Gelato">Costume Chewy Gelato</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Pinwheel Cap">Costume Pinwheel Cap</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Fan of Summer">Costume Fan of Summer</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Wave Noodle">Costume Wave Noodle</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: ATK +30, MATK +30, เกลือแร่ในเลือด +7% <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Poring Noodle Head">Costume Poring Noodle Head</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: EXP +20%, Drop +10% <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Rainbow Popcorn">Costume Rainbow Popcorn</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: EXP +20%, ATK +30, MATK +30 <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Pop Popcorn Hat">Costume Pop Popcorn Hat</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: ATK +30, MATK +30 <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Blazing Popcorn Hat">Costume Blazing Popcorn Hat</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: EXP +20%, ATK +30, MATK +30 <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Pet Popcorn Box">Costume Pet Popcorn Box</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Flame Bird">Costume Flame Bird</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: EXP +20%, ATK +30, MATK +30 <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr>
+                <td class="exchange-items"><button class="item-copy" data-copy="Costume Soda In Mouth">Costume Soda In Mouth</button></td>
+                <td class="exchange-prop">คุณสมบัติลับ: ASPD +1, ATK +30, MATK +30 <span class="status-source">(ผู้เล่นพบใน Equipment Status)</span></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 20 ea</span></td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Cool Summer Outfit">Cool Summer Outfit</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 1 ea</span></td>
+                <td class="exchange-shop" rowspan="1"><span class="exchange-npc">Summer Outfit Seller</span></td>
+                <td class="exchange-shop" rowspan="1"><button class="inline-copy" data-copy="/navi ra_temple 207/159">/navi ra_temple 207/159</button></td>
+              </tr>
+              <tr class="exchange-group-start">
+                <td class="exchange-items"><button class="item-copy" data-copy="Wandering Duck Doll Egg + Twinkle Star Button">Wandering Duck Doll Egg + Twinkle Star Button</button></td>
+                <td class="exchange-prop"></td>
+                <td class="exchange-cost"><span class="ticket-chip">Ocean Week Ticket 150 ea</span></td>
+                <td class="exchange-shop-alt" rowspan="1"><span class="exchange-npc">Wandering Duck Seller</span></td>
+                <td class="exchange-shop-alt" rowspan="1"><button class="inline-copy" data-copy="/navi ra_temple 120/86">/navi ra_temple 120/86</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </article>
     </section>
 
-    <p class="footer">Tip: กดแล้วเอาไปวางในช่อง chat เกมได้เลย ไม่ต้อง OCR ให้เมื่อยนิ้ว</p>
   </main>
 
   <div class="toast" id="toast">Copied</div>
