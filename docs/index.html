@@ -872,6 +872,17 @@
         grid-template-columns: 1fr;
       }
 
+      .quest-random-list li {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 112px;
+      }
+
+      .quest-random-list .altu-image {
+        width: 100%;
+        height: 112px;
+        justify-self: stretch;
+      }
+
       .route-list {
         grid-template-columns: 1fr;
       }
@@ -1197,6 +1208,69 @@
       margin-bottom: 4px;
     }
 
+    .quest-random-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .quest-random-list li {
+      display: grid;
+      grid-template-rows: auto 124px;
+      gap: 8px;
+      align-items: start;
+      min-height: 0;
+      margin: 0;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfeff;
+    }
+
+    .quest-random-list li::marker {
+      content: "";
+    }
+
+    .random-text {
+      min-width: 0;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .quest-random-list .altu-image {
+      width: 100%;
+      height: 124px;
+      max-height: none;
+      justify-self: stretch;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 900px) and (min-width: 721px) {
+      .quest-random-list {
+        grid-template-columns: 1fr;
+      }
+
+      .quest-random-list li {
+        grid-template-rows: auto 120px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .quest-random-list {
+        grid-template-columns: 1fr;
+      }
+
+      .quest-random-list li {
+        grid-template-rows: auto 112px;
+      }
+
+      .quest-random-list .altu-image {
+        height: 112px;
+      }
+    }
+
     .quest-detail .bulk-copy {
       padding: 3px 8px;
       border-radius: 999px;
@@ -1475,10 +1549,10 @@
               <div class="quest-row"><span class="quest-label">เนื้อเรื่อง:</span><span class="quest-content">เมื่อโซนเล่นน้ำคึกคักกว่าที่คิด Lifeguard เลยต้องรับมือหลายเรื่องพร้อมกันจนแทบหมดแรง นักผจญภัยจึงเข้าช่วยแบ่งเบางานและดูแลความเรียบร้อยรอบพื้นที่</span></div>
               <div class="quest-row"><span class="quest-label">ภารกิจ:</span><span class="quest-content">คุยกับ Lifeguard ก่อน แล้วระบบจะสุ่มงานช่วยเหลือ 1 อย่างจากรายการด้านล่าง โดยต้นฉบับ GGT ระบุไว้เป็น สอนว่ายน้ำ / เก็บขยะในสวนน้ำ / ตรวจสอบสิ่งอำนวยความสะดวก</span></div>
               <div class="quest-steps quest-altu-note"><span class="quest-label">วิธีทำ:</span><span class="quest-content">เปิด Alt+U แล้วกดข้อความสีฟ้า ระบบจะนำทางไปยัง NPC หรือจุดหมายที่สุ่มได้ หรือไปตามพิกัดด้านล่างตามงานที่สุ่มเอง<img class="altu-image" src="assets/daily-quest-4-altu-link.png" alt="Daily Quest 4 Alt+U quest link" data-zoom onerror="this.remove()"></span></div>
-              <div class="quest-random-row"><span class="quest-label">ภารกิจสุ่ม:</span><ul>
-                <li>สอนว่ายน้ำ - ไปหา Swimming Trainee: <button class="bulk-copy" data-copy="/navi ra_temple 211/91">/navi ra_temple 211/91</button><br><img class="altu-image" src="assets/swimming-trainee-npc.png" alt="Swimming Trainee NPC for swimming lesson quest" data-zoom onerror="this.remove()"></li>
-                <li>เก็บขยะในสวนน้ำ: <button class="bulk-copy" data-copy="/navi ra_temple 121/113">/navi ra_temple 121/113</button></li>
-                <li>ตรวจสอบสิ่งอำนวยความสะดวก: <button class="bulk-copy" data-copy="/navi ra_temple 67/166">/navi ra_temple 67/166</button><br><img class="altu-image" src="assets/suspicious-object-npc.png" alt="Facility Manager NPC for facility inspection quest" data-zoom onerror="this.remove()"></li>
+              <div class="quest-random-row"><span class="quest-label">ภารกิจสุ่ม:</span><ul class="quest-random-list">
+                <li><span class="random-text">สอนว่ายน้ำ - ไปหา Swimming Trainee: <button class="bulk-copy" data-copy="/navi ra_temple 211/91">/navi ra_temple 211/91</button></span><img class="altu-image" src="assets/swimming-trainee-npc.png" alt="Swimming Trainee NPC for swimming lesson quest" data-zoom onerror="this.remove()"></li>
+                <li><span class="random-text">เก็บขยะในสวนน้ำ: <button class="bulk-copy" data-copy="/navi ra_temple 121/113">/navi ra_temple 121/113</button></span><img class="altu-image" src="assets/trash-cleanup-npc.png" alt="Trash NPC for water park cleanup quest" data-zoom onerror="this.remove()"></li>
+                <li><span class="random-text">ตรวจสอบสิ่งอำนวยความสะดวก: <button class="bulk-copy" data-copy="/navi ra_temple 67/166">/navi ra_temple 67/166</button></span><img class="altu-image" src="assets/suspicious-object-npc.png" alt="Facility Manager NPC for facility inspection quest" data-zoom onerror="this.remove()"></li>
               </ul></div>
               <div class="quest-row"><span class="quest-label">รางวัล:</span><span class="quest-content"><span class="item-chip"><img class="item-img" src="assets/ggt_gourmet_butter_popcorn.png" alt="Gourmet Butter Popcorn" data-zoom onerror="this.remove()">Gourmet Butter Popcorn 5 ea</span> <span class="item-chip"><img class="item-img" src="assets/ggt_cool_summer_outfit.png" alt="Cool Summer Outfit" data-zoom onerror="this.remove()">Cool Summer Outfit 1 ea</span> <span class="item-chip ticket-chip"><img class="item-img" src="assets/1001740_ocean_week_ticket.png" alt="Ocean Week Ticket" data-zoom onerror="this.remove()">Ocean Week Ticket 5 ea</span></span></div>
             </div>
