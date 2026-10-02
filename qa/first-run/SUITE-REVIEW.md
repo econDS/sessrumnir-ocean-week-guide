@@ -1,6 +1,6 @@
 # RO Tools first-run consistency review
 
-The four calculator heads are pinned in `suite-heads.json`; the guide uses the current PR head in CI. The local run in `suite-review-local.json` used exact remotely fetched commits, including guide `d4fbff12280781df77564b2b2dcdfe2d32c1359d`. Later guide commits only add QA/report files; its production bytes are identical.
+The four calculator heads are pinned in `suite-heads.json`; the guide uses the current PR head in CI. The local run in `suite-review-local.json` used exact remotely fetched commits, including guide `e988ea21c8ef66d876702a6e856006a03a6c04e9`. Later guide commits only add QA/report files; its production bytes are identical.
 
 Actual cross-suite Chromium review at390px and1440px checks, for every candidate:
 - primary start cue appears in first900px viewport
