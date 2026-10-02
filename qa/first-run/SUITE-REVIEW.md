@@ -1,6 +1,6 @@
 # RO Tools first-run consistency review
 
-The four calculator heads are pinned in `suite-heads.json`; the guide uses the current PR head in CI. The local run in `suite-review-local.json` used exact remotely fetched commits, including guide `e988ea21c8ef66d876702a6e856006a03a6c04e9`. Later guide commits only add QA/report files; its production bytes are identical.
+The four calculator heads are pinned in `suite-heads.json`; the guide uses the current PR head in CI. The local run in `suite-review-local.json` used exact remotely fetched commits, including guide `e988ea21c8ef66d876702a6e856006a03a6c04e9`. The final contrast correction changes only new-control text tokens in Ocean and Dim. The local report remains historical evidence for its stated commits; the current CI cross-suite report records and tests all final pinned heads, including the guide’s own current head.
 
 Actual cross-suite Chromium review at390px and1440px checks, for every candidate:
 - primary start cue appears in first900px viewport
@@ -21,3 +21,5 @@ Best Status: activity first, relevant character/profile settings, one result or 
 Ocean: archive notice, four utility jumps, copyable navigation and quest steps; full lore retained in a native disclosure.
 
 No formula, default game/price data, nav release, tool ID, canonical URL or storage schema changed. No portal edits or merge/deploy performed. Real-device, WebKit/Firefox and post-merge Pages testing remain outside this evidence. No human usability score is claimed.
+
+New-control text contrast was separately checked from computed Chromium colors in both supported color schemes; see `contrast-audit.json`. No whole-app WCAG or audible screen-reader certification is claimed.

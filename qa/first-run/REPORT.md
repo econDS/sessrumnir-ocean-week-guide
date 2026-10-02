@@ -6,7 +6,7 @@ Base: `01e356ade26cb4f80c70dc3e75882cca79aa30b9`, clean `master`, publishing `do
 Before: archive hero → Official link → expanded story → warp utility. Zero form inputs; no task jump navigation. After: archive hero → four task jumps → utility. Lore is a native collapsed details, retained in full. Existing four section titles gained fragment IDs; original URLs and copy handlers remain unchanged.
 
 ## Actual local verification
-- `node --test tests/*.test.cjs`: 11 passed
+- `node --test tests/*.test.cjs`: 12 passed
 - `NODE_PATH=… BASE_DOCS=… node tests/ro-suite-nav.browser.cjs`: 6,230 passed, zero failures; 24 viewport/theme/fallback scenarios and 46 screenshots
 - `NODE_PATH=… BASE_DOCS=… node tests/first-run.browser.cjs`: all 360/390/768/1440 checks passed; actual before/after viewport screenshots
 - Every original copy target, command array, image/lightbox and live clipboard smoke preserved; archive notice/period/caveat unchanged
@@ -21,3 +21,6 @@ No real-device, Firefox, WebKit, or post-merge Pages testing. External official 
 
 ## Rollback
 Revert this feature commit; no stored-state or content migration required. Draft PR only; no deployment or merge requested.
+
+## New-control contrast audit
+New Dim text controls use the existing primary text token; the new Ocean lore disclosure uses the existing dark accent token. Actual computed colors and source contrast assertions meet4.5:1 for normal text. These changes do not change the palette, navigation, or existing controls. Full app WCAG certification and audible screen-reader testing are not claimed.

@@ -30,5 +30,9 @@
   [
     "  </style>",
     "\n    /* First-run guidance only; existing guide content and copy controls are unchanged. */\n    .first-run-jumps { margin: 0 0 16px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }\n    .first-run-jumps > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }\n    .first-run-jumps a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; color: var(--accent-dark); border: 1px solid var(--line); border-radius: 8px; font-weight: 700; }\n    .first-run-jumps p { margin: 8px 0 0; font-size: .9rem; }\n    .first-run-lore > summary { cursor: pointer; min-height: 44px; display: list-item; align-content: center; }\n    .first-run-jumps a:focus-visible, .first-run-lore > summary:focus-visible, .section-title[tabindex]:focus { outline: 3px solid var(--accent-dark); outline-offset: 3px; }\n    .section-title[id] { scroll-margin-top: 16px; }\n  </style>"
+  ],
+  [
+    ".first-run-lore > summary { cursor: pointer;",
+    ".first-run-lore > summary { color: var(--accent-dark); cursor: pointer;"
   ]
 ]

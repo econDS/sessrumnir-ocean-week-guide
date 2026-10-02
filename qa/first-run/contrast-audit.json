@@ -1,0 +1,155 @@
+{
+  "method": "Actual computed Chromium colors for new controls at390px; WCAG sRGB luminance. Ocean translucent card uses conservative94percent white over black. This is not a whole-app WCAG certification.",
+  "checks": [
+    {
+      "control": "Best Status selected activity",
+      "foreground": [
+        182,
+        195,
+        202
+      ],
+      "background": [
+        36,
+        67,
+        80
+      ],
+      "contrast": 5.842,
+      "result": "PASS"
+    },
+    {
+      "control": "Best Status other activity",
+      "foreground": [
+        182,
+        195,
+        202
+      ],
+      "background": [
+        20,
+        33,
+        45
+      ],
+      "contrast": 9.063,
+      "result": "PASS"
+    },
+    {
+      "control": "Reform primary start",
+      "foreground": [
+        23,
+        59,
+        45
+      ],
+      "background": [
+        215,
+        240,
+        176
+      ],
+      "contrast": 9.989,
+      "result": "PASS"
+    },
+    {
+      "control": "Reform result link",
+      "foreground": [
+        24,
+        33,
+        30
+      ],
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 16.469,
+      "result": "PASS"
+    },
+    {
+      "control": "Dim new links/summary",
+      "foreground": [
+        44,
+        62,
+        80
+      ],
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 10.983,
+      "result": "PASS"
+    },
+    {
+      "control": "Ocean task links",
+      "foreground": [
+        11,
+        93,
+        131
+      ],
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 7.222,
+      "result": "PASS"
+    },
+    {
+      "control": "Ocean lore summary conservative94percent white bound",
+      "foreground": [
+        11,
+        93,
+        131
+      ],
+      "background": [
+        239.7,
+        239.7,
+        239.7
+      ],
+      "contrast": 6.32,
+      "result": "PASS"
+    },
+    {
+      "control": "Leveling cue",
+      "foreground": [
+        11,
+        122,
+        117
+      ],
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 5.179,
+      "result": "PASS"
+    },
+    {
+      "control": "Reform result link dark",
+      "foreground": [
+        232,
+        239,
+        234
+      ],
+      "background": [
+        19,
+        26,
+        23
+      ],
+      "contrast": 15.125,
+      "result": "PASS"
+    },
+    {
+      "control": "Leveling cue dark",
+      "foreground": [
+        60,
+        192,
+        182
+      ],
+      "background": [
+        23,
+        30,
+        39
+      ],
+      "contrast": 7.517,
+      "result": "PASS"
+    }
+  ]
+}

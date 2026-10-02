@@ -1,10 +1,13 @@
 {
-  "sourceBase": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
-  "candidateIndexSHA256": "8fad755945f3659ce8ef0eb5a0c790e24dbb8a5ba171009a46a36ab3a109f4cc",
-  "browserVersion": "140.0.7339.186",
-  "passed": 6230,
-  "failures": [],
-  "firstRun": {
+  "baseCommit": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
+  "previousFullRegression": {
+    "candidateIndexSHA256": "8fad755945f3659ce8ef0eb5a0c790e24dbb8a5ba171009a46a36ab3a109f4cc",
+    "passed": 6230,
+    "failures": [],
+    "note": "Earlier same UX before summary-text contrast correction; final-head CI is authoritative for full regression."
+  },
+  "currentIndexSHA256": "d46fd8bb3921ddda4924c24744f0786b4dd3b77aab1b45e3671b2c8d4b54d6c4",
+  "currentFirstRun": {
     "baseCommit": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
     "headCommit": "local-uncommitted",
     "checks": [
