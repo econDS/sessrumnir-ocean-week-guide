@@ -9,6 +9,6 @@
   ],
   [
     "    .hero-badge::before {",
-    "    .archive-label, .archive-ended, .archive-caveat { color: #ffffff; background: #07385e; }\n\n    .hero-badge::before {"
+    "    .archive-label, .subtitle.archive-ended, .subtitle.archive-caveat { color: #ffffff; background: #07385e; }\n\n    .hero-badge::before {"
   ]
 ]

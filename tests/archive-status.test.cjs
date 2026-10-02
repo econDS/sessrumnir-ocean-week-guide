@@ -22,7 +22,7 @@ test('Reversing only the approved copy and archive contrast replacements reprodu
 });
 
 test('Archive warning has an opaque, high contrast static surface', () => {
- assert(html.includes('.archive-label, .archive-ended, .archive-caveat { color: #ffffff; background: #07385e; }'));
+ assert(html.includes('.archive-label, .subtitle.archive-ended, .subtitle.archive-caveat { color: #ffffff; background: #07385e; }'));
  const channel = v => v / 255 <= .04045 ? v / 255 / 12.92 : ((v / 255 + .055) / 1.055) ** 2.4;
  const l = [7,56,94].map(channel).reduce((sum,c,i) => sum + c * [.2126,.7152,.0722][i],0);
  assert(1.05 / (l + .05) >= 4.5);
