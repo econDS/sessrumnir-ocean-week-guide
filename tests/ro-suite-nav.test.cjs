@@ -58,3 +58,18 @@ test('Navigation placement, local path, light theme, and catalog identity', {ski
   const planned=catalog.tools.find(t=>t.id==='grade-refine');
   assert.equal(planned.listingStatus,'planned'); assert.equal(planned.canonicalUrl,null);
 });
+test('Pre-edit browser evidence is genuine and passed every original-view scenario', {skip:!integrated},()=>{
+  const bytes=require('node:zlib').gunzipSync(read('qa/ro-suite-nav/baseline.json.gz'));
+  assert.equal(sha256(bytes),'b396e7df0893ba0de9861a4ccd7adafdf3af0730485320913eefdf95bd90bd9c');
+  const report=JSON.parse(bytes);
+  assert.equal(report.status,'passed'); assert.deepEqual(report.failures,[]);
+  assert.equal(report.sources.base.commit,baseline.baseCommit);
+  assert.equal(report.sources.current.commit,'5b27636096fdb6a2f1d30a9af1b64eb9e570e112');
+  assert.equal(report.sources.current.indexSha256,baseline.files['docs/index.html']);
+  assert.equal(report.playwrightVersion,'1.55.1'); assert.equal(Object.keys(report.scenarios).length,8);
+  for(const scenario of Object.values(report.scenarios)) {
+    assert.equal(scenario.kind,'baseline'); assert.equal(scenario.copyResults.length,150);
+    assert.equal(scenario.inventory.copies.length,75); assert.equal(scenario.inventory.aggregates.length,0);
+    assert.equal(scenario.lightboxes.length,87); assert.equal(scenario.geometry.excess,0);
+  }
+});
