@@ -171,6 +171,11 @@ async function inventory(page) {
     const local = url => { try { const u = new URL(url, location.href); return u.origin === location.origin ? u.pathname + u.search + u.hash : u.href; } catch { return url; } };
     const clone = document.querySelector('main.page').cloneNode(true);
     clone.querySelectorAll('ro-suite-nav').forEach(el => el.remove());
+    // Only approved archive copy is removed from content regression; all original guide content stays compared.
+    clone.querySelectorAll('.archive-ended, .archive-caveat').forEach(el => el.remove());
+    clone.querySelector('.hero-badge').textContent = 'Sessrumnir Ocean Week';
+    const subtitle = clone.querySelector('header > .subtitle');
+    subtitle.textContent = subtitle.textContent.replace('ใช้คู่มือนี้ดู NPC และขั้นตอนของรอบเดิม · ', '');
     return {
       title: document.title, heading: document.querySelector('h1').textContent,
       guideText: clone.textContent.replace(/\s+/g, ' ').trim(),
@@ -200,7 +205,11 @@ function compareGeometry(actual, expected, label) {
   actual.items.forEach((item, i) => {
     const previous = expected.items[i];
     assert.equal(item.tag, previous.tag);
-    for (const k of ['x', 'relativeY', 'width', 'height']) assert(Math.abs(item[k] - previous[k]) <= 1, `${label}: original element ${i} ${item.tag}.${item.class} ${k} ${item[k]} differs from baseline ${previous[k]}`);
+    const headerDelta = actual.header.height - expected.header.height;
+    for (const k of ['x', 'relativeY', 'width', 'height']) {
+      const allowed = k === 'height' && item.tag === 'HEADER' ? headerDelta : k === 'relativeY' && item.tag !== 'HEADER' ? headerDelta : 0;
+      assert(Math.abs(item[k] - previous[k] - allowed) <= 1, `${label}: original element ${i} ${item.tag}.${item.class} ${k} ${item[k]} differs from baseline ${previous[k]} (approved header shift ${allowed})`);
+    }
   });
 }
 async function storage(page) { return page.evaluate(() => ({ local: Object.fromEntries(Object.entries(localStorage)), session: Object.fromEntries(Object.entries(sessionStorage)), operations: window.__qa.storageOperations })); }
@@ -462,6 +471,16 @@ async function runScenario(server, width, colorScheme, kind, baseline) {
     page.setDefaultTimeout(10000);
     await page.goto(server.url, { waitUntil: 'networkidle', timeout: 30000 }); await settled(page);
     scenario.inventory = await inventory(page); scenario.geometry = await geometry(page);
+    if (kind !== 'baseline') await check(id + '-visible-static-archive', async () => {
+      await top(page);
+      const badge = page.locator('header .hero-badge');
+      assert.equal(await badge.innerText(), 'คู่มือย้อนหลัง');
+      const ended = page.locator('.archive-ended');
+      assert.equal(await ended.innerText(), 'กิจกรรมรอบ 6 พ.ค. – 4 มิ.ย. 2569 สิ้นสุดแล้ว');
+      for (const el of [badge, ended, page.locator('.archive-caveat')]) { const b = await el.boundingBox(); assert(b && b.y >= 0 && b.y + b.height <= page.viewportSize().height, 'Archive copy visible without deep scrolling'); assert.equal(await el.getAttribute('role'), null); const color = await el.evaluate(e => ({color:getComputedStyle(e).color,background:getComputedStyle(e).backgroundColor})); assert.deepEqual(color,{color:'rgb(255, 255, 255)',background:'rgb(7, 56, 94)'}); }
+      assert((await page.locator('.archive-caveat').innerText()).includes('หากกิจกรรมกลับมาอีกครั้ง'));
+      assert.equal(await page.locator('h1').count(), 1);
+    }, page);
     await check(id + '-all-original-images-load', async () => {
       const html = fs.readFileSync(path.join(server.root, 'index.html'), 'utf8');
       const sourceImageCount = [...html.matchAll(/<img\b[^>]*\bsrc=[\"'][^\"']+[\"'][^>]*>/gi)].length;

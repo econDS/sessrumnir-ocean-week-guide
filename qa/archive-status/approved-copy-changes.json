@@ -1,0 +1,14 @@
+[
+  [
+    "      <span class=\"hero-badge\">Sessrumnir Ocean Week</span>",
+    "      <span class=\"hero-badge archive-label\">คู่มือย้อนหลัง</span>"
+  ],
+  [
+    "      <p class=\"subtitle\">จิ้มที่ข้อความ /navi เพื่อ copy navigation command ได้ทันที</p>",
+    "      <p class=\"subtitle archive-ended\">กิจกรรมรอบ 6 พ.ค. – 4 มิ.ย. 2569 สิ้นสุดแล้ว</p>\n      <p class=\"subtitle archive-caveat\">ข้อมูลในหน้านี้อ้างอิงกิจกรรมรอบดังกล่าว และไม่ได้ยืนยันว่าจะใช้เหมือนเดิมหากกิจกรรมกลับมาอีกครั้ง</p>\n      <p class=\"subtitle\">ใช้คู่มือนี้ดู NPC และขั้นตอนของรอบเดิม · จิ้มที่ข้อความ /navi เพื่อ copy navigation command ได้ทันที</p>"
+  ],
+  [
+    "    .hero-badge::before {",
+    "    .archive-label, .subtitle.archive-ended, .subtitle.archive-caveat { color: #ffffff; background: #07385e; }\n\n    .hero-badge::before {"
+  ]
+]

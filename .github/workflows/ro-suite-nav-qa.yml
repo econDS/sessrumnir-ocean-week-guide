@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   navigation-qa:
-    if: github.head_ref == 'chore/ro-suite-nav-1.3.0' && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.head_ref == 'fix/archive-status-clarity' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     defaults:
@@ -31,7 +31,7 @@ jobs:
           printf '%s\n' '{"status":"not-run","reason":"See setup logs if Chromium did not start"}' > qa-artifacts/report.json
           git rev-parse HEAD > qa-artifacts/source-commit.txt
           mkdir -p "$RUNNER_TEMP/ocean-base"
-          git archive 71417fee17a5732aacf8db81933359aeb2f5fad3 docs | tar -x -C "$RUNNER_TEMP/ocean-base"
+          git archive e2d407699d5a8fc5a37b91ffec1071df9bf41471 docs | tar -x -C "$RUNNER_TEMP/ocean-base"
       - name: Source baseline and integration checks
         run: node --test tests/*.test.cjs 2>&1 | tee qa-artifacts/static-tests.log
       - name: Install pinned browser tooling
@@ -46,7 +46,7 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/ocean-nav-qa/node_modules
           QA_OUTPUT: ${{ github.workspace }}/qa-artifacts
           SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
-          BASE_SHA: 71417fee17a5732aacf8db81933359aeb2f5fad3
+          BASE_SHA: e2d407699d5a8fc5a37b91ffec1071df9bf41471
           BASE_DOCS: ${{ runner.temp }}/ocean-base/docs
         run: |
           grep -q '<ro-suite-nav ' docs/index.html
