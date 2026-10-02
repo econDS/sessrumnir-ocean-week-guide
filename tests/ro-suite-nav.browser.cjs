@@ -75,9 +75,20 @@ async function check(name, task, page) {
   catch (error) { failure(name, error); if (page && !page.isClosed()) await capture(page, 'failure-' + name, false).catch(() => {}); return undefined; }
 }
 async function top(page) {
-  // Blurring can close the menu through focusout. Scrolling must not change focus.
-  await page.evaluate(() => window.scrollTo({ left: 0, top: 0, behavior: 'instant' }));
-  await page.waitForFunction(() => scrollX === 0 && scrollY === 0);
+  // Clicks in the mobile exchange table legitimately scroll its overflow-x:auto
+  // wrapper. Restore original horizontal scrollers before comparing geometry or
+  // taking top-of-page screenshots. This uses scrolling, not CSS/DOM changes.
+  // Blurring can close the menu through focusout, so preserve keyboard focus.
+  await page.evaluate(() => {
+    for (const el of document.querySelectorAll('main.page *')) {
+      if (!el.closest('ro-suite-nav') && el.scrollLeft !== 0) {
+        el.scrollTo({ left: 0, top: el.scrollTop, behavior: 'instant' });
+      }
+    }
+    window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
+  });
+  await page.waitForFunction(() => scrollX === 0 && scrollY === 0 &&
+    [...document.querySelectorAll('main.page *')].filter(el => !el.closest('ro-suite-nav')).every(el => el.scrollLeft === 0));
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
 async function capture(page, name, settle = true) {
