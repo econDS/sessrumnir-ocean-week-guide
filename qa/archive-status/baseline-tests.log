@@ -1,0 +1,14 @@
+✔ 1.3.0 exact source artifacts, lock, Best Status, planned status, and additive rollback (1.975753ms)
+✔ All original production bytes preserved after subtracting only the approved integration (8.937166ms)
+✔ Daily Quest 4 start and random destinations retain the original distinction (0.224241ms)
+✔ Immutable upstream artifact bytes and lock match (0.310408ms)
+✔ Navigation placement, local path, light theme, and catalog identity (0.51563ms)
+✔ Pre-edit browser evidence is genuine and passed every original-view scenario (18.565252ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.729726

@@ -7,7 +7,7 @@ const {capture, sha256} = require('./capture-ocean-baseline.cjs');
 const root = path.resolve(__dirname, '..');
 const read = p=>fs.readFileSync(path.join(root,p));
 const baseline = JSON.parse(read('qa/ro-suite-nav/source-baseline.json'));
-const html = read('docs/index.html').toString();
+const html = require('./archive-copy-helper.cjs').beforeArchive(read('docs/index.html').toString());
 const integrated = html.includes('<ro-suite-nav ');
 const markup = `  <ro-suite-nav tool-id="ocean-week-guide" portal-url="https://econds.github.io/ro_tools_portal/" theme="light">
     <nav aria-label="เครื่องมือ RO">
