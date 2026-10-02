@@ -1,0 +1,117 @@
+{
+  "baseCommit": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
+  "previousFullRegression": {
+    "candidateIndexSHA256": "8fad755945f3659ce8ef0eb5a0c790e24dbb8a5ba171009a46a36ab3a109f4cc",
+    "passed": 6230,
+    "failures": [],
+    "note": "Earlier same UX before summary-text contrast correction; final-head CI is authoritative for full regression."
+  },
+  "currentIndexSHA256": "d46fd8bb3921ddda4924c24744f0786b4dd3b77aab1b45e3671b2c8d4b54d6c4",
+  "currentFirstRun": {
+    "baseCommit": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
+    "headCommit": "local-uncommitted",
+    "checks": [
+      {
+        "width": 360,
+        "status": "PASS",
+        "checks": "jump Enter/hash, 44px, lore Space toggle, archive, overflow, utility earlier"
+      },
+      {
+        "width": 390,
+        "status": "PASS",
+        "checks": "jump Enter/hash, 44px, lore Space toggle, archive, overflow, utility earlier"
+      },
+      {
+        "width": 768,
+        "status": "PASS",
+        "checks": "jump Enter/hash, 44px, lore Space toggle, archive, overflow, utility earlier"
+      },
+      {
+        "width": 1440,
+        "status": "PASS",
+        "checks": "jump Enter/hash, 44px, lore Space toggle, archive, overflow, utility earlier"
+      }
+    ],
+    "screenshots": [
+      "before-360.png",
+      "before-390.png",
+      "before-768.png",
+      "before-1440.png",
+      "after-360.png",
+      "after-390.png",
+      "after-768.png",
+      "after-1440.png"
+    ],
+    "geometry": [
+      {
+        "kind": "before",
+        "width": 360,
+        "firstCopyY": 1745.40625,
+        "headerHeight": 431.46875,
+        "overflow": 0,
+        "expandedLore": true
+      },
+      {
+        "kind": "before",
+        "width": 390,
+        "firstCopyY": 1642.75,
+        "headerHeight": 407.46875,
+        "overflow": 0,
+        "expandedLore": true
+      },
+      {
+        "kind": "before",
+        "width": 768,
+        "firstCopyY": 1106.21875,
+        "headerHeight": 319.234375,
+        "overflow": 0,
+        "expandedLore": true
+      },
+      {
+        "kind": "before",
+        "width": 1440,
+        "firstCopyY": 1003.890625,
+        "headerHeight": 285.90625,
+        "overflow": 0,
+        "expandedLore": true
+      },
+      {
+        "kind": "after",
+        "width": 360,
+        "firstCopyY": 1427.140625,
+        "headerHeight": 431.46875,
+        "overflow": 0,
+        "firstRunY": 567.46875,
+        "expandedLore": false
+      },
+      {
+        "kind": "after",
+        "width": 390,
+        "firstCopyY": 1382.140625,
+        "headerHeight": 407.46875,
+        "overflow": 0,
+        "firstRunY": 543.46875,
+        "expandedLore": false
+      },
+      {
+        "kind": "after",
+        "width": 768,
+        "firstCopyY": 1011.765625,
+        "headerHeight": 319.234375,
+        "overflow": 0,
+        "firstRunY": 437.234375,
+        "expandedLore": false
+      },
+      {
+        "kind": "after",
+        "width": 1440,
+        "firstCopyY": 960.90625,
+        "headerHeight": 285.90625,
+        "overflow": 0,
+        "firstRunY": 403.90625,
+        "expandedLore": false
+      }
+    ],
+    "status": "PASS"
+  }
+}

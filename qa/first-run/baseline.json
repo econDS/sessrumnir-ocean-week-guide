@@ -1,0 +1,27 @@
+{
+  "baseCommit": "01e356ade26cb4f80c70dc3e75882cca79aa30b9",
+  "indexSha256": "efd6558163edecb8b8d0272f7f22c9b2759ed92b256a1ad21018aec7024ec444",
+  "publishingRoot": "docs/",
+  "publicPath": "/sessrumnir-ocean-week-guide/",
+  "navVersion": "1.3.0",
+  "theme": "light",
+  "before": {
+    "minimumInputs": 0,
+    "utilityPrecededBy": [
+      "archive hero",
+      "official link",
+      "expanded lore"
+    ],
+    "taskJumps": 0,
+    "expandedLore": 1
+  },
+  "after": {
+    "minimumInputs": 0,
+    "utilityPrecededBy": [
+      "archive hero",
+      "task jump navigation"
+    ],
+    "taskJumps": 4,
+    "expandedLore": 0
+  }
+}

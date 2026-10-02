@@ -15,7 +15,7 @@ test('Exact archive copy is visible static header content, with unchanged period
 });
 test('Reversing only the approved copy and archive contrast replacements reproduces the entire pre-edit page and all assets', () => {
  assert.equal(base.baseCommit, 'e2d407699d5a8fc5a37b91ffec1071df9bf41471');
- const before = beforeArchive(html);
+ const before = beforeArchive(require('../qa/first-run/normalize.cjs')(html));
  for (const [file, hash] of Object.entries(base.files)) assert.equal(sha256(file === 'docs/index.html' ? before : fs.readFileSync(file)), hash, file);
  const {baseCommit,files,...inventory} = base;
  assert.deepEqual(capture(before), inventory);

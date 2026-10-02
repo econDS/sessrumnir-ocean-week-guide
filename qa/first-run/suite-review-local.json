@@ -1,0 +1,127 @@
+{
+  "startedAt": "2026-10-02T17:37:53.946Z",
+  "sourceHeads": {
+    "ro-leveling-map": "f9aae25b47594cedfd3640bf851bea2ca0154e56",
+    "ro-reform-preparation": "6af6a72889c6be3e37d724c3de9201ff96736cbd",
+    "dim_glacier_planner": "2ab24dfa2ba332eaac6a46bfe295d10c75efd887",
+    "ro-best-status": "956c3ca9b2af81543bc58f502d71f3247dfe3fbc",
+    "sessrumnir-ocean-week-guide": "e988ea21c8ef66d876702a6e856006a03a6c04e9"
+  },
+  "checks": [
+    {
+      "repo": "ro-leveling-map",
+      "width": 390,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "ro-leveling-map",
+      "width": 1440,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "ro-reform-preparation",
+      "width": 390,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "ro-reform-preparation",
+      "width": 1440,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "dim_glacier_planner",
+      "width": 390,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "dim_glacier_planner",
+      "width": 1440,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "ro-best-status",
+      "width": 390,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "ro-best-status",
+      "width": 1440,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "sessrumnir-ocean-week-guide",
+      "width": 390,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    },
+    {
+      "repo": "sessrumnir-ocean-week-guide",
+      "width": 1440,
+      "primaryCue": "PASS",
+      "criticalCaution": "PASS",
+      "identity": "PASS",
+      "completeNavigation": "PASS",
+      "plannedNonLaunchable": "PASS",
+      "escapeFocus": "PASS",
+      "navHashes": "PASS"
+    }
+  ],
+  "limitations": [
+    "Exact candidate navigation is checked locally, remote destination availability is outside this UX task",
+    "No game-data verification or human usability score"
+  ],
+  "status": "PASS"
+}
