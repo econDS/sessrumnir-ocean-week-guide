@@ -60,3 +60,41 @@ jobs:
           path: qa-artifacts/
           if-no-files-found: warn
           retention-days: 90
+
+  cross-suite-first-run:
+    if: github.head_ref == 'ux/first-run-ocean-guide' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.14.0'
+      - name: Fetch exact candidate heads without credentials
+        run: |
+          mkdir -p suite-artifacts "$RUNNER_TEMP/suite/sessrumnir-ocean-week-guide"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/suite/sessrumnir-ocean-week-guide"
+          node - <<'NODE'
+          const heads=require('./qa/first-run/suite-heads.json'),fs=require('node:fs'),{execFileSync:run}=require('node:child_process');
+          for(const[repo,sha]of Object.entries(heads)){const cwd=process.env.RUNNER_TEMP+'/suite/'+repo;run('git',['init',cwd]);run('git',['fetch','--depth','1','https://github.com/econDS/'+repo+'.git',sha],{cwd,stdio:'inherit'});run('git',['checkout','--detach','FETCH_HEAD'],{cwd,stdio:'inherit'});}
+          NODE
+          npm install --prefix "$RUNNER_TEMP/suite-tools" --no-save --package-lock=false --ignore-scripts playwright@1.55.1
+          node "$RUNNER_TEMP/suite-tools/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Verify cross-suite first-run consistency on all exact candidates
+        env:
+          NODE_PATH: ${{ runner.temp }}/suite-tools/node_modules
+          SUITE_ROOT: ${{ runner.temp }}/suite
+          SUITE_HEADS: ${{ github.workspace }}/qa/first-run/suite-heads.json
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+          QA_OUTPUT: ${{ github.workspace }}/suite-artifacts
+        run: set -o pipefail; node tests/suite-first-run.browser.cjs 2>&1 | tee suite-artifacts/cross-suite.log
+      - name: Upload cross-suite evidence even after failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: first-run-suite-${{ github.event.pull_request.head.sha }}
+          path: suite-artifacts/
+          retention-days: 30
