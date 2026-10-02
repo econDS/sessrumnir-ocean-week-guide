@@ -9,7 +9,7 @@
 
 The only production document changes are one navigation-only style block and the module URL bump. Body padding remains 28px, or 16px at 720px and below. The 980px `.page` container, original CSS, guide scripts, original main DOM, commands, images, links, event dates, archive notices and first-run content remain unchanged.
 
-The shared bar uses `--ro-suite-content-max-width: 980px` and `--ro-suite-inline-padding: 0px`. The internal `.bar` aligns with `.page`; the outer shared surface fills the existing body content width. The light-DOM Portal fallback is independently constrained to 980px, remains a 44px target, and needs no JavaScript. No body/header spacing compensation is introduced.
+The shared bar uses `--ro-suite-content-max-width: 980px` and `--ro-suite-inline-padding: 0px`. The internal `.bar` aligns with `.page`; the outer shared surface fills the existing body content width. The light-DOM Portal fallback is independently constrained to 980px, remains a 44px target, and needs no JavaScript. Its link removes only horizontal padding so the visible Portal text begins at the same edge as the loaded utility bar. No body/header spacing compensation is introduced.
 
 ## Verification
 

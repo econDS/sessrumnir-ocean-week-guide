@@ -43,8 +43,9 @@ async function geometry(page) {
     const host=document.querySelector('ro-suite-nav'),nav=host.shadowRoot?.querySelector('nav') || host.querySelector('nav'),alignment=host.shadowRoot?.querySelector('.bar') || nav;
     const visible=el=>!!el.getClientRects().length;
     const original=[...document.querySelectorAll('main.page > *, .grid > *, [data-copy], [data-copy-all], img[data-zoom], main.page a')].filter(visible).map((el,index)=>{const r=rect(el);return{index,tag:el.tagName,id:el.id,class:el.className,x:r.x,relativeY:r.y-anchor,width:r.width,height:r.height};});
+    const portal=host.shadowRoot?.querySelector('.bar > a') || nav.querySelector('a'),range=document.createRange();range.selectNodeContents(portal);const textRect=range.getBoundingClientRect();
     const style=getComputedStyle(nav),body=getComputedStyle(document.body);
-    return{main:rect(main),nav:rect(nav),alignment:rect(alignment),host:rect(host),original,bodyPadding:[body.paddingTop,body.paddingRight,body.paddingBottom,body.paddingLeft],bodyBackground:body.background,theme:getComputedStyle(host).colorScheme,navStyle:{radius:style.borderRadius,padding:style.padding,border:style.borderBottomColor},overflow:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth,mainHTML:main.innerHTML};
+    return{portalText:{x:textRect.x,right:textRect.right},main:rect(main),nav:rect(nav),alignment:rect(alignment),host:rect(host),original,bodyPadding:[body.paddingTop,body.paddingRight,body.paddingBottom,body.paddingLeft],bodyBackground:body.background,theme:getComputedStyle(host).colorScheme,navStyle:{radius:style.borderRadius,padding:style.padding,border:style.borderBottomColor},overflow:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth,mainHTML:main.innerHTML};
   });
 }
 function close(a,b,label,tolerance=1){assert(Math.abs(a-b)<=tolerance,`${label}: ${a} != ${b}`);}
@@ -86,7 +87,7 @@ async function shot(page,name) {
         if(mode==='normal')await page.locator('ro-suite-nav .bar button').waitFor();
         const current=await geometry(page),label=`${width}-${colorScheme}-${mode}`;
         preserveApp(current,baseline,label);
-        close(current.alignment.x,current.main.x,label+' bar left aligned');close(current.alignment.right,current.main.right,label+' bar right aligned');
+        close(current.portalText.x,current.main.x,label+' visible Portal text aligned');close(current.alignment.x,current.main.x,label+' bar left aligned');close(current.alignment.right,current.main.right,label+' bar right aligned');
         assert(current.nav.bottom<=current.main.y,label+' nav/header separation');
         const links=page.locator(mode==='normal'?'ro-suite-nav .bar a,ro-suite-nav .bar button':'ro-suite-nav > nav > a');
         for(const box of await links.evaluateAll(nodes=>nodes.map(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}))))assert(box.width>=44 && box.height>=44,label+' 44px targets');

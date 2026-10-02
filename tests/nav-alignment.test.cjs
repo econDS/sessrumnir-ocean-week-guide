@@ -43,6 +43,6 @@ test('alignment integration is confined to the host and fallback with explicit p
   const css=html.match(/<style id="ro-suite-nav-alignment">([\s\S]*?)<\/style>/)[1];
   assert.match(css,/--ro-suite-content-max-width: 980px/);assert.match(css,/--ro-suite-inline-padding: 0px/);
   for(const match of css.replace(/\/\*[\s\S]*?\*\//g,'').matchAll(/([^{}]+)\{/g))assert.match(match[1].trim(),/^ro-suite-nav(?:\s|\{|$)/);
-  assert.match(css,/min-height: 52px/);assert.match(css,/color-scheme: light/);
+  assert.match(css,/min-height: 52px/);assert.match(css,/color-scheme: light/);assert.match(css,/padding: 8px 0/);assert.match(css,/box-sizing: border-box/);
   assert.match(html,/ro-suite-nav > nav > a \{ display: inline-flex; align-items: center; min-width: 44px; min-height: 44px;/);
 });
