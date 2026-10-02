@@ -477,7 +477,7 @@ async function runScenario(server, width, colorScheme, kind, baseline) {
       assert.equal(await badge.innerText(), 'คู่มือย้อนหลัง');
       const ended = page.locator('.archive-ended');
       assert.equal(await ended.innerText(), 'กิจกรรมรอบ 6 พ.ค. – 4 มิ.ย. 2569 สิ้นสุดแล้ว');
-      for (const el of [badge, ended, page.locator('.archive-caveat')]) { const b = await el.boundingBox(); assert(b && b.y >= 0 && b.y + b.height <= page.viewportSize().height, 'Archive copy visible without deep scrolling'); assert.equal(await el.getAttribute('role'), null); }
+      for (const el of [badge, ended, page.locator('.archive-caveat')]) { const b = await el.boundingBox(); assert(b && b.y >= 0 && b.y + b.height <= page.viewportSize().height, 'Archive copy visible without deep scrolling'); assert.equal(await el.getAttribute('role'), null); const color = await el.evaluate(e => ({color:getComputedStyle(e).color,background:getComputedStyle(e).backgroundColor})); assert.deepEqual(color,{color:'rgb(255, 255, 255)',background:'rgb(7, 56, 94)'}); }
       assert((await page.locator('.archive-caveat').innerText()).includes('หากกิจกรรมกลับมาอีกครั้ง'));
       assert.equal(await page.locator('h1').count(), 1);
     }, page);
