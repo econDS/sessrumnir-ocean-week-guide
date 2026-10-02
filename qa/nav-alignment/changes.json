@@ -1,0 +1,10 @@
+[
+  [
+    "</head>",
+    "  <style id=\"ro-suite-nav-alignment\">\n    /* Navigation-only alignment: the existing 28px/16px body gutters stay intact. */\n    ro-suite-nav {\n      display: block;\n      --ro-suite-content-max-width: 980px;\n      --ro-suite-inline-padding: 0px;\n    }\n    ro-suite-nav > nav {\n      display: flex;\n      align-items: center;\n      max-width: var(--ro-suite-content-max-width);\n      min-height: 52px;\n      margin-inline: auto;\n      border-bottom: 1px solid #cbd7c7;\n      background: #f1f5ed;\n      color: #233b2c;\n      color-scheme: light;\n    }\n    ro-suite-nav > nav > a:focus-visible {\n      outline: 3px solid #315d45;\n      outline-offset: 2px;\n    }\n  </style>\n</head>"
+  ],
+  [
+    "./assets/ro-suite/1.3.0/nav.js",
+    "./assets/ro-suite/1.4.0/nav.js"
+  ]
+]
