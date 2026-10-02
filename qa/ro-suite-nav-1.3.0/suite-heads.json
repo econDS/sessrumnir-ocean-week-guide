@@ -1,0 +1,22 @@
+{
+  "portal": {
+    "repo": "ro_tools_portal",
+    "sha": "e497e33ca172a62fce5432c735c91c7b75d1a52c"
+  },
+  "best": {
+    "repo": "ro-best-status",
+    "sha": "21131807125d4318c37e50c0a4efcfec2c1c8970"
+  },
+  "leveling": {
+    "repo": "ro-leveling-map",
+    "sha": "7c36e880539af2bc82e25bec0ed42044db6dba65"
+  },
+  "reform": {
+    "repo": "ro-reform-preparation",
+    "sha": "b2f0b72a25b1ec604d210c0c500c8375d59ade79"
+  },
+  "dim": {
+    "repo": "dim_glacier_planner",
+    "sha": "de709f0ea069fb92ff11dce9a9dba94e29a81fb7"
+  }
+}

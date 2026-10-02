@@ -59,3 +59,45 @@ jobs:
           path: qa-artifacts/
           if-no-files-found: warn
           retention-days: 90
+
+  cross-repository-consistency:
+    if: github.head_ref == 'chore/ro-suite-nav-1.3.0' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.14.0'
+      - name: Fetch exact reviewed candidates and install pinned QA-only browser
+        run: |
+          mkdir -p suite-artifacts "$RUNNER_TEMP/suite"
+          git rev-parse HEAD > suite-artifacts/source-commit.txt
+          node - <<'NODE'
+          const heads=require('./qa/ro-suite-nav-1.3.0/suite-heads.json');
+          const {execFileSync:run}=require('node:child_process');
+          for(const [key,{repo,sha}] of Object.entries(heads)) {
+            const cwd=process.env.RUNNER_TEMP+'/suite/'+key;
+            run('git',['init',cwd]);
+            run('git',['fetch','--depth','1','https://github.com/econDS/'+repo+'.git',sha],{cwd,stdio:'inherit'});
+            run('git',['checkout','--detach','FETCH_HEAD'],{cwd,stdio:'inherit'});
+          }
+          NODE
+          npm install --prefix "$RUNNER_TEMP/suite-qa" --no-save --package-lock=false --ignore-scripts playwright@1.55.1
+          node "$RUNNER_TEMP/suite-qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Real candidate cross-repository navigation matrix
+        env:
+          NODE_PATH: ${{ runner.temp }}/suite-qa/node_modules
+          SUITE_ROOT: ${{ runner.temp }}/suite
+          QA_OUTPUT: ${{ github.workspace }}/suite-artifacts
+        run: set -o pipefail; node tests/suite130.browser.cjs 2>&1 | tee suite-artifacts/cross-repo.log
+      - name: Upload final-head suite evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cross-repo-nav130-${{ github.event.pull_request.head.sha }}
+          path: suite-artifacts/
+          retention-days: 90
