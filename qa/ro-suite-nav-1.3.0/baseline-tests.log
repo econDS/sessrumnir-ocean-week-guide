@@ -1,0 +1,13 @@
+✔ All original production bytes preserved after subtracting only the approved integration (7.316222ms)
+✔ Daily Quest 4 start and random destinations retain the original distinction (0.205925ms)
+✔ Immutable upstream artifact bytes and lock match (0.289728ms)
+✔ Navigation placement, local path, light theme, and catalog identity (0.468002ms)
+✔ Pre-edit browser evidence is genuine and passed every original-view scenario (13.939209ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 104.457128
