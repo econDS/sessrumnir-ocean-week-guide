@@ -166,7 +166,7 @@ async function settled(page) {
 }
 async function inventory(page) {
   return page.evaluate(() => {
-    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps');
+    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps') && !(el.tagName === 'STYLE' && el.id === 'ro-suite-nav-alignment');
     const attrs = el => Object.fromEntries([...el.attributes].map(a => [a.name, a.value]));
     const local = url => { try { const u = new URL(url, location.href); return u.origin === location.origin ? u.pathname + u.search + u.hash : u.href; } catch { return url; } };
     const clone = document.querySelector('main.page').cloneNode(true);

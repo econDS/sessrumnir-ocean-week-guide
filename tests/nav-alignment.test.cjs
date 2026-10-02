@@ -9,14 +9,14 @@ const baseline=require('../qa/nav-alignment/baseline.json');
 const normalize=require('../qa/nav-alignment/normalize.cjs');
 const html=read('docs/index.html').toString();
 const old=execFileSync('git',['show',baseline.baseCommit+':docs/index.html'],{cwd:root,encoding:'utf8'});
-const release='docs/assets/ro-suite/1.4.0/';
+const release='docs/assets/ro-suite/1.4.1/';
 test('latest merged first-run and archive guide survives the exact navbar-only delta',()=>{
   assert.equal(baseline.baseCommit,'159a9d12ee1d1f2e6713297fcbd379952f1b69ab');
   assert.equal(hash(old),baseline.files['docs/index.html']);
   assert.equal(normalize(html),old,'all pre-rollout document bytes reconstruct exactly');
   for(const [file,expected] of Object.entries(baseline.files))if(file!=='docs/index.html')assert.equal(hash(read(file)),expected,file+' remains byte-identical');
   for(const [,after] of require('../qa/nav-alignment/changes.json'))assert.equal(html.split(after).length,2,'exact reviewed navbar delta appears once');
-  assert.throws(()=>normalize(html.replace('./assets/ro-suite/1.4.0/nav.js','./assets/ro-suite/broken/nav.js')));
+  assert.throws(()=>normalize(html.replace('./assets/ro-suite/1.4.1/nav.js','./assets/ro-suite/broken/nav.js')));
 });
 test('raw candidate guide DOM, original styling, scripts, clipboard data and links equal the actual latest source',()=>{
   // This comparison deliberately uses the actual, unnormalized candidate.
@@ -27,19 +27,24 @@ test('raw candidate guide DOM, original styling, scripts, clipboard data and lin
   assert.deepEqual(styles(html),styles(old));
   assert.equal((html.match(/<ro-suite-nav\b/g)||[]).length,1);
   assert.match(html,/<ro-suite-nav tool-id="ocean-week-guide" portal-url="https:\/\/econds.github.io\/ro_tools_portal\/" theme="light">/);
-  assert.match(html,/src="\.\/assets\/ro-suite\/1\.4\.0\/nav\.js"/);
+  assert.match(html,/src="\.\/assets\/ro-suite\/1\.4\.1\/nav\.js"/);
   assert(!/<ro-suite-nav[^>]*catalog-url=/.test(html));
 });
 test('new immutable release matches Portal source and all historical releases remain additive',()=>{
-  const expected={'nav.js':'629b6da9aab2b0e6470f0a955d112261fc2406275a6260145d9056b612a98735','catalog.snapshot.json':'a198338ddcb7857094ef950fb1315c532840cf53ac8e7a69b331d8cb4a87dd5d','nav.lock.json':'558e1a00ad34b2b4921934380d7e12205a99be361307b16d43bc60825e36f098'};
+  const expected={'nav.js':'a51d69610e73c2c25d5167c1001d2cded4770e7af67f1fc92695fabafd07b590','catalog.snapshot.json':'a198338ddcb7857094ef950fb1315c532840cf53ac8e7a69b331d8cb4a87dd5d','nav.lock.json':'28543178d99fb8269d3a41ead7105e7c0a9db3fa7654c4910ca05bc94099bde7'};
   for(const [file,expectedHash] of Object.entries(expected))assert.equal(hash(read(release+file)),expectedHash,file);
   const lock=JSON.parse(read(release+'nav.lock.json'));
-  assert.equal(lock.bundleVersion,'1.4.0');assert.equal(lock.sourceCommit,'24ca1068c8f6868b38d6224e661f818fec9897f9');
+  assert.equal(lock.bundleVersion,'1.4.1');assert.equal(lock.sourceCommit,'ac62659a26539d802111d255edb92b09ec68382b');
   for(const file of ['nav.js','catalog.snapshot.json'])assert.equal(lock.files[file].sha256,expected[file]);
   assert.deepEqual(read(release+'catalog.snapshot.json'),read('docs/assets/ro-suite/1.3.0/catalog.snapshot.json'));
+  const previous140={'nav.js':'629b6da9aab2b0e6470f0a955d112261fc2406275a6260145d9056b612a98735','catalog.snapshot.json':'a198338ddcb7857094ef950fb1315c532840cf53ac8e7a69b331d8cb4a87dd5d','nav.lock.json':'558e1a00ad34b2b4921934380d7e12205a99be361307b16d43bc60825e36f098'};
+  for(const [file,expectedHash] of Object.entries(previous140))assert.equal(hash(read('docs/assets/ro-suite/1.4.0/'+file)),expectedHash,'prior 1.4.0 remains immutable: '+file);
+  assert.match(read(release+'nav.js').toString(),/p:empty\{margin:0\}/);
+  assert.doesNotMatch(read(release+'nav.js').toString(),/p:empty[^}]*display:\s*none/);
   for(const version of ['1.2.0','1.3.0'])for(const file of ['nav.js','catalog.snapshot.json','nav.lock.json'])assert.equal(hash(read(`docs/assets/ro-suite/${version}/${file}`)),baseline.files[`docs/assets/ro-suite/${version}/${file}`]);
 });
 test('alignment integration is confined to the host and fallback with explicit page width',()=>{
+  assert.equal((html.match(/<style id="ro-suite-nav-alignment">/g)||[]).length,1);
   const css=html.match(/<style id="ro-suite-nav-alignment">([\s\S]*?)<\/style>/)[1];
   assert.match(css,/--ro-suite-content-max-width: 980px/);assert.match(css,/--ro-suite-inline-padding: 0px/);
   for(const match of css.replace(/\/\*[\s\S]*?\*\//g,'').matchAll(/([^{}]+)\{/g))assert.match(match[1].trim(),/^ro-suite-nav(?:\s|\{|$)/);

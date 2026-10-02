@@ -82,7 +82,7 @@ async function shot(page,name) {
       await before.close();
       for(const mode of ['normal','fallback']){
         const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-        if(mode==='fallback')await page.route('**/assets/ro-suite/1.4.0/nav.js',route=>route.abort('failed'));
+        if(mode==='fallback')await page.route('**/assets/ro-suite/1.4.1/nav.js',route=>route.abort('failed'));
         await page.goto(afterURL,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
         if(mode==='normal')await page.locator('ro-suite-nav .bar button').waitFor();
         const current=await geometry(page),label=`${width}-${colorScheme}-${mode}`;
