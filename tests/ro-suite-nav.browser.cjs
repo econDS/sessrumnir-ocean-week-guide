@@ -35,8 +35,9 @@ const report = {
   schemaVersion: 1, mode: BASELINE_ONLY ? 'baseline-only' : 'comparison', startedAt: new Date().toISOString(),
   playwrightVersion: null, browserVersion: null, subpath: PREFIX, widths: WIDTHS, themes: THEMES,
   sources: {}, checks: [], failures: [], screenshots: [], scenarios: {}, networkComparison: null,
+  nativeClipboard: { scenarios: {}, networkComparison: null }, releaseAssetHttp: [],
   limitations: [
-    'Clipboard writes are captured by instrumenting navigator.clipboard.writeText in fresh browser contexts; native clipboard permissions are neither assumed nor granted. Every copy control is also clicked with writeText rejected to exercise the real execCommand fallback.',
+    'Exhaustive copy coverage intercepts clipboard writes and execCommand output for every real copy target. Separate native Chromium smoke contexts receive clipboard-read/write permissions and verify actual clipboard readText after real clicks on three representative controls, including the real execCommand fallback. Native smoke is limited to 390/light and 1440/dark.',
     'Exact external link destinations are intercepted only for document navigation and fulfilled with local QA stubs. This verifies click/keyboard navigation targets, not remote site availability.',
     'External fonts are not mocked or blanket-ignored. Their real request, response, console and failure inventories are retained and compared against the real baseline.',
     'Screenshots are viewport captures taken at settled scroll top. Geometry comparison preserves any measured pre-existing overflow rather than treating the original page as perfect.'
@@ -496,6 +497,148 @@ async function runScenario(server, width, colorScheme, kind, baseline) {
   finally { await context.close(); save(); }
   return scenario;
 }
+async function nativeClipboardSmoke(server, width, colorScheme, kind, baseline) {
+  const id = `native-clipboard-${kind}-${width}-${colorScheme}`;
+  const scenario = report.nativeClipboard.scenarios[id] = {
+    id, width, theme: colorScheme, kind, url: server.url,
+    permissions: ['clipboard-read', 'clipboard-write'], clipboardWriteSpy: false, execCommandSpy: false,
+    blockedRequests: [], results: [],
+    network: { requests: [], responses: [], failedRequests: [], badResponses: [], console: [], pageErrors: [] }
+  };
+  // Deliberately do not use createContext(): there is no clipboard or execCommand
+  // capture spy in this fresh context. Both native APIs remain real.
+  const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce', serviceWorkers: 'block', permissions: scenario.permissions });
+  let page;
+  try {
+    const html = fs.readFileSync(path.join(server.root, 'index.html'), 'utf8');
+    const navPath = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]).find(src => /(?:^|\/)nav\.js(?:[?#]|$)/.test(src));
+    scenario.navScriptUrl = navPath ? new URL(navPath, server.url).href : null;
+    if (kind === 'fallback') {
+      assert(scenario.navScriptUrl, 'Native fallback smoke has an actual installed nav.js to block');
+      await context.route(scenario.navScriptUrl, async route => { scenario.blockedRequests.push(route.request().url()); await route.abort('blockedbyclient'); });
+    }
+    page = await context.newPage(); monitor(page, scenario); page.setDefaultTimeout(10000);
+    await page.goto(server.url, { waitUntil: 'networkidle', timeout: 30000 }); await settled(page); await page.bringToFront();
+    scenario.initialStorage = await page.evaluate(() => ({ local: Object.fromEntries(Object.entries(localStorage)), session: Object.fromEntries(Object.entries(sessionStorage)) }));
+    await check(id + '-native-api-setup', async () => {
+      const api = await page.evaluate(() => {
+        if (!navigator.clipboard?.readText || !navigator.clipboard?.writeText) throw new Error('Native clipboard APIs unavailable');
+        window.__nativeClipboard = {
+          writeText: navigator.clipboard.writeText,
+          descriptor: Object.getOwnPropertyDescriptor(navigator.clipboard, 'writeText'),
+          execCommand: document.execCommand,
+          rejectedWrites: 0
+        };
+        return { secureContext: isSecureContext, captureSpyPresent: typeof window.__qa !== 'undefined', writeText: Function.prototype.toString.call(navigator.clipboard.writeText), readText: Function.prototype.toString.call(navigator.clipboard.readText), execCommand: Function.prototype.toString.call(document.execCommand) };
+      });
+      assert(api.secureContext); assert.equal(api.captureSpyPresent, false);
+      for (const name of ['writeText', 'readText', 'execCommand']) assert(api[name].includes('[native code]'), `${name} is the browser-native function`);
+      if (kind === 'normal') assert(await page.locator('ro-suite-nav').evaluate(el => !!el.shadowRoot));
+      if (kind === 'fallback') {
+        assert(scenario.blockedRequests.length > 0);
+        assert.equal(await page.locator('ro-suite-nav').evaluate(el => !!el.shadowRoot), false);
+        assert(await page.locator('ro-suite-nav a').isVisible());
+      }
+      scenario.nativeApis = api;
+    }, page);
+    const controls = [
+      { name: 'ordinary-navi', target: page.locator('button.nav-button[data-copy^="/navi"]').first().locator('.copy-label') },
+      { name: 'route-copy-child', target: page.locator('.route-line[data-copy] .route-copy').first() },
+      { name: 'daily-quest-with-image', target: page.locator('button.nav-button[data-copy]').filter({ has: page.locator('img[data-zoom]') }).first().locator('.copy-label') }
+    ];
+    for (const control of controls) for (const mode of ['native-writeText', 'native-execCommand-fallback']) {
+      await check(`${id}-${control.name}-${mode}`, async () => {
+        const expected = await control.target.evaluate(el => el.closest('[data-copy]').dataset.copy);
+        const previous = baseline?.results.find(result => result.control === control.name && result.mode === mode);
+        if (baseline) { assert(previous, 'A real baseline native clipboard read exists'); assert.equal(expected, previous.expected); }
+        const sentinel = `native-clipboard-before:${id}:${control.name}:${mode}`;
+        // Seed a different native clipboard value before each click to rule out
+        // accidental success from a previous control's or API path's clipboard.
+        await page.evaluate(async ({ sentinel, reject }) => {
+          const state = window.__nativeClipboard;
+          if (state.descriptor) Object.defineProperty(navigator.clipboard, 'writeText', state.descriptor);
+          else delete navigator.clipboard.writeText;
+          await state.writeText.call(navigator.clipboard, sentinel);
+          state.rejectedWrites = 0;
+          if (reject) Object.defineProperty(navigator.clipboard, 'writeText', { configurable: true, value: async () => { state.rejectedWrites++; throw new DOMException('QA forces the application fallback', 'NotAllowedError'); } });
+        }, { sentinel, reject: mode === 'native-execCommand-fallback' });
+        assert.equal(await page.evaluate(() => navigator.clipboard.readText()), sentinel, 'Native clipboard sentinel was actually written');
+        try {
+          await control.target.click();
+          await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, expected);
+          const actual = await page.evaluate(() => navigator.clipboard.readText());
+          assert.deepEqual(Buffer.from(actual), Buffer.from(expected), 'Actual native clipboard UTF-8 bytes match source value');
+          if (previous) assert.deepEqual(Buffer.from(actual), Buffer.from(previous.text), 'Actual native clipboard bytes match baseline');
+          const state = await page.evaluate(() => ({ rejectedWrites: window.__nativeClipboard.rejectedWrites, execCommandUnmodified: document.execCommand === window.__nativeClipboard.execCommand }));
+          assert.equal(state.rejectedWrites, mode === 'native-execCommand-fallback' ? 1 : 0);
+          assert(state.execCommandUnmodified, 'Fallback uses real document.execCommand without a capture/replacement spy');
+          assert.equal(await page.locator('textarea[readonly]').count(), 0);
+          assert.equal(await page.locator('#imageLightbox').getAttribute('aria-hidden'), 'true', 'Daily COPY activation did not open its child image');
+          assert.equal(await page.locator('#toast').textContent(), `Copied: ${expected}`);
+          scenario.results.push({ control: control.name, mode, expected, text: actual, utf8Bytes: Buffer.byteLength(actual), sha256: sha(actual), ...state });
+        } finally {
+          await page.evaluate(() => {
+            const state = window.__nativeClipboard;
+            if (state.descriptor) Object.defineProperty(navigator.clipboard, 'writeText', state.descriptor);
+            else delete navigator.clipboard.writeText;
+          });
+        }
+      }, page);
+    }
+    await check(id + '-native-smoke-state', async () => {
+      assert.equal(scenario.results.length, 6, 'All three controls pass both native copy paths');
+      assert.equal(page.url(), scenario.url, 'Native copy actions preserve the original query and hash');
+      scenario.finalStorage = await page.evaluate(() => ({ local: Object.fromEntries(Object.entries(localStorage)), session: Object.fromEntries(Object.entries(sessionStorage)) }));
+      assert.deepEqual(scenario.finalStorage, scenario.initialStorage, 'Native copy smoke creates no storage keys');
+    }, page);
+    await capture(page, id);
+  } catch (error) { failure(id + '-setup', error); if (page && !page.isClosed()) await capture(page, id + '-failure', false).catch(() => {}); }
+  finally { await context.close(); save(); }
+  return scenario;
+}
+function compareNativeClipboardNetwork() {
+  const native = Object.values(report.nativeClipboard.scenarios);
+  const baseline = [...Object.values(report.scenarios), ...native].filter(s => s.kind === 'baseline');
+  const categories = ['pageErrors', 'consoleErrors', 'consoleWarnings', 'failedRequests', 'badResponses'];
+  const baselineUnion = Object.fromEntries(categories.map(k => [k, [...new Set(baseline.flatMap(s => signatures(s)[k]))].sort()]));
+  const comparison = report.nativeClipboard.networkComparison = { baselineUnion, scenarios: {}, policy: 'Native clipboard smoke inventories are separate from exhaustive interactions. Only the exact deliberately aborted nav.js request is excluded; real font errors are retained and compared.' };
+  for (const s of native) {
+    s.network.signatures = signatures(s);
+    if (s.kind === 'baseline') continue;
+    const novel = comparison.scenarios[s.id] = {};
+    for (const category of categories) {
+      novel[category] = s.network.signatures[category].filter(value => !baselineUnion[category].includes(value));
+      assert.deepEqual(novel[category], [], `${s.id}: no new ${category} beyond actual baseline`);
+    }
+  }
+}
+async function releaseAssetHttp(server) {
+  // Direct API checks deliberately live outside the application's runtime request
+  // inventories. The page loads nav.js only; JSON sidecars are verified here.
+  const context = await browser.newContext();
+  try {
+    const html = fs.readFileSync(path.join(server.root, 'index.html'), 'utf8');
+    const navPath = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]).find(src => /(?:^|\/)nav\.js(?:[?#]|$)/.test(src));
+    assert(navPath, 'Release HTTP checks require the installed nav.js path');
+    const directory = path.posix.dirname(navPath) + '/';
+    const lock = JSON.parse(fs.readFileSync(path.join(server.root, directory, 'nav.lock.json'), 'utf8'));
+    for (const file of ['nav.js', 'catalog.snapshot.json', 'nav.lock.json']) {
+      await check('release-http-' + file, async () => {
+        const relative = directory + file, url = new URL(relative, server.url).href;
+        assert.equal(new URL(url).origin, server.origin); assert(new URL(url).pathname.startsWith(PREFIX));
+        const expectedBytes = fs.readFileSync(path.join(server.root, relative));
+        const response = await context.request.get(url);
+        const actual = await response.body();
+        const item = { file, url: normalizeUrl(url), status: response.status(), bytes: actual.length, sha256: sha(actual), expectedSha256: sha(expectedBytes), releaseLockSha256: lock.files[file]?.sha256 || null, source: 'separate context.request GET; not a runtime application request' };
+        report.releaseAssetHttp.push(item);
+        assert.equal(response.status(), 200); assert.equal(response.url(), url, 'Release asset does not redirect');
+        assert.deepEqual(actual, expectedBytes, 'Served release asset bytes match the checked-in file');
+        if (item.releaseLockSha256) assert.equal(item.sha256, item.releaseLockSha256, 'Served bundle/catalog matches the published release lock');
+        await response.dispose();
+      });
+    }
+  } finally { await context.close(); save(); }
+}
 function signatures(scenario) {
   const n = scenario.network;
   const isBlocked = item => scenario.kind === 'fallback' && (item.url === scenario.navScriptUrl || item.location?.url === scenario.navScriptUrl);
@@ -564,6 +707,15 @@ function compareNetwork() {
       }
     }
     await check('console-page-network-baseline-comparison', async () => compareNetwork());
+    for (const [width, colorScheme] of [[390, 'light'], [1440, 'dark']]) {
+      const nativeBase = await nativeClipboardSmoke(baseServer, width, colorScheme, 'baseline');
+      if (!BASELINE_ONLY) {
+        await nativeClipboardSmoke(currentServer, width, colorScheme, 'normal', nativeBase);
+        await nativeClipboardSmoke(currentServer, width, colorScheme, 'fallback', nativeBase);
+      }
+    }
+    await check('native-clipboard-network-baseline-comparison', async () => compareNativeClipboardNetwork());
+    if (!BASELINE_ONLY) await check('served-release-assets', () => releaseAssetHttp(currentServer));
   } catch (error) { failure('runner', error); }
   finally {
     if (browser) await browser.close().catch(() => {});

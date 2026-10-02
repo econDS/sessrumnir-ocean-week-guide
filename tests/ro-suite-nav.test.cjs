@@ -39,14 +39,14 @@ test('Daily Quest 4 start and random destinations retain the original distinctio
   assert.deepEqual(baseline.commands.dailyCommands.slice(3), ['/navi ra_temple 213/120','/navi ra_temple 211/91','/navi ra_temple 121/113','/navi ra_temple 67/166']);
   assert.equal(baseline.aggregateButtons.length,0,'no aggregate control exists at base');
 });
-test('Immutable upstream artifact bytes and lock match', {skip:!integrated},()=>{
+test('Immutable upstream artifact bytes and lock match',()=>{
   const directory='docs/assets/ro-suite/1.2.0/';
   const lock=JSON.parse(read(directory+'nav.lock.json'));
   assert.equal(lock.bundleVersion,'1.2.0');
   for(const [file,hash] of Object.entries(expected)) assert.equal(sha256(read(directory+file)),hash,file);
   for(const file of ['nav.js','catalog.snapshot.json']) assert.equal(lock.files[file].sha256,expected[file]);
 });
-test('Navigation placement, local path, light theme, and catalog identity', {skip:!integrated},()=>{
+test('Navigation placement, local path, light theme, and catalog identity',()=>{
   assert.match(html,/<body>\s*<ro-suite-nav /);
   assert(html.indexOf(markup)<html.indexOf('<main class="page">'));
   assert(!/<ro-suite-nav[^>]*catalog-url=/.test(html));
@@ -58,7 +58,7 @@ test('Navigation placement, local path, light theme, and catalog identity', {ski
   const planned=catalog.tools.find(t=>t.id==='grade-refine');
   assert.equal(planned.listingStatus,'planned'); assert.equal(planned.canonicalUrl,null);
 });
-test('Pre-edit browser evidence is genuine and passed every original-view scenario', {skip:!integrated},()=>{
+test('Pre-edit browser evidence is genuine and passed every original-view scenario',()=>{
   const bytes=require('node:zlib').gunzipSync(read('qa/ro-suite-nav/baseline.json.gz'));
   assert.equal(sha256(bytes),'b396e7df0893ba0de9861a4ccd7adafdf3af0730485320913eefdf95bd90bd9c');
   const report=JSON.parse(bytes);

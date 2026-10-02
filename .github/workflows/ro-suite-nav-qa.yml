@@ -49,7 +49,7 @@ jobs:
           BASE_SHA: 71417fee17a5732aacf8db81933359aeb2f5fad3
           BASE_DOCS: ${{ runner.temp }}/ocean-base/docs
         run: |
-          if ! grep -q '<ro-suite-nav ' docs/index.html; then export BASELINE_ONLY=1; fi
+          grep -q '<ro-suite-nav ' docs/index.html
           node tests/ro-suite-nav.browser.cjs 2>&1 | tee qa-artifacts/browser-tests.log
       - name: Upload logs, reports, and screenshots even after failures
         if: always()

@@ -1,0 +1,1424 @@
+{
+  "sourceCommit": "faef0b2e7ae184d94511ae79bdadd43216d612d0",
+  "baseCommit": "71417fee17a5732aacf8db81933359aeb2f5fad3",
+  "workflowRun": "https://github.com/econDS/sessrumnir-ocean-week-guide/actions/runs/36960038277",
+  "artifact": "https://github.com/econDS/sessrumnir-ocean-week-guide/actions/runs/36960038277/artifacts/11207861763",
+  "reportSha256": "66ef21b628ceb30f5e714d9f01f1395deb37638c2114cd9753f906f7cebf7ef3",
+  "status": "passed",
+  "checks": 6137,
+  "failures": [],
+  "playwrightVersion": "1.55.1",
+  "browserVersion": "140.0.7339.186",
+  "subpath": "/sessrumnir-ocean-week-guide/",
+  "screenshots": [
+    {
+      "name": "normal-390-light-menu-open",
+      "file": "normal-390-light-menu-open.png",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "scrollX": 0,
+      "scrollY": 0,
+      "url": "http://local.test/sessrumnir-ocean-week-guide/?qa=preserve%20me&repeat=a&repeat=b#qa-sentinel",
+      "sha256": "1a5388827e7784e499a914bf1ceb4b46b36be77a8b1813950906994b027a7804"
+    },
+    {
+      "name": "fallback-390-light-fallback-visible",
+      "file": "fallback-390-light-fallback-visible.png",
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "scrollX": 0,
+      "scrollY": 0,
+      "url": "http://local.test/sessrumnir-ocean-week-guide/?qa=preserve%20me&repeat=a&repeat=b#qa-sentinel",
+      "sha256": "b17d57ae58dd122ed664c59ac8dd33f60df2dc4ae6105656ff84690289fba24f"
+    },
+    {
+      "name": "normal-1440-dark-menu-open",
+      "file": "normal-1440-dark-menu-open.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scrollX": 0,
+      "scrollY": 0,
+      "url": "http://local.test/sessrumnir-ocean-week-guide/?qa=preserve%20me&repeat=a&repeat=b#qa-sentinel",
+      "sha256": "e935b2b7ef9dcd18b50d0e0c528fbc1192b0e1e335aa4109d62794cf89902405"
+    },
+    {
+      "name": "fallback-1440-dark-fallback-visible",
+      "file": "fallback-1440-dark-fallback-visible.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scrollX": 0,
+      "scrollY": 0,
+      "url": "http://local.test/sessrumnir-ocean-week-guide/?qa=preserve%20me&repeat=a&repeat=b#qa-sentinel",
+      "sha256": "2802221c112e894ef67470e94eed410e74b5d02db63607007cc188858d6972b4"
+    }
+  ],
+  "scenarios": {
+    "baseline-360-light": {
+      "kind": "baseline",
+      "width": 360,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-360-dark": {
+      "kind": "baseline",
+      "width": 360,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-390-light": {
+      "kind": "baseline",
+      "width": 390,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-390-dark": {
+      "kind": "baseline",
+      "width": 390,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-768-light": {
+      "kind": "baseline",
+      "width": 768,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-768-dark": {
+      "kind": "baseline",
+      "width": 768,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-1440-light": {
+      "kind": "baseline",
+      "width": 1440,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "baseline-1440-dark": {
+      "kind": "baseline",
+      "width": 1440,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-360-light": {
+      "kind": "normal",
+      "width": 360,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 310,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-360-light": {
+      "kind": "fallback",
+      "width": 360,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 16,
+        "y": 16,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-360-dark": {
+      "kind": "normal",
+      "width": 360,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 310,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 310,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-360-dark": {
+      "kind": "fallback",
+      "width": 360,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 16,
+        "y": 16,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-390-light": {
+      "kind": "normal",
+      "width": 390,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 340,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-390-light": {
+      "kind": "fallback",
+      "width": 390,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 16,
+        "y": 16,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-390-dark": {
+      "kind": "normal",
+      "width": 390,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 340,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 340,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-390-dark": {
+      "kind": "fallback",
+      "width": 390,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 16,
+        "y": 16,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-768-light": {
+      "kind": "normal",
+      "width": 768,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 148,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 166.5625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 179.265625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 217.9375,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-768-light": {
+      "kind": "fallback",
+      "width": 768,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 28,
+        "y": 28,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-768-dark": {
+      "kind": "normal",
+      "width": 768,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 148,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 166.5625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 179.265625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 217.9375,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-768-dark": {
+      "kind": "fallback",
+      "width": 768,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 28,
+        "y": 28,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-1440-light": {
+      "kind": "normal",
+      "width": 1440,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 148,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 166.5625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 179.265625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 217.9375,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-1440-light": {
+      "kind": "fallback",
+      "width": 1440,
+      "osColorScheme": "light",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 28,
+        "y": 28,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "normal-1440-dark": {
+      "kind": "normal",
+      "width": 1440,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": {
+        "identity": {
+          "accent": "rgb(15, 118, 134)",
+          "cssAccent": "#0f7686",
+          "paths": [
+            "M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"
+          ],
+          "title": "Sessrumnir Ocean Week",
+          "colorScheme": "light"
+        },
+        "keyboard": [
+          "Tab Portal",
+          "Tab toggle",
+          "Enter opens",
+          "Tab each live tool",
+          "Escape closes and returns focus",
+          "Space opens",
+          "Space closes",
+          "Tab out closes"
+        ],
+        "links": [
+          {
+            "text": "แผนที่เก็บเลเวล",
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "current": null
+          },
+          {
+            "text": "Reform Workshop",
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "current": null
+          },
+          {
+            "text": "Dim Glacier Planner",
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "current": null
+          },
+          {
+            "text": "Sessrumnir Ocean Week",
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "current": "page"
+          }
+        ],
+        "hitTargets": [
+          {
+            "tag": "A",
+            "text": "กลับ RO Tools Portal",
+            "width": 151.671875,
+            "height": 44
+          },
+          {
+            "tag": "BUTTON",
+            "text": "เครื่องมืออื่น",
+            "width": 98,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "แผนที่เก็บเลเวล",
+            "width": 148,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Reform Workshop",
+            "width": 166.5625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Dim Glacier Planner",
+            "width": 179.265625,
+            "height": 44
+          },
+          {
+            "tag": "A",
+            "text": "Sessrumnir Ocean Week",
+            "width": 217.9375,
+            "height": 44
+          }
+        ],
+        "destinationInteractions": [
+          {
+            "href": "https://econds.github.io/ro_tools_portal/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-leveling-map/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/ro-reform-preparation/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/dim_glacier_planner/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          },
+          {
+            "href": "https://econds.github.io/sessrumnir-ocean-week-guide/",
+            "activation": "Enter",
+            "interceptedLocally": true
+          }
+        ]
+      },
+      "fallback": null,
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    },
+    "fallback-1440-dark": {
+      "kind": "fallback",
+      "width": 1440,
+      "osColorScheme": "dark",
+      "documentOverflowPixels": 0,
+      "copyTargets": 75,
+      "copyByteComparisons": 150,
+      "aggregateButtons": 0,
+      "lightboxOpenCloseChecks": 87,
+      "navigation": null,
+      "fallback": {
+        "x": 28,
+        "y": 28,
+        "width": 165,
+        "height": 44
+      },
+      "consoleAndNetwork": {
+        "pageErrors": [],
+        "consoleErrors": [],
+        "consoleWarnings": [],
+        "failedRequests": [],
+        "badResponses": []
+      }
+    }
+  },
+  "limits": [
+    "Clipboard writes are captured by instrumenting navigator.clipboard.writeText in fresh browser contexts; native clipboard permissions are neither assumed nor granted. Every copy control is also clicked with writeText rejected to exercise the real execCommand fallback.",
+    "Exact external link destinations are intercepted only for document navigation and fulfilled with local QA stubs. This verifies click/keyboard navigation targets, not remote site availability.",
+    "External fonts are not mocked or blanket-ignored. Their real request, response, console and failure inventories are retained and compared against the real baseline.",
+    "Screenshots are viewport captures taken at settled scroll top. Geometry comparison preserves any measured pre-existing overflow rather than treating the original page as perfect."
+  ],
+  "finalHeadNote": "Screenshots were captured from the sourceCommit above. Later commits may update QA/evidence only; the PR links the required passing CI run for its exact final head."
+}
