@@ -14,7 +14,7 @@ const markup = `  <ro-suite-nav tool-id="ocean-week-guide" portal-url="https://e
       <a href="https://econds.github.io/ro_tools_portal/">กลับ RO Tools Portal</a>
     </nav>
   </ro-suite-nav>
-  <script type="module" src="./assets/ro-suite/1.2.0/nav.js"></script>
+  <script type="module" src="./assets/ro-suite/1.3.0/nav.js"></script>
 `;
 const css = '    ro-suite-nav > nav > a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; padding: 8px 12px; }\n\n';
 const expected = {

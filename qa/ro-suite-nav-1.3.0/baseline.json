@@ -1,0 +1,13 @@
+{
+  "baseCommit": "bc22059ec0f6021bc2ae2671be52d85a7cccdae2",
+  "capturedBeforeEdit": true,
+  "indexPath": "docs/index.html",
+  "indexSha256": "24f52db9fa511faa60d8c58ab1df597468d27fc92280524fd72a6dc9f34ca5b8",
+  "navVersion": "1.2.0",
+  "theme": "light",
+  "toolId": "ocean-week-guide",
+  "publishingRoot": "docs",
+  "publicPath": "/sessrumnir-ocean-week-guide/",
+  "gitStatus": "clean",
+  "originalTests": 5
+}
