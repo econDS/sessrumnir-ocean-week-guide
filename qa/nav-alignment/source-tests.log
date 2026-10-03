@@ -1,0 +1,24 @@
+✔ Exact archive copy is visible static header content, with unchanged period and official link (1.028256ms)
+✔ Reversing only the approved copy and archive contrast replacements reproduces the entire pre-edit page and all assets (12.00495ms)
+✔ Archive warning has an opaque, high contrast static surface (0.180483ms)
+✔ only exact first-run presentation delta; every previous production byte reconstructs (2.997024ms)
+✔ four unique utility jumps, closed lore, visible archive and unchanged copy commands (0.53547ms)
+✔ new disclosure text uses an existing dark token with AA contrast on its light card (0.194574ms)
+✔ latest merged first-run and archive guide survives the exact navbar-only delta (6.192708ms)
+✔ raw candidate guide DOM, original styling, scripts, clipboard data and links equal the actual latest source (8.417884ms)
+✔ new immutable release matches Portal source and all historical releases remain additive (1.065241ms)
+✔ alignment integration is confined to the host and fallback with explicit page width (0.650223ms)
+✔ 1.3.0 exact source artifacts, lock, Best Status, planned status, and additive rollback (5.150611ms)
+✔ All original production bytes preserved after subtracting only the approved integration (8.36882ms)
+✔ Daily Quest 4 start and random destinations retain the original distinction (0.356088ms)
+✔ Immutable upstream artifact bytes and lock match (0.393285ms)
+✔ Navigation placement, local path, light theme, and catalog identity (0.596272ms)
+✔ Pre-edit browser evidence is genuine and passed every original-view scenario (16.292206ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 123.924182

@@ -166,7 +166,7 @@ async function settled(page) {
 }
 async function inventory(page) {
   return page.evaluate(() => {
-    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps');
+    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps') && !(el.tagName === 'STYLE' && el.id === 'ro-suite-nav-alignment');
     const attrs = el => Object.fromEntries([...el.attributes].map(a => [a.name, a.value]));
     const local = url => { try { const u = new URL(url, location.href); return u.origin === location.origin ? u.pathname + u.search + u.hash : u.href; } catch { return url; } };
     const clone = document.querySelector('main.page').cloneNode(true);
@@ -351,9 +351,9 @@ async function navigation(page, scenario, baseline) {
   assert.equal(await host.getAttribute('portal-url'), PORTAL);
   const identity = await host.evaluate(el => {
     const root = el.shadowRoot, nav = root.querySelector('nav');
-    return { accent: getComputedStyle(nav).borderBottomColor, cssAccent: nav.style.getPropertyValue('--tool-accent'), paths: [...root.querySelectorAll('.current .chip path')].map(p => p.getAttribute('d')), title: root.querySelector('.current').textContent, colorScheme: getComputedStyle(el).colorScheme };
+    return { accent: getComputedStyle(nav).borderBottomColor, chipAccent: getComputedStyle(root.querySelector('.current .chip')).backgroundColor, cssAccent: nav.style.getPropertyValue('--tool-accent'), paths: [...root.querySelectorAll('.current .chip path')].map(p => p.getAttribute('d')), title: root.querySelector('.current').textContent, colorScheme: getComputedStyle(el).colorScheme };
   });
-  assert.equal(identity.accent, 'rgb(15, 118, 134)'); assert.equal(identity.cssAccent, '#0f7686');
+  assert.equal(identity.accent, 'rgb(203, 215, 199)'); assert.equal(identity.chipAccent, 'rgb(15, 118, 134)'); assert.equal(identity.cssAccent, '#0f7686');
   assert.deepEqual(identity.paths, ['M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0']);
   assert.equal(identity.title, 'Sessrumnir Ocean Week'); assert.equal(identity.colorScheme, 'light');
   scenario.navigation = { identity, keyboard: [], links: [] };
