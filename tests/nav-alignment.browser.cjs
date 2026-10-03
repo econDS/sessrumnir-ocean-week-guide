@@ -14,7 +14,7 @@ const DOCS = path.join(ROOT, 'docs');
 const BEFORE = process.env.BASE_DOCS && path.resolve(process.env.BASE_DOCS);
 const OUTPUT = path.resolve(process.env.ALIGNMENT_OUTPUT || 'qa-artifacts/alignment');
 const PREFIX = '/sessrumnir-ocean-week-guide/';
-const BASE_SHA = '159a9d12ee1d1f2e6713297fcbd379952f1b69ab';
+const BASE_SHA = process.env.BASE_SHA || '159a9d12ee1d1f2e6713297fcbd379952f1b69ab';
 const WIDTHS = [360,390,480,720,721,768,1036,1037,1440,1920];
 const THEMES = ['light','dark'];
 const servers = [];
@@ -69,9 +69,9 @@ async function shot(page,name) {
 (async()=>{
   let browser;
   try {
-    assert(BEFORE,'BASE_DOCS must point at the untouched latest 1.3.0 guide');
+    assert(BEFORE,'BASE_DOCS must point at the untouched declared base guide');
     assert.equal(report.playwrightVersion,'1.55.1');
-    assert.equal(hash(fs.readFileSync(path.join(BEFORE,'index.html'))),require('../qa/nav-alignment/baseline.json').files['docs/index.html']);
+    assert.equal(hash(fs.readFileSync(path.join(BEFORE,'index.html'))),(BASE_SHA===require('../qa/nav-theme/baseline.json').baseCommit?require('../qa/nav-theme/baseline.json').files['index.html']:require('../qa/nav-alignment/baseline.json').files['docs/index.html']));
     const beforeURL=await serve(BEFORE),afterURL=await serve(DOCS);
     browser=await chromium.launch({headless:true,...(process.env.QA_CHROMIUM?{executablePath:process.env.QA_CHROMIUM}:{})});
     report.browserVersion=browser.version();
@@ -82,11 +82,12 @@ async function shot(page,name) {
       await before.close();
       for(const mode of ['normal','fallback']){
         const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-        if(mode==='fallback')await page.route('**/assets/ro-suite/1.4.1/nav.js',route=>route.abort('failed'));
+        if(mode==='fallback')await page.route('**/assets/ro-suite/1.5.1/nav.js',route=>route.abort('failed'));
         await page.goto(afterURL,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
         if(mode==='normal')await page.locator('ro-suite-nav .bar button').waitFor();
         const current=await geometry(page),label=`${width}-${colorScheme}-${mode}`;
         preserveApp(current,baseline,label);
+        if(mode==='normal' && BASE_SHA===require('../qa/nav-theme/baseline.json').baseCommit){close(current.host.height,baseline.host.height,label+' closed height preserved');close(current.host.height,53,label+' 53px closed height');}
         close(current.portalText.x,current.main.x,label+' visible Portal text aligned');close(current.alignment.x,current.main.x,label+' bar left aligned');close(current.alignment.right,current.main.right,label+' bar right aligned');
         assert(current.nav.bottom<=current.main.y,label+' nav/header separation');
         const links=page.locator(mode==='normal'?'ro-suite-nav .bar a,ro-suite-nav .bar button':'ro-suite-nav > nav > a');
@@ -94,6 +95,12 @@ async function shot(page,name) {
         assert.deepEqual(errors,[],label+' no page errors');
         assert.equal(page.url(),afterURL,label+' query and hash preserved');
         if(mode==='normal'){
+          const colors=await page.locator('ro-suite-nav').evaluate(host=>{
+            const root=host.shadowRoot,nav=root.querySelector('nav'),chip=root.querySelector('.current .chip'),current=root.querySelector('[aria-current=page]'),planned=root.querySelector('li > span');
+            const style=getComputedStyle(nav);
+            return {surface:style.backgroundColor,text:style.color,border:style.borderBottomColor,font:style.fontFamily,accent:getComputedStyle(chip).color,hover:getComputedStyle(current).backgroundColor,muted:getComputedStyle(planned).color};
+          });
+          assert.deepEqual(colors,{surface:'rgb(255, 255, 255)',text:'rgb(16, 43, 67)',border:'rgba(28, 117, 159, 0.18)',font:'Sarabun, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',accent:'rgb(11, 93, 131)',hover:'rgb(223, 244, 251)',muted:'rgb(85, 112, 134)'},label+' actual host semantic colors');
           assert.equal(current.theme,'light',label+' explicit light theme');
           const toggle=page.locator('ro-suite-nav .bar button');await toggle.focus();await page.keyboard.press('Enter');
           assert.equal(await toggle.getAttribute('aria-expanded'),'true');const open=await geometry(page);preserveApp(open,baseline,label+' open');
