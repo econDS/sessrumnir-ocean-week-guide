@@ -6,7 +6,7 @@
 
 - Publishing source: `master` / `docs/` โดย URL ไม่มี `/docs/`
 - หน้าและรูปภาพอยู่ใน `docs/index.html` และ `docs/assets/`
-- แถบร่วม `ro-suite-nav 1.3.0` โหลดจากไฟล์ใน `docs/assets/ro-suite/1.3.0/` พร้อมลิงก์สำรองกลับ Portal
+- แถบร่วม `ro-suite-nav 1.5.1` โหลดจากไฟล์ใน `docs/assets/ro-suite/1.5.1/` พร้อมลิงก์สำรองกลับ Portal
 - คำสั่ง `/navi`, ข้อมูลเควส และภาพยังเป็นข้อมูลรอบเดิม การตรวจ navigation หรือทบทวน metadata ไม่ใช่การยืนยันข้อมูลเกมใหม่
 
 ## ตรวจสอบ

@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 const baseline=require('../qa/nav-alignment/baseline.json');
 const normalize=require('../qa/nav-alignment/normalize.cjs');
-const html=read('docs/index.html').toString();
+const html=require('../qa/nav-theme/normalize.cjs')(read('docs/index.html').toString());
 const old=execFileSync('git',['show',baseline.baseCommit+':docs/index.html'],{cwd:root,encoding:'utf8'});
 const release='docs/assets/ro-suite/1.4.1/';
 test('latest merged first-run and archive guide survives the exact navbar-only delta',()=>{

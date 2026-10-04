@@ -1,0 +1,67 @@
+name: Ocean navigation theme QA
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+concurrency:
+  group: ocean-nav-theme-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  navigation-qa:
+    if: github.head_ref == 'chore/ro-suite-nav-theme-rollout' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.14.0'
+      - name: Prepare failure-safe evidence
+        run: |
+          mkdir -p qa-artifacts
+          printf '%s\n' '{"status":"not-run","reason":"See setup logs if Chromium did not start"}' > qa-artifacts/report.json
+          git rev-parse HEAD > qa-artifacts/source-commit.txt
+          mkdir -p "$RUNNER_TEMP/ocean-base"
+          git archive 7d0862765923d6b7df9ec60a16132fc375af9ba0 docs | tar -x -C "$RUNNER_TEMP/ocean-base"
+          mkdir -p "$RUNNER_TEMP/ocean-first-run-base"
+          git archive 01e356ade26cb4f80c70dc3e75882cca79aa30b9 docs | tar -x -C "$RUNNER_TEMP/ocean-first-run-base"
+      - name: Source baseline and integration checks
+        run: node --test tests/*.test.cjs 2>&1 | tee qa-artifacts/static-tests.log
+      - name: Install pinned browser tooling
+        id: browser-tools
+        if: always()
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ocean-nav-qa" --no-save --package-lock=false --ignore-scripts playwright@1.55.1 2>&1 | tee qa-artifacts/browser-install.log
+          node "$RUNNER_TEMP/ocean-nav-qa/node_modules/playwright/cli.js" install --with-deps chromium 2>&1 | tee -a qa-artifacts/browser-install.log
+      - name: Real latest-source browser regression and navigation geometry
+        if: always() && steps.browser-tools.outcome == 'success'
+        env:
+          NODE_PATH: ${{ runner.temp }}/ocean-nav-qa/node_modules
+          QA_OUTPUT: ${{ github.workspace }}/qa-artifacts
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: 7d0862765923d6b7df9ec60a16132fc375af9ba0
+          BASE_DOCS: ${{ runner.temp }}/ocean-base/docs
+        run: |
+          grep -q '<ro-suite-nav ' docs/index.html
+          status=0
+          node tests/ro-suite-nav.browser.cjs 2>&1 | tee qa-artifacts/browser-tests.log || status=1
+          node tests/nav-alignment.browser.cjs 2>&1 | tee qa-artifacts/alignment-tests.log || status=1
+          BASE_DOCS="$RUNNER_TEMP/ocean-first-run-base/docs" QA_OUTPUT="$GITHUB_WORKSPACE/qa-artifacts/first-run" node tests/first-run.browser.cjs 2>&1 | tee qa-artifacts/first-run.log || status=1
+          exit "$status"
+      - name: Upload logs, reports, and screenshots even after failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ocean-nav-theme-${{ github.event.pull_request.head.sha }}
+          path: qa-artifacts/
+          if-no-files-found: warn
+          retention-days: 90
