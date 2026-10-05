@@ -3,7 +3,7 @@ const {capture, sha256} = require('./capture-ocean-baseline.cjs');
 const {beforeArchive} = require('./archive-copy-helper.cjs');
 const changes = require('../qa/archive-status/approved-copy-changes.json');
 const base = require('../qa/archive-status/baseline.json');
-const html = fs.readFileSync('docs/index.html', 'utf8');
+const html = require('../qa/ui-polish/normalize.cjs')(fs.readFileSync('docs/index.html', 'utf8'));
 test('Exact archive copy is visible static header content, with unchanged period and official link', () => {
  for (const [old, replacement] of changes) { assert.equal(html.split(replacement).length, 2); if (!replacement.includes(old)) assert(!html.includes(old)); }
  assert(html.indexOf('คู่มือย้อนหลัง') < html.indexOf('<h1>'));

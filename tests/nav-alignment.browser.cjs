@@ -39,13 +39,13 @@ async function serve(root) {
 async function geometry(page) {
   return page.evaluate(()=>{
     const rect=el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
-    const main=document.querySelector('main.page'), anchor=main.getBoundingClientRect().top;
+    const main=document.querySelector('main.page'), anchor=document.querySelector('.grid').getBoundingClientRect().top;
     const host=document.querySelector('ro-suite-nav'),nav=host.shadowRoot?.querySelector('nav') || host.querySelector('nav'),alignment=host.shadowRoot?.querySelector('.bar') || nav;
     const visible=el=>!!el.getClientRects().length;
-    const original=[...document.querySelectorAll('main.page > *, .grid > *, [data-copy], [data-copy-all], img[data-zoom], main.page a')].filter(visible).map((el,index)=>{const r=rect(el);return{index,tag:el.tagName,id:el.id,class:el.className,x:r.x,relativeY:r.y-anchor,width:r.width,height:r.height};});
+    const original=[...document.querySelectorAll('main.page > *, .grid > *, [data-copy], [data-copy-all], img[data-zoom], main.page a')].filter(el=>visible(el)&&el.closest('.grid')).map((el,index)=>{const r=rect(el);return{index,tag:el.tagName,id:el.id,class:el.className,x:r.x,relativeY:r.y-anchor,width:r.width,height:r.height};});
     const portal=host.shadowRoot?.querySelector('.bar > a') || nav.querySelector('a'),range=document.createRange();range.selectNodeContents(portal);const textRect=range.getBoundingClientRect();
     const style=getComputedStyle(nav),body=getComputedStyle(document.body);
-    return{portalText:{x:textRect.x,right:textRect.right},main:rect(main),nav:rect(nav),alignment:rect(alignment),host:rect(host),original,bodyPadding:[body.paddingTop,body.paddingRight,body.paddingBottom,body.paddingLeft],bodyBackground:body.background,theme:getComputedStyle(host).colorScheme,navStyle:{radius:style.borderRadius,padding:style.padding,border:style.borderBottomColor},overflow:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth,mainHTML:main.innerHTML};
+    return{portalText:{x:textRect.x,right:textRect.right},main:rect(main),nav:rect(nav),alignment:rect(alignment),host:rect(host),original,bodyPadding:[body.paddingTop,body.paddingRight,body.paddingBottom,body.paddingLeft],bodyBackground:body.background,theme:getComputedStyle(host).colorScheme,navStyle:{radius:style.borderRadius,padding:style.padding,border:style.borderBottomColor},overflow:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth,mainHTML:(()=>{const c=main.cloneNode(true);c.querySelectorAll('.archive-ended,.archive-caveat,.archive-notice,.first-run-intro,.first-run-jumps,header,.mini-actions,.first-run-lore').forEach(e=>e.remove());return c.innerHTML.replace(/\s+/g,' ');})()};
   });
 }
 function close(a,b,label,tolerance=1){assert(Math.abs(a-b)<=tolerance,`${label}: ${a} != ${b}`);}

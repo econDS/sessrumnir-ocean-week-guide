@@ -1,0 +1,26 @@
+    /* UI polish: presentation only. Copy commands, data, scripts and existing styles are untouched. */
+    header { gap: 8px; padding: 22px 30px 28px; border-radius: 18px; }
+    header::after { height: 30px; }
+    h1 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); }
+    .event-period { margin: 0; }
+    @media (max-width: 720px) {
+      header { padding: 16px 18px 24px; }
+      h1 { font-size: 1.45rem; }
+      .event-period { flex-wrap: wrap; row-gap: 2px; }
+    }
+
+    /* one archive notice instead of three stacked dark bars */
+    .archive-notice { margin: 0 0 14px; padding: 10px 14px; border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 10px; background: var(--card); color: var(--ink); font-size: .92rem; line-height: 1.5; }
+    .archive-notice strong { font-weight: 800; }
+
+    /* start cue: short intro, then a sticky category bar that stays reachable on the long page */
+    .first-run-intro { margin: 0 0 10px; }
+    .first-run-intro strong { display: block; color: var(--ink); }
+    .first-run-intro p { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
+    nav.first-run-jumps { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px; margin: 0 0 16px; padding: 8px 10px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, .96); box-shadow: var(--shadow); -webkit-overflow-scrolling: touch; }
+    nav.first-run-jumps a { flex: 0 0 auto; white-space: nowrap; }
+    .section-title[id], [id^="ocean-"] { scroll-margin-top: 84px; }
+    @media (max-width: 520px) {
+      nav.first-run-jumps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; overflow: visible; }
+      nav.first-run-jumps a { flex: none; min-width: 0; justify-content: center; padding: 6px 4px; font-size: .84rem; line-height: 1.2; text-align: center; white-space: normal; }
+    }

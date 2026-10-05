@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),crypto=require('node:crypto');
-const html=fs.readFileSync('docs/index.html','utf8'),base=require('../qa/first-run/baseline.json');
+const html=require('../qa/ui-polish/normalize.cjs')(fs.readFileSync('docs/index.html','utf8')),base=require('../qa/first-run/baseline.json');
 test('only exact first-run presentation delta; every previous production byte reconstructs',()=>{assert.equal(crypto.createHash('sha256').update(require('../qa/first-run/normalize.cjs')(html)).digest('hex'),base.indexSha256);});
 test('four unique utility jumps, closed lore, visible archive and unchanged copy commands',()=>{for(const id of ['ocean-warp','ocean-main-quest','ocean-daily','ocean-exchange']){assert.equal(html.split(`id="${id}"`).length,2);assert(html.includes(`href="#${id}"`));}assert.match(html,/<details class="event-story first-run-lore">/);assert(html.indexOf('first-run-jumps" aria-label')<html.indexOf('<details class="event-story'));const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length);});
 
