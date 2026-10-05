@@ -51,7 +51,7 @@ function manifest(root) {
   walk(root); return result.sort((a, b) => a.file.localeCompare(b.file));
 }
 function source(root, suppliedSha) {
-  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const html = require('../qa/ui-polish/normalize.cjs')(fs.readFileSync(path.join(root, 'index.html'), 'utf8'));
   return { directory: root, commit: suppliedSha || git(['rev-parse', 'HEAD'], root), indexSha256: sha(html), files: manifest(root), inlineScripts: [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m => m[1]).filter(s => s.trim()).map(s => ({ sha256: sha(s), source: s })), worktree: git(['status', '--short'], root) };
 }
 function normalizeUrl(value) {
@@ -166,15 +166,15 @@ async function settled(page) {
 }
 async function inventory(page) {
   return page.evaluate(() => {
-    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps') && !(el.tagName === 'STYLE' && el.id === 'ro-suite-nav-alignment');
+    const original = el => !el.closest('ro-suite-nav') && !el.closest('.first-run-jumps') && !(el.tagName === 'STYLE' && ['ro-suite-nav-alignment', 'ui-polish'].includes(el.id));
     const attrs = el => Object.fromEntries([...el.attributes].map(a => [a.name, a.value]));
     const local = url => { try { const u = new URL(url, location.href); return u.origin === location.origin ? u.pathname + u.search + u.hash : u.href; } catch { return url; } };
     const clone = document.querySelector('main.page').cloneNode(true);
-    clone.querySelectorAll('ro-suite-nav, .first-run-jumps').forEach(el => el.remove());
+    clone.querySelectorAll('ro-suite-nav, .first-run-jumps, .first-run-intro').forEach(el => el.remove());
     const loreSummary = clone.querySelector('.first-run-lore > summary');
     if (loreSummary) loreSummary.textContent = 'เนื้อเรื่องกิจกรรม:';
     // Only approved archive copy is removed from content regression; all original guide content stays compared.
-    clone.querySelectorAll('.archive-ended, .archive-caveat').forEach(el => el.remove());
+    clone.querySelectorAll('.archive-ended, .archive-caveat, .archive-notice').forEach(el => el.remove());
     clone.querySelector('.hero-badge').textContent = 'Sessrumnir Ocean Week';
     const subtitle = clone.querySelector('header > .subtitle');
     subtitle.textContent = subtitle.textContent.replace('ใช้คู่มือนี้ดู NPC และขั้นตอนของรอบเดิม · ', '');
@@ -469,10 +469,13 @@ async function runScenario(server, width, colorScheme, kind, baseline) {
       await top(page);
       const badge = page.locator('header .hero-badge');
       assert.equal(await badge.innerText(), 'คู่มือย้อนหลัง');
-      const ended = page.locator('.archive-ended');
-      assert.equal(await ended.innerText(), 'กิจกรรมรอบ 6 พ.ค. – 4 มิ.ย. 2569 สิ้นสุดแล้ว');
-      for (const el of [badge, ended, page.locator('.archive-caveat')]) { const b = await el.boundingBox(); assert(b && b.y >= 0 && b.y + b.height <= page.viewportSize().height, 'Archive copy visible without deep scrolling'); assert.equal(await el.getAttribute('role'), null); const color = await el.evaluate(e => ({color:getComputedStyle(e).color,background:getComputedStyle(e).backgroundColor})); assert.deepEqual(color,{color:'rgb(255, 255, 255)',background:'rgb(7, 56, 94)'}); }
-      assert((await page.locator('.archive-caveat').innerText()).includes('หากกิจกรรมกลับมาอีกครั้ง'));
+      const notice = page.locator('.archive-notice');
+      assert((await notice.innerText()).includes('กิจกรรมรอบ 6 พ.ค. – 4 มิ.ย. 2569 สิ้นสุดแล้ว'));
+      assert((await notice.innerText()).includes('หากกิจกรรมกลับมาอีกครั้ง'));
+      for (const el of [badge, notice]) { const b = await el.boundingBox(); assert(b && b.y >= 0 && b.y + b.height <= page.viewportSize().height, 'Archive copy visible without deep scrolling'); assert.equal(await el.getAttribute('role'), null); }
+      assert.deepEqual(await badge.evaluate(e => ({color:getComputedStyle(e).color,background:getComputedStyle(e).backgroundColor})), {color:'rgb(255, 255, 255)',background:'rgb(7, 56, 94)'});
+      const contrast = await notice.evaluate(e => { const ch = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }; const lum = c => { const m = c.match(/[\d.]+/g).map(Number); return .2126 * ch(m[0]) + .7152 * ch(m[1]) + .0722 * ch(m[2]); }; const s = getComputedStyle(e), a = lum(s.color), b = lum(s.backgroundColor); return (Math.max(a, b) + .05) / (Math.min(a, b) + .05); });
+      assert(contrast >= 4.5, 'Archive notice has AA contrast on its opaque surface');
       assert.equal(await page.locator('h1').count(), 1);
     }, page);
     await check(id + '-all-original-images-load', async () => {

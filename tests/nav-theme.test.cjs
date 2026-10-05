@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),crypto=require('node:crypto');
-const hash=x=>crypto.createHash('sha256').update(x).digest('hex'),read=p=>fs.readFileSync(p),html=read('docs/index.html').toString(),base=require('../qa/nav-theme/baseline.json');
+const hash=x=>crypto.createHash('sha256').update(x).digest('hex'),read=p=>fs.readFileSync(p),html=require('../qa/ui-polish/normalize.cjs')(read('docs/index.html').toString()),base=require('../qa/nav-theme/baseline.json');
 test('theme-only delta reconstructs every current master production byte',()=>{
  for(const [file,expected] of Object.entries(base.files)) assert.equal(hash(file==='index.html'?require('../qa/nav-theme/normalize.cjs')(html):read('docs/'+file)),expected,file);
  assert.throws(()=>require('../qa/nav-theme/normalize.cjs')(html.replace('/1.5.1/nav.js','/broken/nav.js')));
