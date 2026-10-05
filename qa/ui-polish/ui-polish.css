@@ -32,3 +32,6 @@
     header .subtitle { font-size: .9rem; }
     .event-story:not([open]) { padding: 4px 16px; }
     .event-story:not([open]) .event-story-label { margin-bottom: 0; }
+
+    /* jump targets keep a visible focus ring for keyboard users only (no outline box after a mouse click) */
+    .section-title[tabindex]:focus:not(:focus-visible) { outline: none; }

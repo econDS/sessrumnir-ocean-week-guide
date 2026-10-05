@@ -15,3 +15,8 @@ Screenshots: `screenshots/before-*` / `after-*`.
 - Hero has two text levels (subtitle matches the period line); the closed story card is a slim row.
 - Tests: static 22/22; `ro-suite-nav.browser` 6,238 checks / 0 failures; `nav-alignment.browser` and `first-run.browser` pass. `.start-panel` is excluded from the nav-alignment DOM comparison like the other intro chrome.
 - Screenshots: `screenshots/round2-*`.
+
+## Round 3
+- Jump targets show the focus ring only for keyboard focus (`:focus-visible`); a mouse click on a category link no longer leaves an outline box. Verified in Chromium: mouse → no outline, Enter on the link → 3px ring.
+- Browser icons: inline-SVG wave icon plus the existing 24px Ocean Week Ticket PNG as fallback (no new request for the SVG).
+- Tests: static 22/22; `ro-suite-nav.browser` 6,238 checks / 0 failures; `nav-alignment.browser` and `first-run.browser` pass.
