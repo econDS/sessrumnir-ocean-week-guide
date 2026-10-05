@@ -9,3 +9,9 @@ Presentation only. Guide data, `/navi` commands, scripts and existing styles are
 Tests: `node --test tests/*.test.cjs` 22/22; `ro-suite-nav.browser` 6,238 checks / 0 failures; `nav-alignment.browser` 40 checks; `first-run.browser` PASS (Chromium 1.55.1, local).
 Test edits: archive checks target `.archive-notice` (AA contrast instead of exact bar colours); nav-alignment compares guide-grid geometry/DOM and no longer compares header chrome, which intentionally changed; inventory ignores the new style block and intro chrome.
 Screenshots: `screenshots/before-*` / `after-*`.
+
+## Round 2 (after merge)
+- "เริ่มตรงนี้" and the Official link share one start panel; the four jumps fill the width of the sticky bar on every screen size.
+- Hero has two text levels (subtitle matches the period line); the closed story card is a slim row.
+- Tests: static 22/22; `ro-suite-nav.browser` 6,238 checks / 0 failures; `nav-alignment.browser` and `first-run.browser` pass. `.start-panel` is excluded from the nav-alignment DOM comparison like the other intro chrome.
+- Screenshots: `screenshots/round2-*`.
