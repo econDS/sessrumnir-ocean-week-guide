@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ocean Week Navigation Commands</title>
+  <link rel="icon" type="image/png" sizes="24x24" href="assets/1001740_ocean_week_ticket.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307385e'/%3E%3Cpath d='M8 28c6-6 12-6 18 0s12 6 18 0 8-4 12-1' fill='none' stroke='%2343b7df' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M8 44c6-6 12-6 18 0s12 6 18 0 8-4 12-1' fill='none' stroke='%23ffffff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800;900&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1486,6 +1488,9 @@
     header .subtitle { font-size: .9rem; }
     .event-story:not([open]) { padding: 4px 16px; }
     .event-story:not([open]) .event-story-label { margin-bottom: 0; }
+
+    /* jump targets keep a visible focus ring for keyboard users only (no outline box after a mouse click) */
+    .section-title[tabindex]:focus:not(:focus-visible) { outline: none; }
   </style>
 </head>
 <body>
