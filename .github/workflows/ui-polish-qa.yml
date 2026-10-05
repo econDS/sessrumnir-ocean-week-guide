@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   ui-polish-qa:
-    if: github.head_ref == 'ux/ocean-week-polish' && github.event.pull_request.head.repo.full_name == github.repository
+    if: startsWith(github.head_ref, 'ux/ocean-week-polish') && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     defaults:
