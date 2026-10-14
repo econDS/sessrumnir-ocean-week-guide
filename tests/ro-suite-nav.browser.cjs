@@ -20,8 +20,10 @@ const BASE_DOCS = process.env.BASE_DOCS ? path.resolve(process.env.BASE_DOCS) : 
 const BASELINE_ONLY = process.env.BASELINE_ONLY === '1';
 const PREFIX = '/sessrumnir-ocean-week-guide/';
 const SUFFIX = '?qa=preserve%20me&repeat=a&repeat=b#qa-sentinel';
-const WIDTHS = [360, 390, 768, 1440];
-const THEMES = ['light', 'dark'];
+const WIDTHS = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [360, 390, 768, 1440];
+assert(WIDTHS.every(width => [360,390,768,1440].includes(width)), 'QA widths must belong to the historical matrix');
+const THEMES = process.env.QA_THEMES ? process.env.QA_THEMES.split(',') : ['light', 'dark'];
+assert(THEMES.every(theme => ['light','dark'].includes(theme)), 'QA themes must belong to the historical matrix');
 const PIN = '1.55.1';
 const PORTAL = 'https://econds.github.io/ro_tools_portal/';
 const CATALOG = 'https://econds.github.io/ro_tools_portal/catalog/v1/tools.json';
@@ -328,7 +330,7 @@ async function originalLinks(page, context, scenario) {
         const popupPromise = context.waitForEvent('page');
         await link.click();
         const popup = await popupPromise;
-        await popup.waitForLoadState('domcontentloaded');
+        await popup.waitForURL(item.href, { waitUntil: 'domcontentloaded' });
         assert.equal(normalizeUrl(popup.url()), item.href);
         assert.equal(await popup.evaluate(() => window.opener === null), true, 'External target=_blank preserves noopener');
         await popup.close();
