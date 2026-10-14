@@ -6,7 +6,7 @@
 
 - Publishing source: `master` / `docs/` โดย URL ไม่มี `/docs/`
 - หน้าและรูปภาพอยู่ใน `docs/index.html` และ `docs/assets/`
-- แถบร่วม `ro-suite-nav 1.5.1` โหลดจากไฟล์ใน `docs/assets/ro-suite/1.5.1/` พร้อมลิงก์สำรองกลับ Portal
+- แถบร่วม `ro-suite-nav 2.0.0` โหลดจากไฟล์ใน `docs/assets/ro-suite/2.0.0/` พร้อมลิงก์สำรองกลับ Portal
 - คำสั่ง `/navi`, ข้อมูลเควส และภาพยังเป็นข้อมูลรอบเดิม การตรวจ navigation หรือทบทวน metadata ไม่ใช่การยืนยันข้อมูลเกมใหม่
 
 ## ตรวจสอบ
@@ -14,3 +14,5 @@
 `node --test tests/*.test.cjs`
 
 PR workflow ทดสอบ Chromium เทียบ base commit และเก็บรายงาน/ภาพเป็น artifacts ดูรายละเอียดใน `qa/archive-status/REPORT.md`
+
+Dynamic catalog architecture, verification, migration and rollback: [qa/dynamic-nav/README.md](qa/dynamic-nav/README.md).

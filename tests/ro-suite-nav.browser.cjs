@@ -24,6 +24,8 @@ const WIDTHS = [360, 390, 768, 1440];
 const THEMES = ['light', 'dark'];
 const PIN = '1.55.1';
 const PORTAL = 'https://econds.github.io/ro_tools_portal/';
+const CATALOG = 'https://econds.github.io/ro_tools_portal/catalog/v1/tools.json';
+const catalogBody = fs.readFileSync(path.join(DOCS, 'assets/ro-suite/2.0.0/catalog.snapshot.json'), 'utf8');
 const SELF = 'https://econds.github.io/sessrumnir-ocean-week-guide/';
 const DESTINATIONS = [PORTAL, 'https://econds.github.io/ro-leveling-map/', 'https://econds.github.io/ro-reform-preparation/', 'https://econds.github.io/dim_glacier_planner/', SELF, 'https://econds.github.io/ro-best-status/'];
 const SENTINEL = { key: 'ocean-nav-qa-sentinel', value: 'unchanged:ไทย:🌊:2026' };
@@ -122,6 +124,7 @@ async function serve(root, label) {
 }
 async function createContext(width, theme) {
   const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: theme, reducedMotion: 'reduce', serviceWorkers: 'block' });
+  await context.route(CATALOG, route => route.fulfill({ contentType: 'application/json', body: catalogBody }));
   await context.addInitScript(({ sentinel, prefix }) => {
     window.__qa = { copies: [], clipboardMode: 'success', fallbackCalls: [], storageOperations: [] };
     if (location.pathname.startsWith(prefix)) {
@@ -347,7 +350,7 @@ async function navigation(page, scenario, baseline) {
   assert.equal(await host.count(), 1);
   assert.equal(await host.getAttribute('tool-id'), 'ocean-week-guide');
   assert.equal(await host.getAttribute('theme'), 'light');
-  assert.equal(await host.getAttribute('catalog-url'), null, 'No live catalog request');
+  assert.equal(await host.getAttribute('catalog-url'), null, 'Central catalog requires no consumer override');
   assert.equal(await host.getAttribute('portal-url'), PORTAL);
   const identity = await host.evaluate(el => {
     const root = el.shadowRoot, nav = root.querySelector('nav');
@@ -382,6 +385,8 @@ async function navigation(page, scenario, baseline) {
   assert(g.host.x >= -1 && g.host.right <= scenario.width + 1, 'Expanded navigation stays inside viewport');
   assert(g.host.bottom <= g.header.y + 1, 'Expanded navigation pushes guide header in normal flow without overlap');
   await capture(page, scenario.id + '-menu-open');
+  await page.keyboard.press('Tab');
+  assert(await host.locator('input[type=search]').evaluate(el => el.getRootNode().activeElement === el), 'Tab reaches catalog search');
   for (let i = 0; i < await links.count(); i++) {
     await page.keyboard.press('Tab');
     assert(await links.nth(i).evaluate(el => el.getRootNode().activeElement === el), `Tab reaches listed tool ${i}`);
@@ -392,7 +397,7 @@ async function navigation(page, scenario, baseline) {
   await page.keyboard.press('Space'); assert.equal(await button.getAttribute('aria-expanded'), 'true');
   await page.keyboard.press('Space'); assert.equal(await button.getAttribute('aria-expanded'), 'false');
   await page.keyboard.press('Enter');
-  for (let i = 0; i <= await links.count(); i++) await page.keyboard.press('Tab');
+  for (let i = 0; i <= (await links.count()) + 1; i++) await page.keyboard.press('Tab');
   assert.equal(await button.getAttribute('aria-expanded'), 'false', 'Tab outside navigation closes menu');
   assert(await host.evaluate(el => document.activeElement !== el), 'Tab leaves shadow navigation into the original guide');
   scenario.navigation.keyboard = ['Tab Portal', 'Tab toggle', 'Enter opens', 'Tab each live tool', 'Escape closes and returns focus', 'Space opens', 'Space closes', 'Tab out closes'];
@@ -524,6 +529,7 @@ async function nativeClipboardSmoke(server, width, colorScheme, kind, baseline) 
   // Deliberately do not use createContext(): there is no clipboard or execCommand
   // capture spy in this fresh context. Both native APIs remain real.
   const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce', serviceWorkers: 'block', permissions: scenario.permissions });
+  await context.route(CATALOG, route => route.fulfill({ contentType: 'application/json', body: catalogBody }));
   let page;
   try {
     const html = fs.readFileSync(path.join(server.root, 'index.html'), 'utf8');
@@ -683,7 +689,7 @@ function compareNetwork() {
       assert.deepEqual(comparison.novel[category], [], `${s.id}: no new ${category} beyond real browser baseline`);
     }
     const external = [...new Set(s.network.requests.filter(r => !origins.has(new URL(r.url).origin)).map(r => r.url))];
-    comparison.novelExternalRequests = external.filter(url => !originalExternal.has(url) && !DESTINATIONS.includes(url));
+    comparison.novelExternalRequests = external.filter(url => !originalExternal.has(url) && !DESTINATIONS.includes(url) && url !== CATALOG);
     assert.deepEqual(comparison.novelExternalRequests, [], `${s.id}: no unexpected new external requests`);
   }
 }
