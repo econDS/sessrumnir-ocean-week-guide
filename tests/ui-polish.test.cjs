@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
-const html=fs.readFileSync('docs/index.html','utf8'),normalize=require('../qa/ui-polish/normalize.cjs'),changes=require('../qa/ui-polish/changes.json');
+const html=require('../qa/dynamic-nav/normalize.cjs')(fs.readFileSync('docs/index.html','utf8')),normalize=require('../qa/ui-polish/normalize.cjs'),changes=require('../qa/ui-polish/changes.json');
 test('only the reviewed UI-polish delta: reversing it restores the previous page exactly',()=>{
   for(const [before,after]of changes)assert.notEqual(before,after);
   const restored=normalize(html); // asserts each delta occurs exactly once, applied newest-first

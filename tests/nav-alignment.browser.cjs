@@ -77,12 +77,13 @@ async function shot(page,name) {
     report.browserVersion=browser.version();
     for(const width of WIDTHS)for(const colorScheme of THEMES){
       const context=await browser.newContext({viewport:{width,height:900},colorScheme,reducedMotion:'reduce',serviceWorkers:'block'});
+      await context.route('https://econds.github.io/ro_tools_portal/catalog/v1/tools.json', route=>route.fulfill({contentType:'application/json',body:fs.readFileSync(path.join(DOCS,'assets/ro-suite/2.0.0/catalog.snapshot.json'),'utf8')}));
       const before=await context.newPage();await before.goto(beforeURL,{waitUntil:'networkidle'});await before.evaluate(()=>document.fonts.ready);
       const baseline=await geometry(before);if([390,1440].includes(width))await shot(before,`before-${width}-${colorScheme}`);
       await before.close();
       for(const mode of ['normal','fallback']){
         const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-        if(mode==='fallback')await page.route('**/assets/ro-suite/1.5.1/nav.js',route=>route.abort('failed'));
+        if(mode==='fallback')await page.route('**/assets/ro-suite/2.0.0/nav.js',route=>route.abort('failed'));
         await page.goto(afterURL,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
         if(mode==='normal')await page.locator('ro-suite-nav .bar button').waitFor();
         const current=await geometry(page),label=`${width}-${colorScheme}-${mode}`;
